@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="fr" data-app="dgb" data-nav="sidebar" data-mode="clair" data-densite="confortable" data-espace="serre" data-sidebar="groupes" data-police="institution" data-conteneur="fluide" data-personnalisable>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tableau de bord · Gestion du parc</title>
+<meta name="description" content="Tableau de bord de la gestion du parc informatique : inventaire, affectations, maintenance et dossiers à traiter.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2312305f'/%3E%3Cpath d='M9 9h5a7 7 0 0 1 0 14H9z' fill='none' stroke='%23fff' stroke-width='2.2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Barlow+Semi+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Public+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="assets/dgb-suite.css">
+<link rel="stylesheet" href="assets/dgb-viz.css">
+<style>
+  /* Les graphes suivent la palette : aucun réglage propre à la page. */
+  .carte [data-calendrier] .cal { border: 0; border-radius: 0; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ================= Disposition « sidebar » : barre latérale (OKANDAH) ================= -->
+  <aside class="laterale" aria-label="Navigation principale">
+    <a class="laterale-logo logo-dgb compact" href="#tableau-de-bord">
+      <span class="monogramme"><b>DGB</b><i></i></span>
+      <span class="nom"><b data-nom-app>Gestion du parc</b><small>DGB · Suite DSI</small></span>
+    </a>
+    <nav>
+      <div class="section-nav">
+        <button class="section-tete" type="button" data-section-bouton aria-expanded="true" aria-controls="sec-pilotage"><span>Pilotage</span><svg class="ico"><use href="#i-chevronBas"/></svg></button>
+        <div class="section-liens" id="sec-pilotage">
+          <a class="lien-nav" href="#tableau-de-bord" data-vue-lien="tableau-de-bord"><svg class="ico"><use href="#i-tableau"/></svg><span class="texte">Tableau de bord</span></a>
+          <a class="lien-nav" href="#dossier" data-vue-lien="dossier"><svg class="ico"><use href="#i-traiter"/></svg><span class="texte">Dossiers à traiter</span><span class="compteur">3</span></a>
+          <a class="lien-nav" href="#"><svg class="ico"><use href="#i-signer"/></svg><span class="texte">À signer</span><span class="compteur">1</span></a>
+        </div>
+      </div>
+      <div class="section-nav">
+        <button class="section-tete" type="button" data-section-bouton aria-expanded="true" aria-controls="sec-parc"><span>Parc</span><svg class="ico"><use href="#i-chevronBas"/></svg></button>
+        <div class="section-liens" id="sec-parc">
+          <a class="lien-nav" href="#"><svg class="ico"><use href="#i-plus"/></svg><span class="texte">Nouvel équipement</span></a>
+          <a class="lien-nav" href="#"><svg class="ico"><use href="#i-ordinateur"/></svg><span class="texte">Inventaire</span></a>
+          <a class="lien-nav sous" href="#">Ordinateurs portables</a>
+          <a class="lien-nav sous" href="#">Écrans et périphériques</a>
+          <a class="lien-nav sous" href="#">Imprimantes</a>
+          <a class="lien-nav" href="#"><svg class="ico"><use href="#i-echange"/></svg><span class="texte">Affectations</span></a>
+          <a class="lien-nav sous" href="#">En cours</a>
+          <a class="lien-nav sous" href="#">Historique</a>
+          <a class="lien-nav" href="#"><svg class="ico"><use href="#i-outil"/></svg><span class="texte">Maintenance</span></a>
+          <a class="lien-nav sous" href="#">Tickets ouverts</a>
+          <a class="lien-nav sous" href="#">Contrats de garantie</a>
+        </div>
+      </div>
+      <div class="section-nav">
+        <button class="section-tete" type="button" data-section-bouton aria-expanded="false" aria-controls="sec-configuration"><span>Configuration</span><svg class="ico"><use href="#i-chevronBas"/></svg></button>
+        <div class="section-liens" id="sec-configuration" hidden>
+          <a class="lien-nav" href="#"><svg class="ico"><use href="#i-batiment"/></svg><span class="texte">Directions et services</span></a>
+          <a class="lien-nav" href="#"><svg class="ico"><use href="#i-etiquette"/></svg><span class="texte">Catégories</span></a>
+          <span class="lien-nav inactif" aria-disabled="true" title="Désactivé temporairement"><svg class="ico"><use href="#i-rapport"/></svg><span class="texte">Rapports</span><span class="mention">Désactivé</span></span>
+        </div>
+      </div>
+      <div class="section-nav">
+        <button class="section-tete" type="button" data-section-bouton aria-expanded="false" aria-controls="sec-administration"><span>Administration</span><svg class="ico"><use href="#i-chevronBas"/></svg></button>
+        <div class="section-liens" id="sec-administration" hidden>
+          <a class="lien-nav" href="#"><svg class="ico"><use href="#i-utilisateurs"/></svg><span class="texte">Utilisateurs</span></a>
+          <a class="lien-nav" href="#"><svg class="ico"><use href="#i-bouclier"/></svg><span class="texte">Groupes et permissions</span></a>
+          <a class="lien-nav" href="#"><svg class="ico"><use href="#i-horloge"/></svg><span class="texte">Journal d'audit</span></a>
+          <a class="lien-nav" href="#"><svg class="ico"><use href="#i-reglages"/></svg><span class="texte">Paramètres</span></a>
+        </div>
+      </div>
+      <div class="section-nav">
+        <button class="section-tete" type="button" data-section-bouton aria-expanded="true" aria-controls="sec-compte"><span>Compte</span><svg class="ico"><use href="#i-chevronBas"/></svg></button>
+        <div class="section-liens" id="sec-compte">
+          <a class="lien-nav" href="#"><svg class="ico"><use href="#i-profil"/></svg><span class="texte">Mon profil</span></a>
+          <a class="lien-nav sortie" href="connexion.html"><svg class="ico"><use href="#i-sortie"/></svg><span class="texte">Déconnexion</span></a>
+        </div>
+      </div>
+    </nav>
+  </aside>
+  <div class="voile"></div>
+
+  <div class="colonne">
+
+    <!-- ================= Disposition « topnav » : entête sombre + sous-navigation (ABAT) ================= -->
+    <header class="entete sombre">
+      <div class="filet"><i></i><i></i><i></i></div>
+      <div class="entete-ligne">
+        <a class="logo-dgb compact" href="#tableau-de-bord">
+          <span class="monogramme"><b>DGB</b><i></i></span>
+          <span class="nom masque-mobile"><b data-nom-app>Gestion du parc</b><small>Direction générale du Budget</small></span>
+        </a>
+        <nav class="modules" aria-label="Modules">
+          <div class="module-bloc">
+            <button class="module actif" type="button" data-module="pilotage" data-sous-menu="sous-pilotage" aria-expanded="false" aria-controls="sous-pilotage">Pilotage<svg class="ico"><use href="#i-chevronBas"/></svg></button>
+            <div class="sous-menu" id="sous-pilotage" role="group" aria-label="Pilotage" hidden>
+              <p class="sous-menu-titre">Pilotage</p>
+              <a class="sous-menu-lien" href="#tableau-de-bord" data-vue-lien="tableau-de-bord"><svg class="ico"><use href="#i-tableau"/></svg><span><b>Tableau de bord</b><small>Vue d'ensemble, indicateurs et échéances</small></span></a>
+              <a class="sous-menu-lien" href="#dossier" data-vue-lien="dossier"><svg class="ico"><use href="#i-traiter"/></svg><span><b>Dossiers à traiter</b><small>Contrôles et pièces en attente</small></span><span class="compteur">3</span></a>
+              <div class="sous-menu-sep"></div>
+              <a class="sous-menu-lien" href="#"><svg class="ico"><use href="#i-signer"/></svg><span><b>À signer</b><small>Actes et courriers en attente de visa</small></span></a>
+              <a class="sous-menu-lien" href="#"><svg class="ico"><use href="#i-horloge"/></svg><span><b>Historique</b><small>Dernières actions sur les dossiers</small></span></a>
+              <a class="sous-menu-lien" href="#"><svg class="ico"><use href="#i-rapport"/></svg><span><b>Rapports et indicateurs</b><small>Synthèses mensuelles et tableaux de bord</small></span></a>
+            </div>
+          </div>
+          <div class="module-bloc">
+            <button class="module" type="button" data-sous-menu="sous-parc" aria-expanded="false" aria-controls="sous-parc">Parc<svg class="ico"><use href="#i-chevronBas"/></svg></button>
+            <div class="sous-menu" id="sous-parc" role="group" aria-label="Parc" hidden>
+              <p class="sous-menu-titre">Parc</p>
+              <a class="sous-menu-lien" href="#"><svg class="ico"><use href="#i-ordinateur"/></svg><span><b>Inventaire</b><small>Équipements, numéros de série et états</small></span></a>
+              <a class="sous-menu-lien" href="#"><svg class="ico"><use href="#i-echange"/></svg><span><b>Affectations</b><small>Remises, transferts et retours</small></span></a>
+              <a class="sous-menu-lien" href="#"><svg class="ico"><use href="#i-outil"/></svg><span><b>Maintenance</b><small>Interventions préventives et curatives</small></span></a>
+              <div class="sous-menu-sep"></div>
+              <a class="sous-menu-lien" href="#"><svg class="ico"><use href="#i-batiment"/></svg><span><b>Sites et localisations</b><small>Bâtiments, étages et services</small></span></a>
+              <a class="sous-menu-lien" href="#"><svg class="ico"><use href="#i-document"/></svg><span><b>Contrats et garanties</b><small>Échéances, prestataires et pièces</small></span></a>
+            </div>
+          </div>
+          <div class="module-bloc">
+            <button class="module" type="button" data-sous-menu="sous-configuration" aria-expanded="false" aria-controls="sous-configuration">Configuration<svg class="ico"><use href="#i-chevronBas"/></svg></button>
+            <div class="sous-menu" id="sous-configuration" role="group" aria-label="Configuration" hidden>
+              <p class="sous-menu-titre">Configuration</p>
+              <a class="sous-menu-lien" href="#"><svg class="ico"><use href="#i-etiquette"/></svg><span><b>Référentiels</b><small>Nomenclatures et valeurs partagées</small></span></a>
+              <a class="sous-menu-lien" href="#"><svg class="ico"><use href="#i-applis"/></svg><span><b>Catégories d'équipement</b><small>Familles, modèles et durées d'amortissement</small></span></a>
+              <a class="sous-menu-lien" href="#"><svg class="ico"><use href="#i-traiter"/></svg><span><b>Circuits de validation</b><small>Étapes, rôles et seuils de contrôle</small></span></a>
+              <div class="sous-menu-sep"></div>
+              <a class="sous-menu-lien" href="#"><svg class="ico"><use href="#i-courrier"/></svg><span><b>Modèles de courrier</b><small>Actes, notes et correspondance type</small></span></a>
+              <a class="sous-menu-lien" href="#"><svg class="ico"><use href="#i-horloge"/></svg><span><b>Règles et délais</b><small>Relances, échéances et calendrier</small></span></a>
+            </div>
+          </div>
+          <div class="module-bloc">
+            <button class="module" type="button" data-sous-menu="sous-administration" aria-expanded="false" aria-controls="sous-administration">Administration<svg class="ico"><use href="#i-chevronBas"/></svg></button>
+            <div class="sous-menu" id="sous-administration" role="group" aria-label="Administration" hidden>
+              <p class="sous-menu-titre">Administration</p>
+              <a class="sous-menu-lien" href="#"><svg class="ico"><use href="#i-utilisateurs"/></svg><span><b>Utilisateurs et rôles</b><small>Comptes, fonctions et périmètres</small></span></a>
+              <a class="sous-menu-lien" href="#"><svg class="ico"><use href="#i-bouclier"/></svg><span><b>Habilitations</b><small>Droits par application et par module</small></span></a>
+              <a class="sous-menu-lien" href="#"><svg class="ico"><use href="#i-document"/></svg><span><b>Journal d'audit</b><small>Traçabilité des accès et des actions</small></span></a>
+              <div class="sous-menu-sep"></div>
+              <a class="sous-menu-lien" href="#"><svg class="ico"><use href="#i-reglages"/></svg><span><b>Paramètres de la suite</b><small>Marque, libellés et comportements</small></span></a>
+              <a class="sous-menu-lien" href="#"><svg class="ico"><use href="#i-cle"/></svg><span><b>Sauvegardes et clés</b><small>Export, restauration et secrets</small></span></a>
+            </div>
+          </div>
+          <span class="module inactif" aria-disabled="true" title="Module non encore livré">Rapports</span>
+        </nav>
+        <div class="actions-barre" data-actions="h"></div>
+      </div>
+    </header>
+    <div class="sous-nav">
+      <nav aria-label="Pilotage">
+        <a href="#tableau-de-bord" data-vue-lien="tableau-de-bord">Tableau de bord</a>
+        <a href="#dossier" data-vue-lien="dossier">Dossiers à traiter</a>
+        <a href="#">À signer</a>
+        <a href="#">Historique</a>
+      </nav>
+    </div>
+
+    <!-- Barre d'application claire (disposition sidebar) -->
+    <header class="barre-app">
+      <button class="bouton-barre bouton-menu" type="button" data-action="menu" aria-label="Ouvrir la navigation"><svg class="ico"><use href="#i-menu"/></svg></button>
+      <div class="titres"><h1 data-barre-titre>Tableau de bord</h1><p data-barre-soustitre>3 dossiers attendent une action de votre part</p></div>
+      <div class="actions-page masque-mobile" data-barre-actions></div>
+      <span class="separateur masque-mobile"></span>
+      <div class="actions-barre" data-actions="s"></div>
+    </header>
+
+    <main class="contenu">
+
+      <!-- ---------------- Vue : tableau de bord ---------------- -->
+      <div class="contenu-pile" id="tableau-de-bord" data-vue="tableau-de-bord" data-titre="Tableau de bord" data-soustitre="3 dossiers attendent une action de votre part">
+        <div class="entete-page">
+          <div class="titres"><h1>Tableau de bord</h1><p>3 dossiers attendent une action de votre part, dont 1 à signer.</p></div>
+          <div class="actions">
+            <button class="bouton-secondaire" type="button"><svg class="ico ico-4"><use href="#i-telecharger"/></svg>Exporter</button>
+            <button class="bouton-primaire" type="button"><svg class="ico ico-4"><use href="#i-plus"/></svg>Nouvel équipement</button>
+          </div>
+        </div>
+
+        <section class="statistiques" aria-label="Indicateurs">
+          <a class="statistique" href="#"><span class="etiquette">Équipements recensés</span><div class="valeur">1 284</div><div class="detail">+38 depuis le 1er octobre</div></a>
+          <a class="statistique" href="#"><span class="etiquette">Affectés à un agent</span><div class="valeur ton-marque">1 097</div><div class="detail">85 % du parc</div></a>
+          <a class="statistique" href="#"><span class="etiquette">En maintenance</span><div class="valeur ton-attente">46</div><div class="detail">dont 12 hors garantie</div></a>
+          <a class="statistique" href="#dossier"><span class="etiquette">Dossiers bloqués</span><div class="valeur ton-blocage">2</div><div class="detail">rejetés au contrôle</div></a>
+        </section>
+
+        <section class="carte">
+          <div class="carte-entete"><h2>Dossiers nécessitant une action de ma part</h2><button class="bouton-secondaire" type="button" style="padding:5px 10px;font-size:13px"><svg class="ico ico-4"><use href="#i-filtre"/></svg>Filtrer</button></div>
+          <div class="tableau-zone">
+            <table class="tableau">
+              <thead><tr><th>Référence</th><th>Objet</th><th>Structure</th><th>Étape du dossier</th><th>Statut</th><th class="droite">Valeur (FCFA)</th><th><span class="sr-only">Accès</span></th></tr></thead>
+              <tbody>
+                <tr><td class="reference">AFF-2026-0412</td><td>Ordinateur portable</td><td>Service de la solde</td><td>Signature électronique</td><td><span class="puce puce-attente">À signer</span></td><td class="droite">685 000</td><td><a class="bouton-fantome" href="#dossier" aria-label="Ouvrir le dossier AFF-2026-0412"><svg class="ico ico-4"><use href="#i-fleche"/></svg></a></td></tr>
+                <tr><td class="reference">AFF-2026-0409</td><td>Écran 24 pouces</td><td>DAF</td><td>Contrôle</td><td><span class="puce puce-info">À contrôler</span></td><td class="droite">142 000</td><td><a class="bouton-fantome" href="#dossier" aria-label="Ouvrir le dossier AFF-2026-0409"><svg class="ico ico-4"><use href="#i-fleche"/></svg></a></td></tr>
+                <tr><td class="reference">MNT-2026-0087</td><td>Imprimante laser</td><td>Cabinet du DG</td><td>Saisie</td><td><span class="puce puce-neutre">Saisie en cours</span></td><td class="droite">—</td><td><a class="bouton-fantome" href="#dossier" aria-label="Ouvrir le dossier MNT-2026-0087"><svg class="ico ico-4"><use href="#i-fleche"/></svg></a></td></tr>
+                <tr><td class="reference">REF-2026-0021</td><td>Réforme de 14 unités centrales</td><td>DSI</td><td>Rejeté au contrôle</td><td><span class="puce puce-blocage">Rejeté</span></td><td class="droite">—</td><td><a class="bouton-fantome" href="#dossier" aria-label="Ouvrir le dossier REF-2026-0021"><svg class="ico ico-4"><use href="#i-fleche"/></svg></a></td></tr>
+                <tr><td class="reference">AFF-2026-0398</td><td>Téléphone IP</td><td>Direction du budget</td><td>Terminé</td><td><span class="puce puce-succes">Validé</span></td><td class="droite">96 500</td><td><a class="bouton-fantome" href="#dossier" aria-label="Ouvrir le dossier AFF-2026-0398"><svg class="ico ico-4"><use href="#i-fleche"/></svg></a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <div class="grille-2">
+          <section class="carte">
+            <div class="carte-entete"><h2>Affectations par mois</h2><span class="puce puce-neutre sans-point">Janvier – novembre 2026</span></div>
+            <div class="carte-corps"><div data-graphe="barres" data-jeu="arrivees" data-titre="Nombre d'affectations par mois en 2026"></div></div>
+          </section>
+          <section class="carte">
+            <div class="carte-entete"><h2>État du parc</h2><span class="chiffre" style="font-size:13px;color:var(--p-500)">1 284 équipements</span></div>
+            <div class="carte-corps"><div data-graphe="donut" data-jeu="etats" data-titre="Répartition du parc par état"></div></div>
+          </section>
+        </div>
+
+        <div class="grille-2">
+          <section class="carte">
+            <div class="carte-entete"><h2>Dossiers reçus et traités</h2><span class="puce puce-neutre sans-point">6 derniers mois</span></div>
+            <div class="carte-corps"><div data-graphe="ligne" data-jeu="dossiers" data-titre="Dossiers reçus et traités par mois"></div></div>
+          </section>
+          <section class="carte">
+            <div class="carte-entete"><h2>Échéances du mois</h2><span class="chiffre" style="font-size:13px;color:var(--p-500)">Novembre 2026</span></div>
+            <div data-calendrier data-mois="2026-11" data-aujourdhui="2026-11-18" data-agenda="non"></div>
+          </section>
+        </div>
+      </div>
+
+      <!-- ---------------- Vue : détail d'un dossier ---------------- -->
+      <div class="contenu-pile" id="dossier" data-vue="dossier" data-titre="AFF-2026-0412 · Ordinateur portable" data-soustitre="Dossier prévalidé, en attente de signature et transmission" hidden>
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="#tableau-de-bord">Tableau de bord</a><svg class="ico"><use href="#i-chevronDroite"/></svg><a href="#dossier">Dossiers à traiter</a><svg class="ico"><use href="#i-chevronDroite"/></svg><span aria-current="page">AFF-2026-0412</span></nav>
+        <div class="entete-page">
+          <div class="titres"><h1>AFF-2026-0412 · Ordinateur portable</h1><p>Dossier prévalidé, en attente de signature et transmission au contrôle.</p></div>
+          <div class="actions"><span class="puce puce-attente">À signer</span><button class="bouton-secondaire" type="button"><svg class="ico ico-4"><use href="#i-document"/></svg>Fiche PDF</button></div>
+        </div>
+
+        <section class="carte carte-corps" aria-label="Circuit de validation">
+          <p style="margin-bottom:20px;font-size:14px"><b>Circuit de validation</b> <span style="color:var(--p-600)">— affectation nominative d'un équipement</span></p>
+          <div class="tableau-zone">
+            <ol class="parcours">
+              <li class="faite"><span class="rond"><svg class="ico ico-4"><use href="#i-coche"/></svg></span><span class="libelle">Saisie</span><span class="detail">16/11/2026</span></li>
+              <li class="faite"><span class="rond"><svg class="ico ico-4"><use href="#i-coche"/></svg></span><span class="libelle">Prévalidation</span><span class="detail">18/11/2026</span></li>
+              <li class="encours"><span class="rond">3</span><span class="libelle">Signature et transmission</span><span class="detail">Gestionnaire du parc</span></li>
+              <li><span class="rond">4</span><span class="libelle">Contrôle</span><span class="detail">DAF</span></li>
+              <li><span class="rond">5</span><span class="libelle">Validation et remise</span><span class="detail">Procès-verbal</span></li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="carte">
+          <div class="onglets" role="tablist">
+            <button class="onglet" role="tab" id="t-info" aria-controls="p-info" aria-selected="false">Informations détaillées</button>
+            <button class="onglet" role="tab" id="t-docs" aria-controls="p-docs" aria-selected="false">Documents</button>
+            <button class="onglet" role="tab" id="t-actions" aria-controls="p-actions" aria-selected="true">Actions et circuit de validation</button>
+            <button class="onglet" role="tab" id="t-histo" aria-controls="p-histo" aria-selected="false">Historique des changements</button>
+          </div>
+
+          <div class="carte-corps" id="p-info" role="tabpanel" aria-labelledby="t-info" hidden>
+            <dl class="fiche">
+              <div><dt>Référence</dt><dd>AFF-2026-0412</dd></div>
+              <div><dt>Type</dt><dd>Affectation nominative</dd></div>
+              <div><dt>Équipement</dt><dd>Dell Latitude 5450</dd></div>
+              <div><dt>N° d'inventaire</dt><dd>DGB-PC-02817</dd></div>
+              <div><dt>Bénéficiaire</dt><dd>Paul Obiang</dd></div>
+              <div><dt>Structure</dt><dd>Service de la solde</dd></div>
+              <div><dt>Valeur d'acquisition</dt><dd>685 000 FCFA</dd></div>
+              <div><dt>Fin de garantie</dt><dd>03/2029</dd></div>
+            </dl>
+          </div>
+
+          <div id="p-docs" role="tabpanel" aria-labelledby="t-docs" hidden>
+            <div class="tableau-zone">
+              <table class="tableau">
+                <thead><tr><th>Nature de la pièce</th><th>Libellé</th><th>Statut</th><th class="droite">Date</th><th><span class="sr-only">Accès</span></th></tr></thead>
+                <tbody>
+                  <tr><td class="reference">Fiche de demande</td><td>Signée par le chef de service</td><td><span class="puce puce-succes">Valide</span></td><td class="droite">16/11/2026</td><td><button class="bouton-fantome" type="button" aria-label="Télécharger la fiche de demande"><svg class="ico ico-4"><use href="#i-telecharger"/></svg></button></td></tr>
+                  <tr><td class="reference">Procès-verbal de remise</td><td>Généré en brouillon</td><td><span class="puce puce-neutre">Brouillon</span></td><td class="droite">18/11/2026</td><td><button class="bouton-fantome" type="button" aria-label="Télécharger le procès-verbal"><svg class="ico ico-4"><use href="#i-telecharger"/></svg></button></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="carte-corps" id="p-actions" role="tabpanel" aria-labelledby="t-actions" style="display:grid;gap:16px">
+            <div class="bandeau bandeau-attente"><svg class="ico"><use href="#i-cle"/></svg><span>Cette transition doit faire l'objet d'une <b>signature électronique sécurisée</b>. Activez d'abord une session sécurisée : un code à usage unique vous sera envoyé par e-mail. <a href="#">Activer une session sécurisée</a></span></div>
+            <div>
+              <span class="etiquette">Actions possibles</span>
+              <div class="choix-actions">
+                <label class="choix"><input type="radio" name="action" checked>Signature et transmission électronique</label>
+                <label class="choix rejet"><input type="radio" name="action">Annulation de la prévalidation</label>
+              </div>
+            </div>
+            <div><label class="etiquette" for="commentaire">Commentaire (facultatif)</label><textarea class="champ" id="commentaire" rows="3" placeholder="Visible par les acteurs suivants du circuit"></textarea></div>
+            <div style="display:flex;justify-content:flex-end;gap:8px"><button class="bouton-secondaire" type="button">Annuler</button><button class="bouton-primaire" type="button">Confirmer</button></div>
+          </div>
+
+          <div id="p-histo" role="tabpanel" aria-labelledby="t-histo" hidden>
+            <div class="tableau-zone">
+              <table class="tableau">
+                <thead><tr><th>Événement</th><th>Commentaire</th><th>Utilisateur</th><th class="droite">Date</th></tr></thead>
+                <tbody>
+                  <tr><td class="reference">Prévalidation, à signer et transmettre</td><td>—</td><td>Marie Ndong</td><td class="droite">18/11/2026 09:12</td></tr>
+                  <tr><td class="reference">Pièce ajoutée : fiche de demande</td><td>—</td><td>Marie Ndong</td><td class="droite">16/11/2026 15:40</td></tr>
+                  <tr><td class="reference">Initialisation</td><td>—</td><td>Marie Ndong</td><td class="droite">16/11/2026 15:31</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="pied"><p>Gestion du parc © 2026 — Direction générale du Budget · DSI · Service des études et du développement</p></footer>
+  </div>
+</div>
+
+<!-- Contrôles de barre, partagés par les deux dispositions (comme barre-actions.blade.php d'OKANDAH) -->
+<template id="tpl-actions">
+  <span class="env masque-mobile">Préprod</span>
+  <div class="ancre">
+    <button class="bouton-barre" type="button" data-menu="applis-%" aria-expanded="false" aria-label="Applications de la suite" title="Applications de la suite"><svg class="ico"><use href="#i-applis"/></svg></button>
+    <div class="menu" id="applis-%" hidden>
+      <div class="menu-titre"><span class="etiquette">Applications de la suite DSI</span></div>
+      <a class="menu-item" href="#"><span class="carre-app" style="background:#155a9c"></span><span>Gestion du parc<small>Équipements informatiques · vous êtes ici</small></span></a>
+      <a class="menu-item" href="#"><span class="carre-app" style="background:#12805f"></span><span>ABAT<small>Investissements publics</small></span></a>
+      <a class="menu-item" href="#"><span class="carre-app" style="background:#134d83"></span><span>OKANDAH<small>Gestion du courrier</small></span></a>
+      <a class="menu-item" href="#"><span class="carre-app" style="background:#475569"></span><span>OLIA<small>Annuaire des agents</small></span></a>
+    </div>
+  </div>
+  <button class="bouton-barre" type="button" data-action="personnaliser" aria-label="Personnaliser l'affichage" title="Personnaliser"><svg class="ico"><use href="#i-palette"/></svg></button>
+  <div class="ancre">
+    <button class="bouton-barre" type="button" data-menu="notif-%" aria-expanded="false" aria-label="Notifications, 2 non lues" title="Notifications"><svg class="ico"><use href="#i-cloche"/></svg><span class="compteur">2</span></button>
+    <div class="menu" id="notif-%" hidden style="width:320px">
+      <div class="menu-tete" style="display:flex;justify-content:space-between;align-items:center"><b>Notifications</b><a href="#" style="font-size:12px">Tout marquer lu</a></div>
+      <a class="menu-item" href="#dossier" style="border-left:4px solid var(--attente-600)"><span><b style="font-weight:600;color:var(--encre)">AFF-2026-0412 attend votre signature</b><small>il y a 12 minutes</small></span></a>
+      <a class="menu-item" href="#" style="border-left:4px solid var(--m-500)"><span><b style="font-weight:600;color:var(--encre)">AFF-2026-0398 validé par la DAF</b><small>il y a 2 heures</small></span></a>
+    </div>
+  </div>
+  <div class="ancre">
+    <button class="utilisateur" type="button" data-menu="compte-%" aria-expanded="false">
+      <span class="avatar">MN</span><span class="nom">Marie Ndong</span><svg class="ico"><use href="#i-chevronBas"/></svg>
+    </button>
+    <div class="menu" id="compte-%" hidden>
+      <div class="menu-tete" style="display:flex;gap:12px;align-items:center">
+        <span class="avatar" style="width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--m-100);color:var(--m-800);font-weight:700;flex:none">MN</span>
+        <span style="min-width:0"><b>Marie Ndong</b><small>m.ndong@budget.gouv.ga</small><br><span class="puce puce-info sans-point" style="margin-top:4px">Gestionnaire du parc · DSI</span></span>
+      </div>
+      <div class="menu-titre"><span class="etiquette">Changer de fonction</span></div>
+      <button class="menu-item" type="button"><svg class="ico ico-4" style="color:var(--m-600)"><use href="#i-coche"/></svg>Gestionnaire du parc · DSI</button>
+      <button class="menu-item" type="button"><svg class="ico ico-4" style="opacity:0"><use href="#i-coche"/></svg>Valideur des affectations · DAF</button>
+      <div class="menu-sep"></div>
+      <div class="menu-titre"><span class="etiquette">Disposition</span></div>
+      <div class="dispositions">
+        <button class="disposition" type="button" data-disposition="sidebar" aria-pressed="false"><svg class="ico"><use href="#i-barreLaterale"/></svg>Sidebar</button>
+        <button class="disposition" type="button" data-disposition="topnav" aria-pressed="false"><svg class="ico"><use href="#i-barreHaut"/></svg>Top Nav</button>
+      </div>
+      <div class="menu-sep"></div>
+      <a class="menu-item" href="#"><svg class="ico"><use href="#i-profil"/></svg>Mon profil</a>
+      <a class="menu-item danger" href="connexion.html"><svg class="ico"><use href="#i-sortie"/></svg>Se déconnecter</a>
+    </div>
+  </div>
+</template>
+
+<script>
+  /* Les contrôles de barre sont posés dans les deux dispositions avant le script commun. */
+  (function () {
+    var tpl = document.getElementById('tpl-actions').innerHTML;
+    document.querySelectorAll('[data-actions]').forEach(function (z) { z.innerHTML = tpl.replace(/%/g, z.getAttribute('data-actions')); });
+  })();
+</script>
+<script src="assets/dgb-suite.js"></script>
+<script src="assets/dgb-viz.js"></script>
+<script>
+(function () {
+  /* Les graphes et la répartition sont rendus par dgb-viz.js. */
+
+  /* Vues : #tableau-de-bord (défaut) et #dossier. Le titre passe dans la barre d'application en mode sidebar. */
+  function router() {
+    var v = location.hash.slice(1) || 'tableau-de-bord';
+    if (!document.querySelector('[data-vue="' + v + '"]')) v = 'tableau-de-bord';
+    var vue;
+    document.querySelectorAll('[data-vue]').forEach(function (s) { var on = s.getAttribute('data-vue') === v; s.hidden = !on; if (on) vue = s; });
+    document.querySelectorAll('[data-vue-lien]').forEach(function (a) { a.classList.toggle('actif', a.getAttribute('data-vue-lien') === v); });
+    document.querySelectorAll('[data-module="pilotage"]').forEach(function (a) { a.classList.add('actif'); });
+    document.querySelector('[data-barre-titre]').textContent = vue.getAttribute('data-titre');
+    document.querySelector('[data-barre-soustitre]').textContent = vue.getAttribute('data-soustitre');
+    var actions = vue.querySelector('.entete-page .actions');
+    document.querySelector('[data-barre-actions]').innerHTML = actions ? actions.innerHTML : '';
+    document.title = vue.getAttribute('data-titre') + ' · ' + document.querySelector('[data-nom-app]').textContent;
+    document.querySelector('.app').classList.remove('menu-ouvert');
+  }
+  window.addEventListener('hashchange', router);
+  router();
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="fr" data-app="dgb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connexion · Suite DSI</title>
+<meta name="description" content="Connexion à la Suite DSI du SED : accès agent, vérification en deux étapes et choix de la fonction.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2312305f'/%3E%3Cpath d='M9 9h5a7 7 0 0 1 0 14H9z' fill='none' stroke='%23fff' stroke-width='2.2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Barlow+Semi+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Public+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="assets/dgb-suite.css">
+<link rel="stylesheet" href="assets/dgb-connexion.css">
+</head>
+<body>
+<main class="cnx" data-style="okandah">
+
+  <!-- ===== Volet bleu : identité DGB, accroche, illustration au choix ===== -->
+  <section class="cnx-volet" aria-label="Présentation">
+    <header class="cnx-marque">
+      <span class="logo-dgb">
+        <span class="monogramme"><b>DGB</b><i></i></span>
+        <span class="nom"><b>Direction générale du Budget</b><small>République gabonaise</small></span>
+      </span>
+      <span class="cnx-puce-suite">Suite DSI · SED</span>
+    </header>
+
+    <div class="cnx-accroche">
+      <span class="surtitre">Courrier · identité · projets</span>
+      <h1>Chaque dossier trouve<br>son circuit.</h1>
+      <p>Un courrier arrive, une identité est vérifiée, un projet avance : les applications du SED partagent la même maison, les mêmes règles et le même accès.</p>
+    </div>
+
+    <div class="cnx-illustration">
+      <div class="cnx-scenes" role="group" aria-label="Choisir l'illustration du volet">
+        <button class="cnx-scene-onglet" type="button" data-scene="courrier" aria-pressed="true">Courrier</button>
+        <button class="cnx-scene-onglet" type="button" data-scene="projet" aria-pressed="false">Projets</button>
+        <button class="cnx-scene-onglet" type="button" data-scene="parc" aria-pressed="false">Parc</button>
+      </div>
+      <div class="cnx-scene" id="scene-suite" aria-live="polite"></div>
+      <p class="cnx-legende" id="scene-legende"><svg class="ico"><use href="#i-courrier"/></svg><span>Le courrier entre, l'identité est vérifiée, le dossier poursuit son circuit.</span></p>
+    </div>
+
+    <footer class="cnx-volet-pied">
+      <span><svg class="ico ico-4"><use href="#i-bouclier"/></svg>Accès réservé aux agents habilités · connexions journalisées</span>
+      <span>Suite DSI · SED</span>
+    </footer>
+  </section>
+
+  <!-- ===== Formulaire ===== -->
+  <section class="cnx-cote">
+    <div class="cnx-carte">
+
+      <div class="cnx-carte-haut">
+        <span class="cnx-ecusson"><svg class="ico"><use href="#i-bouclier"/></svg></span>
+        <span class="identite"><b>Accès agent</b><small>Gestion du parc · DGB</small></span>
+        <span class="cnx-secu"><svg class="ico"><use href="#i-cadenas"/></svg>SIGFiP</span>
+      </div>
+
+      <ol class="cnx-frise" aria-label="Étapes de connexion">
+        <li data-etape-ind="1" class="actif"><span>1</span>Identifiants</li>
+        <li data-etape-ind="2"><span>2</span>Vérification</li>
+        <li data-etape-ind="3"><span>3</span>Fonction</li>
+      </ol>
+
+      <div class="cnx-carte-corps">
+
+        <!-- Étape 1 : identifiants -->
+        <div id="etape-1" style="display:grid;gap:22px">
+          <div class="cnx-titres">
+            <h2>Bienvenue sur votre espace</h2>
+            <p>Connectez-vous pour accéder à la gestion du parc informatique.</p>
+          </div>
+          <form class="cnx-etape" id="form-1" novalidate>
+            <div class="cnx-erreur" id="erreur-1" role="alert" hidden><svg class="ico ico-4"><use href="#i-alerte"/></svg><span>Adresse ou mot de passe incorrect. Vérifiez la saisie, puis réessayez.</span></div>
+            <div class="cnx-champ">
+              <svg class="ico"><use href="#i-courrier"/></svg>
+              <input class="champ" id="email" name="email" type="email" autocomplete="username" placeholder=" " required>
+              <label for="email">Adresse e-mail professionnelle</label>
+            </div>
+            <div class="cnx-champ cnx-mdp">
+              <svg class="ico"><use href="#i-cadenas"/></svg>
+              <input class="champ" id="mot-de-passe" name="password" type="password" autocomplete="current-password" placeholder=" " required>
+              <label for="mot-de-passe">Mot de passe</label>
+              <button class="cnx-oeil" type="button" id="voir" aria-pressed="false" aria-label="Afficher le mot de passe">
+                <svg class="ico"><use href="#i-oeil"/></svg>
+              </button>
+            </div>
+            <div class="cnx-ligne">
+              <label class="cnx-case"><input type="checkbox" id="rester"><span></span>Rester connecté</label>
+              <a href="#">Mot de passe oublié ?</a>
+            </div>
+            <button class="cnx-bouton" type="submit"><span>Se connecter</span><svg class="ico"><use href="#i-fleche"/></svg></button>
+          </form>
+        </div>
+
+        <!-- Étape 2 : code de vérification -->
+        <div id="etape-2" style="display:grid;gap:22px" hidden>
+          <div class="cnx-titres">
+            <h2>Vérification en deux étapes</h2>
+            <p>Saisissez le code à 6 chiffres envoyé à votre adresse professionnelle.</p>
+          </div>
+          <form class="cnx-etape" id="form-2" novalidate>
+            <div class="code-otp" role="group" aria-label="Code de vérification">
+              <input id="otp-1" inputmode="numeric" maxlength="1" aria-label="Chiffre 1" autocomplete="one-time-code">
+              <input id="otp-2" inputmode="numeric" maxlength="1" aria-label="Chiffre 2">
+              <input id="otp-3" inputmode="numeric" maxlength="1" aria-label="Chiffre 3">
+              <input id="otp-4" inputmode="numeric" maxlength="1" aria-label="Chiffre 4">
+              <input id="otp-5" inputmode="numeric" maxlength="1" aria-label="Chiffre 5">
+              <input id="otp-6" inputmode="numeric" maxlength="1" aria-label="Chiffre 6">
+            </div>
+            <div class="code-info"><span>Code valable encore <b class="chiffre" id="minuteur">04:59</b></span><a href="#" id="renvoyer">Renvoyer un code</a></div>
+            <div class="cnx-boutons">
+              <button class="cnx-retour" type="button" data-retour>Retour</button>
+              <button class="cnx-bouton" type="submit"><span>Vérifier le code</span><svg class="ico"><use href="#i-fleche"/></svg></button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Étape 3 : choix de la fonction -->
+        <div id="etape-3" style="display:grid;gap:22px" hidden>
+          <div class="cnx-titres">
+            <h2>Choisissez votre fonction</h2>
+            <p>Plusieurs fonctions sont rattachées à votre compte. Vous pourrez en changer depuis votre menu.</p>
+          </div>
+          <form class="cnx-etape" id="form-3" novalidate>
+            <div class="fonctions" role="radiogroup" aria-label="Fonctions">
+              <label class="fonction"><input type="radio" name="fonction" value="GEST_DSI" checked><span><b>Gestionnaire du parc</b><small>Service informatique · DSI</small></span><span class="code">GEST_DSI</span></label>
+              <label class="fonction"><input type="radio" name="fonction" value="VAL_DAF"><span><b>Valideur des affectations</b><small>Direction administrative et financière</small></span><span class="code">VAL_DAF</span></label>
+              <label class="fonction"><input type="radio" name="fonction" value="ADM_SED"><span><b>Administrateur de l'application</b><small>Service des études et du développement</small></span><span class="code">ADM_SED</span></label>
+            </div>
+            <div class="cnx-boutons">
+              <button class="cnx-retour" type="button" data-retour>Déconnexion</button>
+              <button class="cnx-bouton" type="submit"><span>Accéder à l'application</span><svg class="ico"><use href="#i-fleche"/></svg></button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+      <div class="cnx-confiance"><svg class="ico"><use href="#i-cadenas"/></svg><span>Connexion chiffrée · code à usage unique · chaque accès est journalisé</span></div>
+    </div>
+
+    <div class="cnx-bas">
+      <div class="cnx-style" role="group" aria-label="Style du formulaire">
+        <button type="button" data-style="okandah" aria-pressed="true">OKANDAH</button>
+        <button type="button" data-style="abat" aria-pressed="false">ABAT</button>
+      </div>
+      <span class="env">Préproduction</span><span>Suite DSI · v2.4 · © 2026 DGB</span>
+    </div>
+  </section>
+</main>
+
+<script src="assets/dgb-suite.js"></script>
+<script src="assets/dgb-scene-parc.js"></script>
+<script src="assets/dgb-scene-suite.js"></script>
+<script>
+(function () {
+  var cible = document.getElementById('scene-suite');
+  var legende = document.getElementById('scene-legende');
+  var textes = {
+    courrier: 'Le courrier entre, l\u2019identité est vérifiée, le dossier poursuit son circuit.',
+    projet: 'Le planning se cale, les jalons tombent, l\u2019équipe suit l\u2019avancement.',
+    parc: 'Le siège relie chaque équipement recensé à son affectataire.'
+  };
+  var icones = { courrier: 'i-courrier', projet: 'i-signer', parc: 'i-ordinateur' };
+
+  function afficherScene(nom) {
+    if (!window.DGB_SCENES || !DGB_SCENES[nom]) nom = 'courrier';
+    DGB_SCENES[nom](cible);
+    legende.innerHTML = '<svg class="ico"><use href="#' + icones[nom] + '"/></svg><span>' + textes[nom] + '</span>';
+    document.querySelectorAll('[data-scene]').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-scene') === nom));
+    });
+    try { localStorage.setItem('dgb.scene', nom); } catch (e) { /* poste verrouillé */ }
+  }
+
+  document.querySelectorAll('[data-scene]').forEach(function (b) {
+    b.addEventListener('click', function () { afficherScene(b.getAttribute('data-scene')); });
+  });
+  var choix = 'courrier';
+  try { choix = localStorage.getItem('dgb.scene') || 'courrier'; } catch (e) { /* ignore */ }
+  afficherScene(choix);
+
+  /* ---------- Étapes ---------- */
+  function aller(n) {
+    [1, 2, 3].forEach(function (i) { document.getElementById('etape-' + i).hidden = i !== n; });
+    document.querySelectorAll('[data-etape-ind]').forEach(function (li, i) {
+      li.classList.toggle('actif', i + 1 === n);
+      li.classList.toggle('fait', i + 1 < n);
+    });
+    if (n === 2) { lancerMinuteur(); document.getElementById('otp-1').focus(); }
+  }
+  document.getElementById('form-1').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var ok = document.getElementById('email').value.indexOf('@') > 0 && document.getElementById('mot-de-passe').value.length > 0;
+    document.getElementById('erreur-1').hidden = ok;
+    if (ok) aller(2);
+  });
+  document.getElementById('form-2').addEventListener('submit', function (e) { e.preventDefault(); aller(3); });
+  document.getElementById('form-3').addEventListener('submit', function (e) { e.preventDefault(); location.href = 'application.html'; });
+  document.querySelectorAll('[data-retour]').forEach(function (b) { b.addEventListener('click', function () { aller(1); }); });
+
+  var voir = document.getElementById('voir');
+  voir.addEventListener('click', function () {
+    var c = document.getElementById('mot-de-passe'), cache = c.type === 'password';
+    c.type = cache ? 'text' : 'password';
+    voir.setAttribute('aria-pressed', String(cache));
+    voir.setAttribute('aria-label', cache ? 'Masquer le mot de passe' : 'Afficher le mot de passe');
+    voir.querySelector('use').setAttribute('href', cache ? '#i-oeilBarre' : '#i-oeil');
+  });
+
+  var champs = document.querySelectorAll('.code-otp input');
+  champs.forEach(function (c, i) {
+    c.addEventListener('input', function () { c.value = c.value.replace(/\D/g, '').slice(0, 1); if (c.value && champs[i + 1]) champs[i + 1].focus(); });
+    c.addEventListener('keydown', function (e) { if (e.key === 'Backspace' && !c.value && champs[i - 1]) champs[i - 1].focus(); });
+    c.addEventListener('paste', function (e) {
+      var t = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, 6);
+      if (!t) return; e.preventDefault();
+      t.split('').forEach(function (ch, j) { if (champs[j]) champs[j].value = ch; });
+      (champs[t.length] || champs[5]).focus();
+    });
+  });
+  var reste = 299, minuteur = document.getElementById('minuteur'), intervalle = null;
+  function lancerMinuteur() {
+    reste = 299;
+    if (intervalle) clearInterval(intervalle);
+    minuteur.textContent = '04:59';
+    intervalle = setInterval(function () {
+      if (reste > 0) reste--;
+      minuteur.textContent = String(Math.floor(reste / 60)).padStart(2, '0') + ':' + String(reste % 60).padStart(2, '0');
+      if (reste === 0) clearInterval(intervalle);
+    }, 1000);
+  }
+  document.getElementById('renvoyer').addEventListener('click', function (e) {
+    e.preventDefault();
+    lancerMinuteur();
+    champs.forEach(function (c) { c.value = ''; });
+    champs[0].focus();
+  });
+
+  /* ---------- Style du formulaire : OKANDAH ou ABAT ---------- */
+  var cnx = document.querySelector('.cnx');
+  function appliquerStyle(nom) {
+    if (nom !== 'abat') nom = 'okandah';
+    cnx.setAttribute('data-style', nom);
+    document.querySelectorAll('.cnx-style [data-style]').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-style') === nom));
+    });
+    try { localStorage.setItem('dgb.cnx-style', nom); } catch (e) { /* poste verrouillé */ }
+  }
+  document.querySelectorAll('.cnx-style [data-style]').forEach(function (b) {
+    b.addEventListener('click', function () { appliquerStyle(b.getAttribute('data-style')); });
+  });
+  var styleChoisi = null;
+  try { styleChoisi = new URLSearchParams(location.search).get('style'); } catch (e) { /* navigateur ancien */ }
+  if (!styleChoisi) {
+    try { styleChoisi = localStorage.getItem('dgb.cnx-style'); } catch (e) { /* poste verrouillé */ }
+  }
+  appliquerStyle(styleChoisi || 'okandah');
+})();
+</script>
+</body>
+</html>

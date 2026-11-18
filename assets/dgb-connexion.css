@@ -1,0 +1,299 @@
+/* Suite DSI · DGB — page de connexion (à charger après dgb-suite.css).
+   ---------------------------------------------------------------------------
+   Volet bleu institutionnel à gauche : marque, accroche, illustration du métier
+   (courrier et identité, gestion de projet, parc) que l'on peut changer.
+   Formulaire modernisé à droite, dans l'esprit OKANDAH : carte à angles doux
+   (8 px), champs à libellé flottant et icônes, frise d'étapes, bouton à chevron.
+   Une variante ABAT (data-style="abat") remet les libellés au-dessus des champs,
+   le bandeau sombre et les angles francs, sans changer la présentation d'ensemble.
+   Aplats uniquement : aucune ombre portée, aucun dégradé. */
+.cnx { min-height: 100vh; display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr); }
+
+/* ---------- Volet bleu ---------- */
+.cnx-volet {
+  position: relative; overflow: hidden; color: #dbe6f6;
+  display: grid; grid-template-rows: auto auto 1fr auto; gap: 22px;
+  padding: 36px clamp(24px, 4vw, 60px) 24px;
+  background-color: #12305f;
+  /* trame isométrique très discrète : un réseau de lignes, pas un dégradé */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='30'%3E%3Cpath d='M0 15 26 0 52 15 26 30z' fill='none' stroke='%23ffffff' stroke-opacity='.045'/%3E%3C/svg%3E");
+}
+.cnx-volet::after {
+  content: ""; position: absolute; right: -120px; bottom: -140px; width: 420px; height: 420px; border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, .07); box-shadow: 0 0 0 48px rgba(255, 255, 255, .022), 0 0 0 96px rgba(255, 255, 255, .015);
+  pointer-events: none;
+}
+.cnx-marque { display: flex; align-items: center; justify-content: space-between; gap: 16px; position: relative; z-index: 1; }
+.cnx-volet .logo-dgb .monogramme b { font-size: 36px; }
+.cnx-volet .logo-dgb .nom b { font-size: 15px; }
+.cnx-puce-suite {
+  display: inline-flex; align-items: center; gap: 7px; flex: none; padding: 5px 11px; border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, .16); background: rgba(255, 255, 255, .06);
+  font-size: 10.5px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: #cfe0f6;
+}
+.cnx-puce-suite::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #3fd29b; }
+
+.cnx-accroche { display: grid; gap: 14px; max-width: 560px; position: relative; z-index: 1; }
+.cnx-accroche .surtitre { font-size: 11.5px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #e2b93b; }
+.cnx-accroche h1 { color: #fff; font: 700 clamp(28px, 3.1vw, 44px)/1.08 var(--font-titre); letter-spacing: -.025em; }
+.cnx-accroche p { font-size: 15.5px; line-height: 1.65; color: #c3d3ec; max-width: 48ch; }
+
+/* Illustration + sélecteur */
+.cnx-illustration { min-height: 0; display: flex; flex-direction: column; gap: 12px; position: relative; z-index: 1; }
+.cnx-scenes {
+  display: flex; gap: 3px; align-self: flex-start; padding: 4px; border-radius: 999px;
+  background: rgba(9, 27, 54, .45); border: 1px solid rgba(255, 255, 255, .12);
+}
+.cnx-scene-onglet {
+  border: 0; border-radius: 999px; background: none; cursor: pointer; padding: 6px 13px;
+  font: 600 12px var(--font-texte); color: #a9c6ee; white-space: nowrap;
+}
+.cnx-scene-onglet:hover { color: #fff; background: rgba(255, 255, 255, .08); }
+.cnx-scene-onglet[aria-pressed="true"] { background: rgba(255, 255, 255, .16); color: #fff; }
+.cnx-scene { flex: 1; min-height: 0; width: 100%; display: flex; align-items: center; justify-content: center; }
+.cnx-scene svg { display: block; width: 100%; max-width: 620px; height: 100%; max-height: 400px; overflow: visible; }
+.cnx-legende { display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: #8fa6cb; }
+.cnx-legende .ico { width: 14px; height: 14px; color: #e2b93b; }
+
+.cnx-volet-pied { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 11.5px; color: #8fa6cb; position: relative; z-index: 1; }
+.cnx-volet-pied span { display: inline-flex; align-items: center; gap: 8px; }
+
+/* ---------- Formulaire ---------- */
+.cnx-cote {
+  display: grid; place-items: center; padding: 32px 24px 58px; position: relative;
+  background: #eef2f8;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Ccircle cx='1' cy='1' r='.9' fill='%23c9d6e6' fill-opacity='.55'/%3E%3C/svg%3E");
+}
+.cnx-carte {
+  width: 100%; max-width: 476px; overflow: hidden; background: #fff;
+  border: 1px solid #dde5f0; border-top: 3px solid #1d4f9a; border-radius: 8px;
+  display: grid;
+}
+.cnx-carte-haut { display: flex; align-items: center; gap: 13px; padding: 20px 28px; border-bottom: 1px solid #eef2f7; background: #fbfcfe; }
+.cnx-ecusson { width: 44px; height: 44px; flex: none; border-radius: 6px; display: grid; place-items: center; background: #e7eef9; color: #1d4f9a; }
+.cnx-ecusson .ico { width: 23px; height: 23px; }
+.cnx-carte-haut .identite { min-width: 0; }
+.cnx-carte-haut .identite b { display: block; font: 700 15px var(--font-titre); color: #0f2445; }
+.cnx-carte-haut .identite small { display: block; font-size: 12px; color: #5d6b82; }
+.cnx-secu {
+  margin-left: auto; flex: none; display: inline-flex; align-items: center; gap: 5px; padding: 4px 9px;
+  border-radius: 999px; background: #eef7f3; color: #0e684d; font-size: 10.5px; font-weight: 700; letter-spacing: .04em;
+}
+.cnx-secu .ico { width: 12px; height: 12px; }
+
+/* Frise d'étapes, à la manière d'un parcours de dossier */
+.cnx-frise { display: flex; gap: 6px; margin: 0; padding: 13px 28px; list-style: none; border-bottom: 1px solid #eef2f7; }
+.cnx-frise li { flex: 1; min-width: 0; display: flex; align-items: center; gap: 7px; font-size: 11.5px; color: #5d6b82; white-space: nowrap; }
+.cnx-frise li span {
+  width: 21px; height: 21px; flex: none; display: grid; place-items: center; border-radius: 50%;
+  border: 1.5px solid #d7e0ec; background: #fff; font-size: 10.5px; font-weight: 700; color: #5d6b82;
+}
+.cnx-frise li.fait span { background: #e7eef9; border-color: #c7d9f1; color: #1d4f9a; }
+.cnx-frise li.actif { color: #0f2445; font-weight: 700; }
+.cnx-frise li.actif span { background: #1d4f9a; border-color: #1d4f9a; color: #fff; }
+
+.cnx-carte-corps { padding: 24px 28px 26px; display: grid; gap: 22px; }
+.cnx-titres { display: grid; gap: 7px; }
+.cnx-titres h2 { font: 700 25px/1.2 var(--font-titre); letter-spacing: -.02em; color: #0f2445; }
+.cnx-titres p { font-size: 14px; line-height: 1.55; color: #5d6b82; }
+.cnx-etape { display: grid; gap: 18px; }
+
+.cnx-champ { position: relative; }
+.cnx-champ > .ico { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: #5d6b82; pointer-events: none; }
+.cnx-champ .champ {
+  width: 100%; height: 58px; padding: 20px 14px 6px 42px; border: 1px solid #d7e0ec; border-radius: 4px;
+  background: #fff; color: #0f2445; font: 400 15px/1.2 var(--font-texte);
+  transition: border-color .15s, box-shadow .15s;
+}
+.cnx-champ .champ::placeholder { color: transparent; }
+.cnx-champ > label {
+  position: absolute; left: 42px; top: 50%; transform: translateY(-50%);
+  font-size: 14px; color: #5d6b82; pointer-events: none;
+  transition: top .14s ease, font-size .14s ease, color .14s ease;
+  max-width: calc(100% - 96px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.cnx-champ .champ:focus + label,
+.cnx-champ .champ:not(:placeholder-shown) + label {
+  top: 13px; transform: none; font-size: 10.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #1d4f9a;
+}
+.cnx-champ .champ:focus { outline: none; border-color: #1d4f9a; box-shadow: 0 0 0 4px rgba(29, 79, 154, .12); }
+.cnx-mdp .champ { padding-right: 58px; }
+.cnx-oeil {
+  position: absolute; right: 8px; top: 8px; bottom: 8px; width: 42px; display: grid; place-items: center;
+  border: 0; border-radius: 4px; background: #f1f5fb; color: #1d4f9a; cursor: pointer;
+}
+.cnx-oeil:hover { background: #e4ecf7; }
+.cnx-oeil .ico { width: 18px; height: 18px; }
+
+.cnx-ligne { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 13.5px; }
+.cnx-case { display: inline-flex; align-items: center; gap: 9px; color: #3b4a62; cursor: pointer; position: relative; }
+.cnx-case input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.cnx-case span { width: 18px; height: 18px; flex: none; display: grid; place-items: center; border: 1.5px solid #cfd8e5; border-radius: 5px; background: #fff; }
+.cnx-case input:checked + span { background: #1d4f9a; border-color: #1d4f9a; }
+.cnx-case input:checked + span::after { content: ""; width: 9px; height: 5px; border-left: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(-45deg) translateY(-1px); }
+.cnx-case input:focus-visible + span { outline: 2px solid #1d4f9a; outline-offset: 2px; }
+.cnx-ligne a { color: #1d4f9a; font-size: 13px; font-weight: 600; }
+
+.cnx-bouton {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; height: 54px;
+  padding: 0 9px 0 20px; border: 0; border-radius: 4px; background: #1d4f9a; color: #fff;
+  font: 600 15px var(--font-texte); cursor: pointer; transition: background-color .15s;
+}
+.cnx-bouton:hover { background: #173f7d; }
+.cnx-bouton:active { background: #12325f; }
+.cnx-bouton .ico { width: 34px; height: 34px; padding: 8px; border-radius: 4px; background: rgba(255, 255, 255, .15); box-sizing: border-box; }
+.cnx-retour {
+  height: 54px; padding: 0 18px; border-radius: 4px; border: 1px solid #d7e0ec; background: #fff;
+  color: #1b2a44; font: 600 14px var(--font-texte); cursor: pointer; white-space: nowrap;
+}
+.cnx-retour:hover { background: #f4f7fb; }
+.cnx-boutons { display: flex; gap: 10px; }
+.cnx-boutons .cnx-bouton { flex: 1; }
+.cnx-erreur { display: flex; gap: 10px; padding: 12px 14px; border-radius: 4px; background: #fdf3f4; color: #8b1f2f; font-size: 13.5px; border: 1px solid #f7cbd1; }
+
+.cnx-confiance {
+  display: flex; align-items: center; gap: 8px; padding: 12px 28px; border-top: 1px solid #eef2f7;
+  background: #fbfcfe; font-size: 11.5px; color: #5d6b82;
+}
+.cnx-confiance .ico { width: 14px; height: 14px; color: #0e684d; }
+.cnx-bas { position: absolute; left: 24px; right: 24px; bottom: 18px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; align-items: center; font-size: 12px; color: #5d6b82; }
+
+/* Code à usage unique */
+.code-otp { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+.code-otp input {
+  width: 100%; height: 58px; text-align: center; font: 700 22px var(--font-titre); font-variant-numeric: tabular-nums;
+  color: #0f2445; border: 1px solid #d7e0ec; border-radius: 4px; background: #fff;
+}
+.code-otp input:focus { outline: none; border-color: #1d4f9a; box-shadow: 0 0 0 4px rgba(29, 79, 154, .12); }
+.code-info { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-size: 13px; color: #5d6b82; }
+.code-info a { color: #1d4f9a; font-weight: 600; }
+
+/* Choix de la fonction */
+.fonctions { display: grid; gap: 9px; }
+.fonction {
+  display: flex; align-items: center; gap: 12px; padding: 14px 15px;
+  border: 1px solid #d7e0ec; border-radius: 4px; cursor: pointer; transition: border-color .15s, background-color .15s;
+}
+.fonction:hover { border-color: #a9b8cf; }
+.fonction:has(input:checked) { border-color: #1d4f9a; background: #eef3fa; box-shadow: inset 0 0 0 1px #1d4f9a; }
+.fonction input {
+  appearance: none; width: 18px; height: 18px; flex: none; margin: 0; border: 1.5px solid #cfd8e5;
+  border-radius: 50%; background: #fff; cursor: pointer; transition: border-width .1s;
+}
+.fonction input:checked { border: 5px solid #1d4f9a; }
+.fonction input:focus-visible { outline: 2px solid #1d4f9a; outline-offset: 2px; }
+.fonction b { display: block; font-size: 13.5px; color: #0f2445; }
+.fonction small { font-size: 11.5px; color: #5d6b82; }
+.fonction .code { margin-left: auto; font-size: 10.5px; font-weight: 700; letter-spacing: .05em; color: #5d6b82; white-space: nowrap; }
+
+/* ---------- Scène : animations discrètes ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes scene-flotte { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  @keyframes scene-trait { to { stroke-dashoffset: -24; } }
+  @keyframes scene-entree { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .scene-carte { animation: scene-flotte 7s ease-in-out infinite; }
+  .scene-carte.c2 { animation-delay: -2.3s; } .scene-carte.c3 { animation-delay: -4.6s; }
+  .scene-lien { animation: scene-trait 1.6s linear infinite; }
+  .cnx-carte, .cnx-accroche { animation: scene-entree .45s ease-out both; }
+}
+
+@media (min-width: 901px) {
+  /* Le volet tient dans l'écran : la scène prend la place qui reste, la carte défile si besoin. */
+  .cnx { height: 100vh; }
+  .cnx-volet { min-height: 0; }
+  .cnx-cote { overflow-y: auto; }
+}
+@media (max-width: 1080px) {
+  .cnx-volet { padding: 30px 28px 22px; }
+  .cnx-carte-haut, .cnx-frise, .cnx-carte-corps, .cnx-confiance { padding-left: 22px; padding-right: 22px; }
+}
+@media (max-width: 900px) {
+  .cnx { grid-template-columns: minmax(0, 1fr); }
+  .cnx-volet { grid-template-rows: auto; gap: 18px; padding: 22px 18px 20px; }
+  .cnx-accroche h1 { font-size: 25px; }
+  .cnx-accroche p { display: none; }
+  .cnx-illustration { order: 3; }
+  .cnx-scene svg { max-height: 260px; }
+  .cnx-volet-pied, .cnx-legende { display: none; }
+  .cnx-cote { padding: 22px 14px 58px; place-items: start center; }
+  .cnx-carte { max-width: 520px; }
+  .cnx-bas { position: static; padding-top: 18px; }
+}
+@media (max-width: 560px) {
+  .cnx-puce-suite { display: none; }
+  .cnx-frise li { font-size: 0; gap: 0; flex: none; }
+  .cnx-frise li span { font-size: 10.5px; }
+  .cnx-carte-haut, .cnx-frise, .cnx-carte-corps, .cnx-confiance { padding-left: 18px; padding-right: 18px; }
+  .cnx-titres h2 { font-size: 22px; }
+}
+
+/* =========================================================================
+   Variante ABAT
+   -------------------------------------------------------------------------
+   Même structure, autre grammaire : angles francs, libellé posé au-dessus du
+   champ, bandeau sombre, contrôles plus compacts. Rien n'est dégradé : on
+   change les aplats, les rayons et l'ordre visuel, pas la présentation.
+   ========================================================================= */
+.cnx[data-style="abat"] .cnx-carte {
+  border-radius: 4px; border-top: 1px solid #12305f; border-left: 3px solid #12305f;
+}
+.cnx[data-style="abat"] .cnx-carte-haut {
+  padding: 15px 22px; background: #12305f; border-bottom: 0;
+}
+.cnx[data-style="abat"] .cnx-ecusson { width: 38px; height: 38px; border-radius: 4px; background: rgba(255, 255, 255, .13); color: #fff; }
+.cnx[data-style="abat"] .cnx-ecusson .ico { width: 20px; height: 20px; }
+.cnx[data-style="abat"] .cnx-carte-haut .identite b { color: #fff; font-size: 14px; }
+.cnx[data-style="abat"] .cnx-carte-haut .identite small { color: #a9bfdd; font-size: 11.5px; }
+.cnx[data-style="abat"] .cnx-secu { border-radius: 3px; background: rgba(255, 255, 255, .12); color: #dbe6f6; }
+
+.cnx[data-style="abat"] .cnx-frise { padding: 10px 22px; background: #fbfcfe; gap: 4px; }
+.cnx[data-style="abat"] .cnx-frise li { font-size: 11px; }
+.cnx[data-style="abat"] .cnx-frise li span { width: 20px; height: 20px; border-radius: 3px; }
+.cnx[data-style="abat"] .cnx-frise li.actif span { background: #12305f; border-color: #12305f; }
+
+.cnx[data-style="abat"] .cnx-carte-corps { padding: 20px 22px 22px; gap: 18px; }
+.cnx[data-style="abat"] .cnx-titres { gap: 4px; }
+.cnx[data-style="abat"] .cnx-titres h2 { font-size: 21px; letter-spacing: -.01em; }
+.cnx[data-style="abat"] .cnx-titres p { font-size: 13px; }
+.cnx[data-style="abat"] .cnx-etape { gap: 14px; }
+
+/* Libellé au-dessus du champ */
+.cnx[data-style="abat"] .cnx-champ { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px; }
+.cnx[data-style="abat"] .cnx-champ > .ico { left: 11px; top: auto; bottom: 15px; transform: none; width: 15px; height: 15px; color: #6d7f97; }
+.cnx[data-style="abat"] .cnx-champ > label {
+  position: static; order: -1; transform: none; transition: none;
+  font-size: 10px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+  color: #41536e; max-width: none;
+}
+.cnx[data-style="abat"] .cnx-champ .champ { height: 44px; padding: 0 12px 0 34px; border-radius: 4px; font-size: 14px; }
+.cnx[data-style="abat"] .cnx-champ .champ::placeholder { color: #9aa7ba; }
+.cnx[data-style="abat"] .cnx-champ .champ:focus { box-shadow: 0 0 0 3px rgba(29, 79, 154, .14); }
+.cnx[data-style="abat"] .cnx-champ .champ:focus + label,
+.cnx[data-style="abat"] .cnx-champ .champ:not(:placeholder-shown) + label {
+  position: static; transform: none; font-size: 10px; letter-spacing: .07em; color: #41536e;
+}
+.cnx[data-style="abat"] .cnx-mdp .champ { padding-right: 50px; }
+.cnx[data-style="abat"] .cnx-oeil { top: auto; bottom: 4px; right: 4px; height: 36px; width: 38px; }
+
+.cnx[data-style="abat"] .cnx-case span { border-radius: 3px; }
+.cnx[data-style="abat"] .cnx-bouton { height: 46px; padding-left: 16px; border-radius: 4px; font-size: 14px; }
+.cnx[data-style="abat"] .cnx-bouton .ico { width: 28px; height: 28px; padding: 6px; border-radius: 3px; }
+.cnx[data-style="abat"] .cnx-retour { height: 46px; border-radius: 4px; font-size: 13px; }
+.cnx[data-style="abat"] .code-otp input { height: 48px; border-radius: 4px; font-size: 20px; }
+.cnx[data-style="abat"] .fonction { padding: 11px 13px; border-radius: 4px; }
+.cnx[data-style="abat"] .fonction:has(input:checked) { box-shadow: inset 3px 0 0 #12305f; border-color: #12305f; background: #eef3fa; }
+.cnx[data-style="abat"] .fonction input { border-radius: 3px; }
+.cnx[data-style="abat"] .fonction input:checked { border-width: 4px; border-color: #12305f; }
+.cnx[data-style="abat"] .cnx-confiance { padding-block: 10px; }
+.cnx[data-style="abat"] .cnx-style button[aria-pressed="true"] { background: #12305f; }
+
+/* ---------- Sélecteur de style ---------- */
+.cnx-style { display: inline-flex; border: 1px solid #cfd8e5; border-radius: 4px; overflow: hidden; background: #fff; }
+.cnx-style button {
+  border: 0; background: none; padding: 4px 9px; cursor: pointer;
+  font: 700 10px var(--font-texte); letter-spacing: .06em; text-transform: uppercase; color: #5d6b82;
+}
+.cnx-style button + button { border-left: 1px solid #cfd8e5; }
+.cnx-style button:hover { background: #eef3fa; color: #1d4f9a; }
+.cnx-style button[aria-pressed="true"] { background: #1d4f9a; color: #fff; }
+

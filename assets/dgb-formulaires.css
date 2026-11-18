@@ -1,0 +1,178 @@
+/* Suite DSI · DGB — formulaires de la grammaire ABAT.
+   ---------------------------------------------------------------------------
+   À charger après dgb-suite.css et dgb-viz.css. Même socle que les composants
+   partagés, mais la disposition ABAT : libellé au-dessus du champ, obligatoire
+   marqué, aide et erreur sous le contrôle, sections numérotées, pied d'actions.
+   Aplats uniquement, rayons de 4 px, aucune ombre portée. */
+
+/* ---------- Carte de formulaire ---------- */
+.form-abat {
+  display: flex; flex-direction: column; min-width: 0; overflow: hidden;
+  border: 1px solid var(--p-200); border-radius: 6px; background: var(--surface);
+}
+.form-abat-tete {
+  display: flex; align-items: center; gap: 11px; padding: 12px 16px;
+  background: var(--m-950); color: #fff;
+}
+.form-abat-tete > .ico { width: 20px; height: 20px; flex: none; color: #fff; }
+.form-abat-tete h3 { font: 600 14.5px/1.25 var(--font-titre); color: #fff; letter-spacing: -.01em; }
+.form-abat-tete small { display: block; margin-top: 1px; font-size: 11px; color: rgba(255, 255, 255, .66); }
+.form-abat-ref {
+  margin-left: auto; flex: none; padding: 3px 8px; border: 1px solid rgba(255, 255, 255, .28);
+  border-radius: 3px; font-size: 9.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+}
+.form-abat-corps { flex: 1; padding: 16px; display: grid; gap: 18px; }
+.form-colonne { display: grid; gap: 16px; align-content: start; min-width: 0; }
+.form-abat-pied {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  padding: 11px 16px; border-top: 1px solid var(--p-200); background: var(--p-50);
+}
+.form-mention { font-size: 11px; color: var(--p-500); }
+.form-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto; }
+.form-actions .bouton-primaire, .form-actions .bouton-secondaire { padding: 7px 13px; font-size: 12.5px; border-radius: 4px; }
+
+/* ---------- Sections et grille ---------- */
+.form-section { min-width: 0; margin: 0; padding: 0; border: 0; display: grid; gap: 12px; }
+.form-section > legend {
+  width: 100%; padding: 0 0 7px; margin-bottom: 2px; border-bottom: 1px solid var(--p-200);
+  font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--p-500);
+}
+.form-grille { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.form-grille .pleine { grid-column: 1 / -1; }
+.form-grille-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+
+/* ---------- Champ ABAT ---------- */
+.form-champ { display: grid; gap: 4px; min-width: 0; align-content: start; }
+.form-champ > label {
+  font-size: 10.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--p-600);
+}
+.form-champ > label .req { color: var(--blocage-600); }
+.form-champ > label .facultatif { font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--p-500); }
+.form-champ .champ { height: 38px; border-radius: 4px; }
+.form-champ select.champ { padding-right: 30px; }
+.form-champ textarea.champ { height: auto; min-height: 74px; padding: 8px 10px; resize: vertical; }
+.form-champ .champ[readonly] { background: var(--p-50); color: var(--p-700); }
+.form-champ .champ:disabled { background: var(--p-100); color: var(--p-400); }
+.form-aide { font-size: 11px; line-height: 1.4; color: var(--p-500); }
+.form-erreur { display: flex; align-items: center; gap: 5px; font-size: 11px; line-height: 1.4; color: var(--blocage-700); }
+.form-erreur .ico { width: 12px; height: 12px; flex: none; }
+.form-ok { display: flex; align-items: center; gap: 5px; font-size: 11px; line-height: 1.4; color: var(--succes-700); }
+.form-ok .ico { width: 12px; height: 12px; flex: none; }
+.form-champ.erreur .champ { border-color: var(--blocage-600); }
+.form-champ.erreur .champ:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--blocage-600) 16%, transparent); }
+.form-champ.succes .champ { border-color: var(--succes-600); }
+.form-champ.succes .champ:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--succes-600) 16%, transparent); }
+
+/* Montant avec unité */
+.form-unite { position: relative; display: flex; align-items: center; }
+.form-unite .champ { padding-right: 54px; font-variant-numeric: tabular-nums; }
+.form-unite > span {
+  position: absolute; right: 10px; font-size: 10px; font-weight: 700; letter-spacing: .05em;
+  color: var(--p-500); pointer-events: none;
+}
+/* Recherche */
+.form-recherche { position: relative; }
+.form-recherche > .ico { position: absolute; left: 10px; bottom: 11px; width: 15px; height: 15px; color: var(--p-400); pointer-events: none; }
+.form-recherche .champ { padding-left: 32px; }
+/* Mot de passe */
+.form-mdp { position: relative; }
+.form-mdp .champ { padding-right: 40px; }
+.form-mdp button {
+  position: absolute; right: 3px; bottom: 3px; width: 32px; height: 32px; display: grid; place-items: center;
+  border: 0; border-radius: 3px; background: none; color: var(--p-500); cursor: pointer;
+}
+.form-mdp button:hover { background: var(--p-100); color: var(--p-800); }
+
+/* ---------- Choix et bascules ---------- */
+.form-choix-ligne { display: flex; flex-wrap: wrap; gap: 8px; }
+.form-choix-ligne .choix { flex: 1 1 160px; padding: 8px 11px; border-radius: 4px; font-size: 12.5px; font-weight: 500; }
+.form-choix-ligne .choix input { width: 15px; height: 15px; }
+.form-bascule {
+  display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px;
+  border: 1px solid var(--p-200); border-radius: 4px; background: var(--p-50); cursor: pointer;
+}
+.form-bascule input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.form-bascule .piste {
+  position: relative; width: 34px; height: 18px; flex: none; margin-top: 1px;
+  border-radius: 9px; background: var(--p-300); transition: background-color .15s;
+}
+.form-bascule .piste::after {
+  content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px;
+  border-radius: 50%; background: #fff; transition: transform .15s;
+}
+.form-bascule input:checked + .piste { background: var(--m-600); }
+.form-bascule input:checked + .piste::after { transform: translateX(16px); }
+.form-bascule input:focus-visible + .piste { outline: 2px solid var(--m-600); outline-offset: 2px; }
+.form-bascule b { display: block; font-size: 12.5px; font-weight: 600; color: var(--p-800); }
+.form-bascule small { display: block; margin-top: 1px; font-size: 11px; line-height: 1.4; color: var(--p-500); }
+
+/* ---------- Dépôt de pièce ---------- */
+.form-depot {
+  display: grid; place-items: center; gap: 3px; padding: 14px 12px; text-align: center;
+  border: 1px dashed var(--p-300); border-radius: 4px; background: var(--p-50);
+}
+.form-depot > .ico { width: 18px; height: 18px; color: var(--p-500); }
+.form-depot b { font-size: 12.5px; color: var(--p-800); }
+.form-depot small { font-size: 11px; color: var(--p-500); }
+.form-depot a { font-size: 11.5px; font-weight: 600; color: var(--m-700); }
+.form-pieces { display: grid; gap: 6px; }
+.form-piece {
+  display: flex; align-items: center; gap: 9px; padding: 6px 9px;
+  border: 1px solid var(--p-200); border-radius: 4px; background: var(--surface); font-size: 11.5px;
+}
+.form-piece > .ico { width: 15px; height: 15px; flex: none; color: var(--p-500); }
+.form-piece b { min-width: 0; font-weight: 600; color: var(--p-800); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.form-piece small { color: var(--p-500); white-space: nowrap; }
+.form-piece .puce { margin-left: auto; }
+
+/* ---------- Jeu d'états de champ ---------- */
+.form-etats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.form-etats .form-champ { align-content: start; }
+.form-etats .pleine { grid-column: 1 / -1; }
+
+/* =========================================================================
+   Carte de connexion ABAT (aperçu statique dans la charte)
+   ========================================================================= */
+.cnx-abat {
+  min-width: 0; overflow: hidden; background: var(--surface);
+  border: 1px solid var(--p-200); border-left: 3px solid var(--m-950); border-radius: 4px;
+}
+.cnx-abat-tete { display: flex; align-items: center; gap: 9px; padding: 11px 15px; background: var(--m-950); color: #fff; }
+.cnx-abat-tete > .ico { width: 18px; height: 18px; flex: none; }
+.cnx-abat-tete b { display: block; font: 600 13px/1.2 var(--font-titre); }
+.cnx-abat-tete small { display: block; margin-top: 1px; font-size: 10.5px; color: rgba(255, 255, 255, .66); }
+.cnx-abat-tete .ref {
+  margin-left: auto; flex: none; padding: 2px 7px; border: 1px solid rgba(255, 255, 255, .28);
+  border-radius: 3px; font-size: 9px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+}
+.cnx-abat-corps { padding: 14px 15px; display: grid; gap: 11px; }
+.cnx-abat-corps .form-champ .champ { height: 38px; font-size: 13px; }
+.cnx-abat-ligne { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 11.5px; color: var(--p-600); }
+.cnx-abat-ligne label { display: inline-flex; align-items: center; gap: 7px; }
+.cnx-abat-ligne input { width: 14px; height: 14px; accent-color: var(--m-600); }
+.cnx-abat-ligne a { color: var(--m-700); font-weight: 600; }
+.cnx-abat-bouton {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; height: 40px;
+  padding: 0 6px 0 14px; border: 0; border-radius: 4px; background: var(--m-600); color: #fff;
+  font: 600 13px var(--font-texte); cursor: pointer;
+}
+.cnx-abat-bouton:hover { background: var(--m-700); }
+.cnx-abat-bouton .ico { width: 26px; height: 26px; padding: 6px; border-radius: 3px; background: rgba(255, 255, 255, .16); box-sizing: border-box; }
+.cnx-abat-pied {
+  display: flex; align-items: center; gap: 6px; padding: 8px 15px;
+  border-top: 1px solid var(--p-200); background: var(--p-50); font-size: 10.5px; color: var(--p-500);
+}
+.cnx-abat-pied .ico { width: 12px; height: 12px; flex: none; color: var(--succes-600); }
+
+/* ---------- Petits écrans ---------- */
+@media (max-width: 760px) {
+  .form-grille, .form-grille-3, .form-etats { grid-template-columns: minmax(0, 1fr); }
+  .form-abat-pied { align-items: stretch; }
+  .form-actions { margin-left: 0; }
+  .form-actions > * { flex: 1; }
+}
+@media (max-width: 480px) {
+  .form-abat-tete { flex-wrap: wrap; }
+  .form-abat-ref { display: none; }
+  .form-choix-ligne .choix { flex-basis: 100%; }
+}

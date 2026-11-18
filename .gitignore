@@ -1,0 +1,15 @@
+# Système et éditeurs
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/
+
+# Laravel
+.env
+.env.*
+!/.env.example
+/vendor/
+/node_modules/
+/storage/*.key
+/storage/logs/*.log

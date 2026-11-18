@@ -1,0 +1,977 @@
+<!doctype html>
+<html lang="fr" data-app="dgb" data-nav="sidebar" data-mode="clair" data-densite="confortable" data-espace="standard" data-sidebar="groupes" data-police="institution" data-conteneur="fluide" data-personnalisable>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Charte Suite DSI · DGB</title>
+<meta name="description" content="Charte de la Suite DSI du SED : palettes de marque, typographies, marges de page, navigation latérale et composants partagés par les applications DGB.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2312305f'/%3E%3Cpath d='M9 9h5a7 7 0 0 1 0 14H9z' fill='none' stroke='%23fff' stroke-width='2.2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Barlow+Semi+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Public+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="assets/dgb-suite.css">
+<link rel="stylesheet" href="assets/dgb-viz.css">
+<link rel="stylesheet" href="assets/dgb-formulaires.css">
+<style>
+  /* Charte : colonne de 1180 px, bandes blanches et papier, aucun dégradé. */
+  body { background: var(--papier); }
+  .bande { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .col { max-width: 1180px; margin: 0 auto; }
+  .tete { background: #fff; border-bottom: 1px solid var(--p-200); padding-block: 26px 30px; }
+  .tete .col { display: grid; gap: 14px; }
+  .tete-haut { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .tete h1 { font-size: clamp(26px, 3.4vw, 34px); letter-spacing: -.02em; }
+  .tete p { max-width: 72ch; color: var(--p-700); }
+  .tete .liens { display: flex; gap: 8px; flex-wrap: wrap; }
+  .sommaire { display: flex; flex-wrap: wrap; gap: 6px; }
+  .sommaire a {
+    padding: 4px 9px; border: 1px solid var(--p-200); border-radius: 4px; background: #fff;
+    font-size: 11.5px; font-weight: 600; color: var(--p-700); text-decoration: none !important;
+  }
+  .sommaire a:hover { border-color: var(--m-400); background: var(--m-50); color: var(--m-700); }
+
+  /* Barre de réglages : la présentation elle-même est modulable. */
+  .barre-reglages { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 40; background: #fff; border-bottom: 1px solid var(--p-200); }
+  .barre-reglages .col { display: flex; align-items: center; gap: 18px; padding-block: 8px; overflow-x: auto; scrollbar-width: thin; }
+  .rg { display: flex; align-items: center; gap: 7px; flex: none; }
+  .rg > .etiquette { margin: 0; font-size: 10px; white-space: nowrap; }
+  .pastilles { display: flex; gap: 5px; }
+  .pastille-btn { width: 21px; height: 21px; padding: 0; border: 1px solid rgba(15, 23, 42, .16); border-radius: 50%; cursor: pointer; }
+  .pastille-btn[aria-pressed="true"] { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--encre); }
+  .seg { display: flex; border: 1px solid var(--p-200); border-radius: 6px; overflow: hidden; background: #fff; }
+  .seg button { border: 0; border-right: 1px solid var(--p-200); background: #fff; padding: 5px 9px; font: 500 11.5px var(--font-texte); color: var(--p-600); cursor: pointer; white-space: nowrap; }
+  .seg button:last-child { border-right: 0; }
+  .seg button:hover { background: var(--p-50); color: var(--encre); }
+  .seg button[aria-pressed="true"] { background: var(--m-600); color: #fff; }
+  .barre-reglages .bouton-secondaire { padding: 6px 11px; font-size: 12.5px; flex: none; }
+
+  section.bloc { padding-block: 38px 6px; scroll-margin-top: 70px; }
+  section.bloc > .col { display: grid; gap: 18px; }
+  .bloc-tete { display: grid; gap: 6px; max-width: 74ch; }
+  .bloc-tete h2 { font-size: 22px; }
+  .bloc-tete p { color: var(--p-700); font-size: 15px; }
+  .g2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+  .g3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .g2 > *, .g3 > * { min-width: 0; }
+  .liste { margin: 0; padding-left: 18px; display: grid; gap: 7px; font-size: 14px; color: var(--p-700); }
+  .liste b { color: var(--encre); }
+  .source { font-size: 12px; color: var(--p-500); }
+  code { font-family: ui-monospace, Consolas, monospace; font-size: .9em; background: var(--p-100); padding: 1px 5px; border-radius: 3px; }
+
+  /* Miniatures */
+  .mini { border: 1px solid var(--p-200); border-radius: var(--r); overflow: hidden; background: #fff; }
+  .mini-nav { display: flex; height: 132px; }
+  .mini-nav .lat { width: 34%; background: var(--m-950); padding: 8px; display: grid; align-content: start; gap: 5px; }
+  .mini-nav .lat i { display: block; height: 8px; border-radius: 2px; background: rgba(255,255,255,.2); }
+  .mini-nav .lat i.on { background: var(--m-600); }
+  .mini-nav .lat i.sous { height: 5px; margin-left: 9px; background: rgba(255,255,255,.12); }
+  .mini-nav .lat i.sous.on { background: var(--m-500); }
+  .mini-nav .corps { flex: 1; display: flex; flex-direction: column; }
+  .mini-nav .barre-claire { height: 22px; border-bottom: 1px solid var(--p-200); display: flex; align-items: center; padding: 0 8px; gap: 6px; }
+  .mini-nav .zone { flex: 1; background: var(--papier); padding: 8px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; align-content: start; }
+  .mini-nav .zone i { height: 20px; background: #fff; border: 1px solid var(--p-200); border-radius: 3px; }
+  .barre { display: block; height: 6px; border-radius: 2px; background: var(--p-200); }
+  .mini-top { display: flex; flex-direction: column; height: 132px; }
+  .mini-top .sombre-b { background: var(--m-950); height: 22px; display: flex; align-items: center; gap: 6px; padding: 0 8px; }
+  .mini-top .sombre-b i { display: block; width: 26px; height: 7px; border-radius: 2px; background: rgba(255,255,255,.25); }
+  .mini-top .sombre-b i.on { background: var(--m-600); }
+  .mini-top .sous { height: 18px; border-bottom: 1px solid var(--p-200); display: flex; gap: 10px; align-items: flex-end; padding: 0 8px; }
+  .mini-top .sous i { display: block; width: 30px; height: 2px; background: var(--p-200); }
+  .mini-top .sous i.on { background: var(--m-600); }
+  .mini-top .zone { flex: 1; background: var(--papier); padding: 8px 16px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; align-content: start; }
+  .mini-top .zone i { height: 20px; background: #fff; border: 1px solid var(--p-200); border-radius: 3px; }
+  .disp-carte { padding: 16px; display: grid; gap: 11px; align-content: start; }
+  .disp-carte h3 { display: flex; align-items: center; gap: 8px; font-size: 15.5px; font-family: var(--font-titre); font-weight: 700; color: var(--encre); }
+  .disp-carte h3 .ico { color: var(--m-600); }
+
+  /* Galerie des scènes de connexion */
+  .galerie { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .galerie figure { margin: 0; border: 1px solid var(--p-200); border-radius: var(--r-lg); overflow: hidden; background: #fff; }
+  .apercu-scene { height: 210px; padding: 6px 4px; background: #12305f; display: grid; place-items: center; overflow: hidden; }
+  .apercu-scene svg { width: 100%; height: 100%; max-height: none; display: block; }
+  .galerie figcaption { padding: 11px 14px 13px; display: grid; gap: 3px; }
+  .galerie figcaption b { font: 600 14px var(--font-titre); color: var(--encre); }
+  .galerie figcaption span { font-size: 12.5px; color: var(--p-600); line-height: 1.45; }
+
+  /* Cartes de palette */
+  .palettes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+  .palette-carte {
+    display: grid; gap: 0; padding: 0; border: 2px solid var(--p-200); border-radius: var(--r-lg); overflow: hidden;
+    background: #fff; text-align: left; cursor: pointer; font: inherit;
+  }
+  .palette-carte:hover { border-color: var(--p-400); }
+  .palette-carte[aria-pressed="true"] { border-color: var(--m-600); box-shadow: 0 0 0 1px var(--m-600); }
+  .palette-carte .teintes { display: flex; height: 44px; }
+  .palette-carte .teintes i { flex: 1; }
+  .palette-carte .nom { padding: 8px 11px 9px; display: grid; gap: 1px; }
+  .palette-carte .nom b { font-size: 13px; color: var(--encre); }
+  .palette-carte .nom small { font-size: 10.5px; color: var(--p-500); font-variant-numeric: tabular-nums; }
+
+  /* Mélanges de couleurs (propositions) */
+  .sous-bloc { display: grid; gap: 8px; margin-top: 4px; }
+  .sous-bloc h3 { font: 600 15px var(--font-titre); color: var(--encre); }
+  .sous-bloc .source { color: var(--p-600); }
+  /* Un lien au fil du texte reste repérable sans la couleur seule. */
+  .source a { text-decoration: underline; text-underline-offset: 2px; }
+  .melanges { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .melange { margin: 0; border: 1px solid var(--p-200); border-radius: var(--r-lg); overflow: hidden; background: #fff; }
+  .bande-melange { display: flex; height: 38px; }
+  .bande-melange i { flex: 1; }
+  .melange figcaption { padding: 9px 12px 11px; display: grid; gap: 2px; }
+  .melange figcaption b { font-size: 13px; color: var(--encre); }
+  .melange figcaption small { font-size: 11.5px; line-height: 1.4; color: var(--p-600); }
+
+  /* Miniatures de marges */
+  .marges { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .marge-carte { padding: 0; border: 2px solid var(--p-200); border-radius: var(--r-lg); overflow: hidden; background: #fff; cursor: pointer; text-align: left; font: inherit; }
+  .marge-carte:hover { border-color: var(--p-400); }
+  .marge-carte[aria-pressed="true"] { border-color: var(--m-600); box-shadow: 0 0 0 1px var(--m-600); }
+  .marge-carte .vue { background: var(--papier); padding: 10px; }
+  .marge-carte .vue .cadre { background: #fff; border: 1px solid var(--p-200); border-radius: 4px; overflow: hidden; }
+  .marge-carte .vue .bar { height: 12px; background: var(--m-950); }
+  .marge-carte .vue .pad { display: grid; gap: 5px; }
+  .marge-carte[data-valeur="serre"] .vue .pad { padding: 6px; }
+  .marge-carte[data-valeur="standard"] .vue .pad { padding: 11px; }
+  .marge-carte[data-valeur="ample"] .vue .pad { padding: 16px; }
+  .marge-carte .vue .pad i { display: block; height: 9px; border-radius: 2px; background: var(--p-100); border: 1px solid var(--p-200); }
+  .marge-carte .lib { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 8px 11px 10px; }
+  .marge-carte .lib b { font-size: 13px; color: var(--encre); }
+  .marge-carte .lib small { font-size: 10.5px; color: var(--p-500); }
+
+  /* Typographie */
+  .specimens { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+  .specimen { padding: 0; border: 2px solid var(--p-200); border-radius: var(--r-lg); background: #fff; overflow: hidden; text-align: left; cursor: pointer; font: inherit; display: grid; }
+  .specimen:hover { border-color: var(--p-400); }
+  .specimen[aria-pressed="true"] { border-color: var(--m-600); box-shadow: 0 0 0 1px var(--m-600); }
+  .specimen .aa { padding: 14px 14px 6px; font-size: 42px; line-height: 1; color: var(--encre); }
+  .specimen .info { padding: 0 14px 13px; display: grid; gap: 3px; }
+  .specimen .info b { font-size: 12.5px; color: var(--encre); }
+  .specimen .info small { font-size: 10.5px; color: var(--p-500); }
+  .specimen .ex { padding: 0 14px 13px; font-size: 13px; color: var(--p-700); }
+  .echelle { width: 100%; border-collapse: collapse; }
+  .echelle td { padding: 10px 16px; border-bottom: 1px solid var(--p-200); vertical-align: baseline; }
+  .echelle tr:last-child td { border-bottom: 0; }
+  .echelle td:first-child { width: 190px; font-size: 12px; color: var(--p-500); white-space: nowrap; }
+  .alt { padding: 14px 16px; display: grid; gap: 5px; }
+  .alt .ex { font-size: 19px; color: var(--encre); }
+  .alt p { font-size: 12.5px; color: var(--p-600); }
+
+  /* Couleurs sémantiques */
+  .nuancier { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 8px; }
+  .teinte { border: 1px solid var(--p-200); border-radius: var(--r); overflow: hidden; background: #fff; }
+  .teinte i { display: block; height: 46px; }
+  .teinte div { padding: 6px 9px 8px; font-size: 12px; line-height: 1.35; }
+  .teinte b { display: block; font-size: 12.5px; }
+  .teinte span { color: var(--p-500); font-variant-numeric: tabular-nums; }
+
+  .ligne-compo { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .pied-charte { margin-top: 44px; background: #fff; border-top: 1px solid var(--p-200); padding-block: 16px; font-size: 12px; color: var(--p-500); }
+  .pied-charte .col { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+  @media (max-width: 1000px) {
+    .palettes, .specimens { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .galerie, .marges { grid-template-columns: minmax(0, 1fr); }
+    .galerie { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  @media (max-width: 860px) {
+    .g2, .g3 { grid-template-columns: minmax(0, 1fr); }
+    .galerie { grid-template-columns: minmax(0, 1fr); }
+    .melanges { grid-template-columns: minmax(0, 1fr); }
+    .echelle td:first-child { width: auto; }
+    .barre-reglages .col { gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="tete bande">
+  <div class="col">
+    <div class="tete-haut">
+      <span class="logo-dgb encre"><span class="monogramme"><b>DGB</b><i></i></span><span class="nom"><b>Direction générale du Budget</b><small>DSI · Service des études et du développement</small></span></span>
+      <span class="puce puce-attente">Proposition · 18 novembre 2026</span>
+    </div>
+    <h1>Charte commune des applications du SED</h1>
+    <p>Une même page de connexion, les mêmes polices et deux dispositions de navigation pour toutes les applications du SED. Cette présentation est elle-même réglable : changez la couleur, la police, les marges ou la densité ci-dessous, toute la page suit immédiatement.</p>
+    <div class="liens">
+      <a class="bouton-primaire" href="connexion.html">Voir la page de connexion</a>
+      <a class="bouton-secondaire" href="application.html">Voir le gabarit d'application</a>
+    </div>
+    <nav class="sommaire" aria-label="Sommaire de la charte">
+      <a href="#connexion">Connexion</a>
+      <a href="#couleurs">Couleurs</a>
+      <a href="#polices">Polices</a>
+      <a href="#navigation">Navigation</a>
+      <a href="#marges">Marges</a>
+      <a href="#composants">Composants</a>
+      <a href="#formulaires">Formulaires ABAT</a>
+      <a href="#graphes">Graphes et calendrier</a>
+      <a href="#mise-en-oeuvre">Mise en œuvre</a>
+    </nav>
+  </div>
+</header>
+<div class="filet"><i></i><i></i><i></i></div>
+
+<!-- ============ BARRE DE RÉGLAGES ============ -->
+<div class="barre-reglages bande">
+  <div class="col" aria-label="Réglages de la présentation">
+    <div class="rg">
+      <span class="etiquette">Couleur</span>
+      <div class="pastilles">
+        <button class="pastille-btn" type="button" data-reglage="app" data-valeur="dgb" style="background:#155a9c" title="Bleu DGB" aria-label="Bleu DGB"></button>
+        <button class="pastille-btn" type="button" data-reglage="app" data-valeur="abat" style="background:#12805f" title="Sève" aria-label="Sève"></button>
+        <button class="pastille-btn" type="button" data-reglage="app" data-valeur="cobalt" style="background:#1d4ed8" title="Cobalt" aria-label="Cobalt"></button>
+        <button class="pastille-btn" type="button" data-reglage="app" data-valeur="sarcelle" style="background:#0d8075" title="Sarcelle" aria-label="Sarcelle"></button>
+        <button class="pastille-btn" type="button" data-reglage="app" data-valeur="indigo" style="background:#4338ca" title="Indigo" aria-label="Indigo"></button>
+        <button class="pastille-btn" type="button" data-reglage="app" data-valeur="prune" style="background:#832a70" title="Prune" aria-label="Prune"></button>
+        <button class="pastille-btn" type="button" data-reglage="app" data-valeur="olive" style="background:#5d6d26" title="Olive" aria-label="Olive"></button>
+        <button class="pastille-btn" type="button" data-reglage="app" data-valeur="ardoise" style="background:#3f4f69" title="Ardoise" aria-label="Ardoise"></button>
+        <button class="pastille-btn" type="button" data-reglage="app" data-valeur="nuit" style="background:#24407c" title="Nuit" aria-label="Nuit"></button>
+        <button class="pastille-btn" type="button" data-reglage="app" data-valeur="lagon" style="background:#0c6a86" title="Lagon" aria-label="Lagon"></button>
+        <button class="pastille-btn" type="button" data-reglage="app" data-valeur="fuchsia" style="background:#971c95" title="Fuchsia" aria-label="Fuchsia"></button>
+        <button class="pastille-btn" type="button" data-reglage="app" data-valeur="sable" style="background:#7a624e" title="Sable" aria-label="Sable"></button>
+      </div>
+    </div>
+    <div class="rg">
+      <span class="etiquette">Police</span>
+      <div class="seg">
+        <button type="button" data-reglage="police" data-valeur="institution">Institution</button>
+        <button type="button" data-reglage="police" data-valeur="editoriale">Éditoriale</button>
+        <button type="button" data-reglage="police" data-valeur="technique">Technique</button>
+        <button type="button" data-reglage="police" data-valeur="plex">OKANDAH</button>
+        <button type="button" data-reglage="police" data-valeur="condensee">Condensée</button>
+      </div>
+    </div>
+    <div class="rg">
+      <span class="etiquette">Marges</span>
+      <div class="seg">
+        <button type="button" data-reglage="espace" data-valeur="serre">Serrées</button>
+        <button type="button" data-reglage="espace" data-valeur="standard">Standard</button>
+        <button type="button" data-reglage="espace" data-valeur="ample">Amples</button>
+      </div>
+    </div>
+    <div class="rg">
+      <span class="etiquette">Densité</span>
+      <div class="seg">
+        <button type="button" data-reglage="densite" data-valeur="compacte">Compacte</button>
+        <button type="button" data-reglage="densite" data-valeur="confortable">Confortable</button>
+        <button type="button" data-reglage="densite" data-valeur="aeree">Aérée</button>
+      </div>
+    </div>
+    <div class="rg">
+      <span class="etiquette">Thème</span>
+      <div class="seg">
+        <button type="button" data-reglage="mode" data-valeur="clair">Clair</button>
+        <button type="button" data-reglage="mode" data-valeur="sombre">Sombre</button>
+        <button type="button" data-reglage="mode" data-valeur="systeme">Système</button>
+      </div>
+    </div>
+    <button class="bouton-secondaire" type="button" data-action="personnaliser"><svg class="ico ico-4"><use href="#i-palette"/></svg>Personnaliser</button>
+  </div>
+</div>
+
+<main id="contenu">
+
+<!-- ============ CONNEXION ============ -->
+<section class="bloc bande" id="connexion">
+  <div class="col">
+    <div class="bloc-tete">
+      <h2>Page de connexion</h2>
+      <p>Le volet bleu garde l'identité de la DGB, mais raconte désormais les métiers de la suite. Trois illustrations au choix, construites sur le même socle isométrique : courrier et identité, gestion de projet, gestion du parc. Le formulaire est modernisé dans l'esprit OKANDAH : grande carte arrondie, champs à libellé flottant, frise d'étapes et bouton à chevron.</p>
+    </div>
+    <div class="galerie">
+      <figure>
+        <div class="apercu-scene" data-apercu="courrier" aria-hidden="true"></div>
+        <figcaption><b>Courrier et identité</b><span>Enveloppes, cachet de la DGB, badge de l'agent et circuit de transmission. Pour OKANDAH et les applications à circuit de dossier.</span></figcaption>
+      </figure>
+      <figure>
+        <div class="apercu-scene" data-apercu="projet" aria-hidden="true"></div>
+        <figcaption><b>Gestion de projet</b><span>Planning, jalons au sol et colonnes de suivi. Pour ABAT et les applications de programmation et d'investissement.</span></figcaption>
+      </figure>
+      <figure>
+        <div class="apercu-scene" data-apercu="parc" aria-hidden="true"></div>
+        <figcaption><b>Gestion du parc</b><span>Le siège relié à ses équipements. La scène d'origine, conservée pour la gestion du parc.</span></figcaption>
+      </figure>
+    </div>
+    <div class="g2">
+      <div class="carte carte-corps" style="display:grid;gap:12px;align-content:start">
+        <h3>Ce qui change sur le formulaire</h3>
+        <ul class="liste">
+          <li><b>Frise d'étapes</b> : Identifiants → Vérification → Fonction, toujours visible en haut de carte, dans l'esprit d'un parcours de dossier.</li>
+          <li><b>Champs à libellé flottant</b> : l'icône reste à gauche, le libellé monte au focus ; plus de place perdue au-dessus des champs.</li>
+          <li><b>Cartes de fonction</b> : le choix de la fonction se lit comme un choix d'action de circuit, avec le code de rôle à droite.</li>
+          <li><b>Bandeau de confiance</b> : connexion chiffrée, code à usage unique, accès journalisé, rappelés une seule fois en bas de carte.</li>
+        </ul>
+      </div>
+      <div class="carte carte-corps" style="display:grid;gap:12px;align-content:start">
+        <h3>Règles conservées</h3>
+        <ul class="liste">
+          <li><b>Aplats uniquement</b> : bleu uni et trame isométrique légère, sans halo ni dégradé. L'or sert au surtitre, aux liaisons et au cachet.</li>
+          <li><b>Logo DGB</b> en tête du volet, cachet sur le courrier, filet tricolore sur le badge et dans la scène.</li>
+          <li><b>Étapes SIGFiP</b> : code à usage unique par e-mail, puis choix de la fonction.</li>
+          <li><b>Aucun compte générique</b> : les fonctions sont nominatives, l'accès est journalisé.</li>
+          <li><b>Une scène par application</b> : chaque application de la suite fournit son script de scène sur le même modèle.</li>
+        </ul>
+        <a class="bouton-secondaire" href="connexion.html" style="justify-self:start">Ouvrir la page de connexion</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COULEURS ============ -->
+<section class="bloc bande" id="couleurs">
+  <div class="col">
+    <div class="bloc-tete">
+      <h2>Couleurs</h2>
+      <p>Douze palettes de marque, toutes construites sur la même échelle : 950 pour les barres, 600 pour les actions, 300 pour les icônes, 50 pour les volets. Cliquez une palette pour l'appliquer à la présentation. Les quatre dernières poussent le mélange plus loin : à la marque, elles associent une échelle neutre teintée dans la même famille. Ambre et grenat restent strictement sémantiques (attente, blocage) et ne servent jamais d'accent.</p>
+    </div>
+    <div class="palettes">
+      <button class="palette-carte" type="button" data-reglage="app" data-valeur="dgb"><span class="teintes"><i style="background:#0d2339"></i><i style="background:#155a9c"></i><i style="background:#83bde7"></i><i style="background:#eef6fc"></i></span><span class="nom"><b>Bleu DGB</b><small>#155A9C · par défaut</small></span></button>
+      <button class="palette-carte" type="button" data-reglage="app" data-valeur="abat"><span class="teintes"><i style="background:#052620"></i><i style="background:#12805f"></i><i style="background:#74c0a4"></i><i style="background:#eef7f3"></i></span><span class="nom"><b>Sève</b><small>#12805F · ABAT</small></span></button>
+      <button class="palette-carte" type="button" data-reglage="app" data-valeur="cobalt"><span class="teintes"><i style="background:#0c1c3f"></i><i style="background:#1d4ed8"></i><i style="background:#93b4f7"></i><i style="background:#eff4ff"></i></span><span class="nom"><b>Cobalt</b><small>#1D4ED8 · institutionnel vif</small></span></button>
+      <button class="palette-carte" type="button" data-reglage="app" data-valeur="sarcelle"><span class="teintes"><i style="background:#042f2e"></i><i style="background:#0d8075"></i><i style="background:#5eead4"></i><i style="background:#f0fdfa"></i></span><span class="nom"><b>Sarcelle</b><small>#0D8075 · OKANDAH</small></span></button>
+      <button class="palette-carte" type="button" data-reglage="app" data-valeur="indigo"><span class="teintes"><i style="background:#1e1b4b"></i><i style="background:#4338ca"></i><i style="background:#a5b4fc"></i><i style="background:#eef2ff"></i></span><span class="nom"><b>Indigo</b><small>#4338CA · administration</small></span></button>
+      <button class="palette-carte" type="button" data-reglage="app" data-valeur="prune"><span class="teintes"><i style="background:#2e1029"></i><i style="background:#832a70"></i><i style="background:#d8a2cb"></i><i style="background:#fcf1f8"></i></span><span class="nom"><b>Prune</b><small>#832A70 · registre civil</small></span></button>
+      <button class="palette-carte" type="button" data-reglage="app" data-valeur="olive"><span class="teintes"><i style="background:#23280f"></i><i style="background:#5d6d26"></i><i style="background:#b9c77a"></i><i style="background:#f5f7ea"></i></span><span class="nom"><b>Olive</b><small>#5D6D26 · patrimoine</small></span></button>
+      <button class="palette-carte" type="button" data-reglage="app" data-valeur="ardoise"><span class="teintes"><i style="background:#0f172a"></i><i style="background:#3f4f69"></i><i style="background:#94a3b8"></i><i style="background:#f1f5f9"></i></span><span class="nom"><b>Ardoise</b><small>#3F4F69 · neutre outil</small></span></button>
+      <button class="palette-carte" type="button" data-reglage="app" data-valeur="nuit"><span class="teintes"><i style="background:#080e1c"></i><i style="background:#24407c"></i><i style="background:#94b1de"></i><i style="background:#eff4fc"></i></span><span class="nom"><b>Nuit</b><small>#24407C · finances, profondeur</small></span></button>
+      <button class="palette-carte" type="button" data-reglage="app" data-valeur="lagon"><span class="teintes"><i style="background:#04222e"></i><i style="background:#0c6a86"></i><i style="background:#63cfe4"></i><i style="background:#edfafc"></i></span><span class="nom"><b>Lagon</b><small>#0C6A86 · supervision, parc</small></span></button>
+      <button class="palette-carte" type="button" data-reglage="app" data-valeur="fuchsia"><span class="teintes"><i style="background:#350934"></i><i style="background:#971c95"></i><i style="background:#e39ede"></i><i style="background:#fdf2fc"></i></span><span class="nom"><b>Fuchsia</b><small>#971C95 · signalétique, recensement</small></span></button>
+      <button class="palette-carte" type="button" data-reglage="app" data-valeur="sable"><span class="teintes"><i style="background:#2b2118"></i><i style="background:#7a624e"></i><i style="background:#c9b6a2"></i><i style="background:#faf6f1"></i></span><span class="nom"><b>Sable</b><small>#7A624E · archives, patrimoine bâti</small></span></button>
+    </div>
+
+    <div class="sous-bloc">
+      <h3>Mélanges proposés</h3>
+      <p class="source">Quatre accords de couleurs pour les pages qui doivent tenir longtemps à l'écran. Ce sont des propositions : elles ne s'appliquent pas d'un clic, mais se testent en changeant la palette de marque ci-dessus.</p>
+      <div class="melanges">
+        <figure class="melange">
+          <span class="bande-melange" aria-hidden="true"><i style="background:#0d2339"></i><i style="background:#155a9c"></i><i style="background:#83bde7"></i><i style="background:#dccfc0"></i><i style="background:#7a624e"></i><i style="background:#faf6f1"></i></span>
+          <figcaption><b>Bleu DGB + Sable</b><small>Marque froide, neutres chauds. Tableaux de montants et lecture longue.</small></figcaption>
+        </figure>
+        <figure class="melange">
+          <span class="bande-melange" aria-hidden="true"><i style="background:#052620"></i><i style="background:#12805f"></i><i style="background:#74c0a4"></i><i style="background:#c6cedb"></i><i style="background:#3f4f69"></i><i style="background:#f1f4f8"></i></span>
+          <figcaption><b>Sève + Ardoise</b><small>Marque verte, structure grise. Programmation et suivi de projets.</small></figcaption>
+        </figure>
+        <figure class="melange">
+          <span class="bande-melange" aria-hidden="true"><i style="background:#2e1029"></i><i style="background:#832a70"></i><i style="background:#d8a2cb"></i><i style="background:#63cfe4"></i><i style="background:#0c6a86"></i><i style="background:#edfafc"></i></span>
+          <figcaption><b>Prune + Lagon</b><small>Deux teintes pour les graphiques. Registres civils et recensements.</small></figcaption>
+        </figure>
+        <figure class="melange">
+          <span class="bande-melange" aria-hidden="true"><i style="background:#080e1c"></i><i style="background:#24407c"></i><i style="background:#94b1de"></i><i style="background:#a6e3ef"></i><i style="background:#0c6a86"></i><i style="background:#edfafc"></i></span>
+          <figcaption><b>Nuit + Lagon</b><small>Profondeur froide, repères cyan. Supervision et pilotage budgétaire.</small></figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="g2">
+      <div>
+        <span class="etiquette">Palette de la marque appliquée</span>
+        <div class="nuancier">
+          <div class="teinte"><i style="background:var(--m-950)"></i><div><b>950</b><span>barres, entêtes</span></div></div>
+          <div class="teinte"><i style="background:var(--m-800)"></i><div><b>800</b><span>texte sur teinte</span></div></div>
+          <div class="teinte"><i style="background:var(--m-600)"></i><div><b>600</b><span>actions, actif</span></div></div>
+          <div class="teinte"><i style="background:var(--m-300)"></i><div><b>300</b><span>icônes, filets</span></div></div>
+          <div class="teinte"><i style="background:var(--m-100)"></i><div><b>100</b><span>fonds teintés</span></div></div>
+          <div class="teinte"><i style="background:var(--m-50)"></i><div><b>50</b><span>volets, survols</span></div></div>
+        </div>
+      </div>
+      <div>
+        <span class="etiquette">Statuts de dossier (inchangés)</span>
+        <div class="carte carte-corps" style="display:grid;gap:10px">
+          <div class="ligne-compo"><span class="puce puce-neutre">Saisie en cours</span><span class="puce puce-info">À contrôler</span><span class="puce puce-attente">À valider</span><span class="puce puce-succes">Validé</span><span class="puce puce-blocage">Rejeté</span></div>
+          <p class="source">Les couleurs d'état ne changent jamais avec la palette : un agent garde ses repères d'une application à l'autre.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ POLICES ============ -->
+<section class="bloc bande" id="polices">
+  <div class="col">
+    <div class="bloc-tete">
+      <h2>Polices</h2>
+      <p>Cinq propositions, applicables d'un clic. Le couple Archivo + Public Sans reste la référence ; les autres répondent à des registres différents — courrier officiel, produit numérique, continuité OKANDAH, tableaux très denses.</p>
+    </div>
+    <div class="specimens">
+      <button class="specimen" type="button" data-reglage="police" data-valeur="institution">
+        <span class="aa" style="font-family:'Archivo',sans-serif;font-weight:700">Aa</span>
+        <span class="info"><b>Institution</b><small>Archivo + Public Sans</small></span>
+        <span class="ex" style="font-family:'Archivo',sans-serif;font-weight:600">Dossiers à traiter</span>
+      </button>
+      <button class="specimen" type="button" data-reglage="police" data-valeur="editoriale">
+        <span class="aa" style="font-family:'Newsreader',serif;font-weight:600">Aa</span>
+        <span class="info"><b>Éditoriale</b><small>Newsreader + Public Sans</small></span>
+        <span class="ex" style="font-family:'Newsreader',serif;font-size:16px">Dossiers à traiter</span>
+      </button>
+      <button class="specimen" type="button" data-reglage="police" data-valeur="technique">
+        <span class="aa" style="font-family:'Sora',sans-serif;font-weight:600">Aa</span>
+        <span class="info"><b>Technique</b><small>Sora + Public Sans</small></span>
+        <span class="ex" style="font-family:'Sora',sans-serif;font-size:14px;font-weight:600">Dossiers à traiter</span>
+      </button>
+      <button class="specimen" type="button" data-reglage="police" data-valeur="plex">
+        <span class="aa" style="font-family:'IBM Plex Sans',sans-serif;font-weight:600">Aa</span>
+        <span class="info"><b>OKANDAH</b><small>IBM Plex Sans · une famille</small></span>
+        <span class="ex" style="font-family:'IBM Plex Sans',sans-serif;font-weight:600">Dossiers à traiter</span>
+      </button>
+      <button class="specimen" type="button" data-reglage="police" data-valeur="condensee">
+        <span class="aa" style="font-family:'Barlow Semi Condensed',sans-serif;font-weight:600">Aa</span>
+        <span class="info"><b>Condensée</b><small>Barlow Semi Condensed</small></span>
+        <span class="ex" style="font-family:'Barlow Semi Condensed',sans-serif;font-size:16px;font-weight:600">Dossiers à traiter</span>
+      </button>
+    </div>
+    <div class="g2">
+      <div class="carte" style="overflow-x:auto">
+        <div class="carte-entete"><h3>Échelle appliquée</h3><span class="source">Corps de base : 15 px</span></div>
+        <table class="echelle">
+          <tr><td>Titre de page · 24 px</td><td style="font:700 24px/1.2 var(--font-titre);letter-spacing:var(--titre-interlettre)">Dossiers en attente</td></tr>
+          <tr><td>Barre d'application · 18 px</td><td style="font:600 18px var(--font-titre)">Tableau de bord</td></tr>
+          <tr><td>Chiffre clé · 30 px</td><td style="font:700 30px var(--font-titre);font-variant-numeric:tabular-nums">1 284</td></tr>
+          <tr><td>Titre de carte · 15 px</td><td style="font-weight:600">Dossiers nécessitant une action</td></tr>
+          <tr><td>Cellule · 14 px</td><td style="font-size:14px">AFF-2026-0412 · Service de la solde</td></tr>
+          <tr><td>Étiquette · 11 px</td><td><span class="etiquette" style="margin:0">Étiquette · en-tête de colonne</span></td></tr>
+        </table>
+      </div>
+      <div>
+        <span class="etiquette">Quand choisir laquelle</span>
+        <div style="display:grid;gap:10px">
+          <div class="carte alt"><span class="ex" style="font-family:'Archivo',sans-serif;font-weight:700">Archivo + Public Sans</span><p>Par défaut : dossier administratif, lisibilité des montants, gros tableaux.</p></div>
+          <div class="carte alt"><span class="ex" style="font-family:'Newsreader',serif;font-weight:600">Newsreader + Public Sans</span><p>Pour OKANDAH et le courrier : registre officiel, titres plus humains, sans sacrifier la densité.</p></div>
+          <div class="carte alt"><span class="ex" style="font-family:'Sora',sans-serif;font-weight:600">Sora + Public Sans</span><p>Pour une application neuve, plus « produit », sans quitter Public Sans en texte.</p></div>
+          <div class="carte alt"><span class="ex" style="font-family:'Barlow Semi Condensed',sans-serif;font-weight:600">Barlow Semi Condensed</span><p>Réservée aux très grands tableaux de montants : plus de colonnes, même largeur.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NAVIGATION ============ -->
+<section class="bloc bande" id="navigation">
+  <div class="col">
+    <div class="bloc-tete">
+      <h2>Navigation : deux dispositions, des sous-menus</h2>
+      <p>Chaque application choisit sa disposition par défaut. En Sidebar, les rubriques se plient et peuvent porter des sous-niveaux : le parc montre ainsi Inventaire, Affectations et Maintenance sans allonger la barre. Le réglage « Menu latéral » permet de revenir à un menu plat.</p>
+    </div>
+    <div class="g3">
+      <div class="carte disp-carte">
+        <div class="mini mini-nav" aria-hidden="true">
+          <div class="lat"><i style="background:#fff;width:40%"></i><i class="on"></i><i></i><i class="sous on"></i><i class="sous"></i><i></i><i></i></div>
+          <div class="corps"><div class="barre-claire"><span class="barre" style="width:40%;background:var(--p-300)"></span></div><div class="zone"><i></i><i></i><i></i></div></div>
+        </div>
+        <h3><svg class="ico"><use href="#i-barreLaterale"/></svg>Sidebar · OKANDAH</h3>
+        <ul class="liste">
+          <li><b>Barre latérale sombre</b> : logotype en tête, rubriques pliables, lien actif en aplat de marque.</li>
+          <li><b>Sous-niveaux</b> alignés et discrets : ils n'apparaissent que dans la rubrique ouverte.</li>
+          <li><b>Barre d'application claire</b> : titre, actions, applications, notifications, utilisateur.</li>
+        </ul>
+        <span class="source">Application : parc, courrier, administration</span>
+      </div>
+      <div class="carte disp-carte">
+        <div class="mini mini-top" aria-hidden="true">
+          <div class="sombre-b"><i style="width:14px;background:#fff"></i><i class="on"></i><i></i><i></i><i></i></div>
+          <div class="sous"><i class="on"></i><i></i><i></i></div>
+          <div class="zone"><i></i><i></i><i></i></div>
+        </div>
+        <h3><svg class="ico"><use href="#i-barreHaut"/></svg>Top Nav · ABAT</h3>
+        <ul class="liste">
+          <li><b>Entête sombre</b> surmonté du filet tricolore : logotype, modules, contrôles.</li>
+          <li><b>Sous-menu par module</b> : Pilotage, Parc, Configuration et Administration ouvrent un panneau de liens groupés, au clic comme au clavier (flèche bas, Échap, clic extérieur).</li>
+          <li><b>Sous-navigation blanche</b> pour la profondeur du module ouvert.</li>
+          <li>Pour les <b>larges tableaux de montants</b>, qui ont besoin de toute la largeur.</li>
+        </ul>
+        <span class="source">Application : ABAT, programmation · <a href="application.html?nav=topnav">voir les sous-menus en vrai</a></span>
+      </div>
+      <div class="carte disp-carte" style="justify-items:start">
+        <div style="width:100%;display:grid;gap:8px">
+          <span class="etiquette" style="margin:0">Rubrique ouverte</span>
+          <div style="border:1px solid var(--p-200);border-radius:6px;padding:8px;display:grid;gap:3px;background:var(--m-950)">
+            <span style="display:flex;align-items:center;gap:6px;padding:4px 8px;color:#fff;font:600 10px var(--font-texte);letter-spacing:.05em;text-transform:uppercase">Parc <svg class="ico" style="width:11px;height:11px;margin-left:auto"><use href="#i-chevronBas"/></svg></span>
+            <span style="padding:5px 8px;border-radius:4px;background:rgba(255,255,255,.1);color:#fff;font-size:11px">Inventaire</span>
+            <span style="padding:4px 8px 4px 22px;color:#a9b6ca;font-size:10.5px">Ordinateurs portables</span>
+            <span style="padding:4px 8px 4px 22px;color:#a9b6ca;font-size:10.5px">Écrans et périphériques</span>
+            <span style="padding:5px 8px;color:#c3cbdb;font-size:11px">Affectations</span>
+            <span style="padding:5px 8px;color:#c3cbdb;font-size:11px">Maintenance</span>
+          </div>
+        </div>
+        <p style="font-size:12.5px;color:var(--p-600);margin-top:10px">Les rubriques se plient, l'actif reste souligné par sa pastille. Le choix « Menu latéral : Plat » masque les sous-niveaux et rouvre toutes les rubriques.</p>
+        <div class="seg" style="margin-top:auto">
+          <button type="button" data-reglage="sidebar" data-valeur="groupes">Sous-menus</button>
+          <button type="button" data-reglage="sidebar" data-valeur="plat">Plat</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARGES ============ -->
+<section class="bloc bande" id="marges">
+  <div class="col">
+    <div class="bloc-tete">
+      <h2>Marges et densité</h2>
+      <p>Le gabarit sépare deux réglages : les <b>marges de page</b> (le blanc autour du contenu) et la <b>densité</b> (la hauteur des lignes, le rembourrage des cartes et l'écart entre blocs). La version serrée est celle du gabarit d'application : 18 px de marge, barre latérale à 264 px, contenu jusqu'à 1 720 px.</p>
+    </div>
+    <div class="marges">
+      <button class="marge-carte" type="button" data-reglage="espace" data-valeur="serre">
+        <span class="vue"><span class="cadre"><span class="bar"></span><span class="pad"><i></i><i></i><i></i><i></i></span></span></span>
+        <span class="lib"><b>Serrées</b><small>18 px · mobilier maximal</small></span>
+      </button>
+      <button class="marge-carte" type="button" data-reglage="espace" data-valeur="standard">
+        <span class="vue"><span class="cadre"><span class="bar"></span><span class="pad"><i></i><i></i><i></i><i></i></span></span></span>
+        <span class="lib"><b>Standard</b><small>32 px · lecture confortable</small></span>
+      </button>
+      <button class="marge-carte" type="button" data-reglage="espace" data-valeur="ample">
+        <span class="vue"><span class="cadre"><span class="bar"></span><span class="pad"><i></i><i></i><i></i><i></i></span></span></span>
+        <span class="lib"><b>Amples</b><small>48 px · pages éditoriales</small></span>
+      </button>
+    </div>
+    <div class="g2">
+      <div class="carte carte-corps" style="display:grid;gap:10px;align-content:start">
+        <h3>Ce que fait le réglage</h3>
+        <ul class="liste">
+          <li><b>Marges</b> : rembourrage du contenu, des barres et du pied ; largeur maximale du contenu ; largeur de la barre latérale.</li>
+          <li><b>Densité</b> : hauteur des lignes de tableau, rembourrage des cartes, écart entre les blocs.</li>
+          <li><b>Conteneur</b> : fluide (pleine largeur) ou encadré (1 200 px centrés).</li>
+        </ul>
+      </div>
+      <div class="carte carte-corps" style="display:grid;gap:10px;align-content:start">
+        <h3>Pourquoi deux réglages</h3>
+        <p style="font-size:14px;color:var(--p-700)">Un contrôleur qui vise des montants veut des marges serrées mais des lignes lisibles ; un agent qui rédige du courrier veut de l'air. Séparer les deux évite de choisir entre « compact » et « confortable » pour tout.</p>
+        <a class="bouton-secondaire" href="application.html" style="justify-self:start">Voir le gabarit en marges serrées</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPOSANTS ============ -->
+<section class="bloc bande" id="composants">
+  <div class="col">
+    <div class="bloc-tete">
+      <h2>Composants</h2>
+      <p>Les classes d'ABAT, reprises à l'identique : <code>champ</code>, <code>etiquette</code>, <code>bouton-primaire</code>, <code>carte</code>, <code>puce</code>, <code>tableau</code>. La carte est un cadre : bordure, angles de 6 px, jamais d'ombre.</p>
+    </div>
+    <div class="g2">
+      <div class="carte carte-corps" style="display:grid;gap:16px;align-content:start">
+        <div class="ligne-compo"><button class="bouton-primaire" type="button">Confirmer</button><button class="bouton-secondaire" type="button">Annuler</button><button class="bouton-danger" type="button">Rejeter</button></div>
+        <div><label class="etiquette" for="demo-objet">Objet de la dépense</label><input class="champ" id="demo-objet" value="Carburant · véhicules divers"></div>
+        <div class="choix-actions"><label class="choix"><input type="radio" name="demo" checked>Prévalidation et transmission</label><label class="choix rejet"><input type="radio" name="demo">Rejet du dossier</label></div>
+      </div>
+      <div style="display:grid;gap:16px;align-content:start">
+        <div class="statistiques" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+          <div class="statistique"><span class="etiquette">À contrôler</span><div class="valeur ton-attente">3</div><div class="detail">délai moyen 2,4 jours</div></div>
+          <div class="statistique"><span class="etiquette">Rejetés</span><div class="valeur ton-blocage">1</div><div class="detail">pièce manquante</div></div>
+        </div>
+        <div class="carte tableau-zone">
+          <table class="tableau">
+            <thead><tr><th>Référence</th><th>Objet</th><th>Statut</th><th class="droite">Montant</th></tr></thead>
+            <tbody>
+              <tr><td class="reference">26002547</td><td>Carburant</td><td><span class="puce puce-attente">À valider</span></td><td class="droite">55</td></tr>
+              <tr><td class="reference">26001867</td><td>Frais de déplacement</td><td><span class="puce puce-info">À contrôler</span></td><td class="droite">1 455 000</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FORMULAIRES ABAT ============ -->
+<section class="bloc bande" id="formulaires">
+  <div class="col">
+    <div class="bloc-tete">
+      <h2>Formulaires · style ABAT</h2>
+      <p>La grammaire ABAT de la saisie : libellé au-dessus du champ, obligatoire marqué, aide et erreur juste sous le contrôle, sections numérotées, pied d'actions. Les mêmes classes servent la saisie, la recherche, la connexion et les filtres de liste.</p>
+    </div>
+
+    <div class="g2">
+      <!-- Formulaire administratif complet -->
+      <div class="form-abat">
+        <div class="form-abat-tete">
+          <svg class="ico"><use href="#i-document"/></svg>
+          <div><h3>Nouvelle demande d'achat</h3><small>DAF · fournitures informatiques</small></div>
+          <span class="form-abat-ref">Brouillon</span>
+        </div>
+        <form class="form-abat-corps" id="form-abat-demo" novalidate>
+          <fieldset class="form-section">
+            <legend>1 · Identification</legend>
+            <div class="form-grille">
+              <div class="form-champ pleine">
+                <label for="fa-objet">Objet de la demande <span class="req" aria-hidden="true">*</span></label>
+                <input class="champ" id="fa-objet" value="Renouvellement de 25 postes de travail" required>
+                <span class="form-aide">Une phrase claire, reprise telle quelle dans le circuit de validation.</span>
+              </div>
+              <div class="form-champ">
+                <label for="fa-service">Service demandeur <span class="req" aria-hidden="true">*</span></label>
+                <select class="champ" id="fa-service" required>
+                  <option>Direction administrative et financière</option>
+                  <option>Direction du budget</option>
+                  <option>Service des études et du développement</option>
+                  <option>Service de la solde</option>
+                </select>
+              </div>
+              <div class="form-champ">
+                <label for="fa-date">Date souhaitée</label>
+                <input class="champ" id="fa-date" type="date" value="2026-12-15">
+              </div>
+              <div class="form-champ">
+                <label for="fa-montant">Montant estimé</label>
+                <div class="form-unite">
+                  <input class="champ" id="fa-montant" type="number" value="18500000" min="0" step="1000">
+                  <span>FCFA</span>
+                </div>
+              </div>
+              <div class="form-champ erreur">
+                <label for="fa-code">Code budgétaire <span class="req" aria-hidden="true">*</span></label>
+                <input class="champ" id="fa-code" value="61.03" aria-invalid="true" aria-describedby="fa-code-err">
+                <span class="form-erreur" id="fa-code-err"><svg class="ico"><use href="#i-alerte"/></svg>Trois niveaux attendus, par exemple 61.03.12.</span>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-section">
+            <legend>2 · Détail et pièces</legend>
+            <div class="form-grille">
+              <div class="form-champ pleine">
+                <label for="fa-description">Description <span class="facultatif">(facultatif)</span></label>
+                <textarea class="champ" id="fa-description" rows="3">Acquisition de 25 postes fixes, clavier et écran inclus, pour équiper les services de la DAF.</textarea>
+              </div>
+              <div class="form-champ succes">
+                <label for="fa-ref">Référence du marché</label>
+                <input class="champ" id="fa-ref" value="M-2026-014" aria-describedby="fa-ref-ok">
+                <span class="form-ok" id="fa-ref-ok"><svg class="ico"><use href="#i-coche"/></svg>Référence reconnue dans le registre des marchés.</span>
+              </div>
+              <div class="form-champ">
+                <label for="fa-lot">Lot / tranche</label>
+                <input class="champ" id="fa-lot" value="Lot 2 — postes fixes" readonly>
+                <span class="form-aide">Lecture seule : hérité du marché.</span>
+              </div>
+            </div>
+            <div class="form-depot">
+              <svg class="ico"><use href="#i-telecharger"/></svg>
+              <b>Déposer la fiche de demande</b>
+              <small>PDF ou ODT · 5 Mo maximum</small>
+              <a href="#">Parcourir les fichiers</a>
+            </div>
+            <div class="form-pieces">
+              <div class="form-piece"><svg class="ico"><use href="#i-document"/></svg><b>fiche-demande.pdf</b><small>248 Ko</small><span class="puce puce-succes">Reçue</span></div>
+              <div class="form-piece"><svg class="ico"><use href="#i-document"/></svg><b>devis-fournisseur.pdf</b><small>1,2 Mo</small><span class="puce puce-attente">À vérifier</span></div>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-section">
+            <legend>3 · Circuit et notification</legend>
+            <div class="form-choix-ligne" role="radiogroup" aria-label="Circuit de validation">
+              <label class="choix"><input type="radio" name="fa-circuit" checked>Validation simple</label>
+              <label class="choix"><input type="radio" name="fa-circuit">Double validation</label>
+            </div>
+            <label class="form-bascule">
+              <input type="checkbox" checked>
+              <span class="piste" aria-hidden="true"></span>
+              <span><b>Notifier les acteurs à chaque étape</b><small>Un courriel part au valideur dès qu'une action est attendue.</small></span>
+            </label>
+            <div class="form-grille">
+              <div class="form-champ">
+                <label for="fa-demande">Demandeur</label>
+                <input class="champ" id="fa-demande" value="Marie Ndong · DAF" readonly>
+              </div>
+              <div class="form-champ">
+                <label for="fa-centre">Centre de coût</label>
+                <input class="champ" id="fa-centre" value="Non affecté" disabled>
+                <span class="form-aide">Renseigné par la direction financière.</span>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+        <div class="form-abat-pied">
+          <span class="form-mention">Les champs marqués <b>*</b> sont obligatoires.</span>
+          <div class="form-actions">
+            <button class="bouton-secondaire" type="button">Annuler</button>
+            <button class="bouton-secondaire" type="button">Enregistrer le brouillon</button>
+            <button class="bouton-primaire" type="button">Soumettre</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Colonne de droite -->
+      <div class="form-colonne">
+        <!-- Carte de connexion ABAT -->
+        <div class="cnx-abat" aria-label="Aperçu de la carte de connexion ABAT">
+          <div class="cnx-abat-tete">
+            <svg class="ico"><use href="#i-bouclier"/></svg>
+            <span><b>Accès agent</b><small>Gestion du parc · DGB</small></span>
+            <span class="ref">SIGFiP</span>
+          </div>
+          <div class="cnx-abat-corps">
+            <div class="form-champ">
+              <label for="apercu-email">Adresse e-mail professionnelle</label>
+              <input class="champ" id="apercu-email" type="email" placeholder="prenom.nom@dgb.ga">
+            </div>
+            <div class="form-champ">
+              <label for="apercu-mdp">Mot de passe</label>
+              <input class="champ" id="apercu-mdp" type="password" placeholder="Votre mot de passe">
+            </div>
+            <div class="cnx-abat-ligne">
+              <label><input type="checkbox">Rester connecté</label>
+              <a href="#">Mot de passe oublié ?</a>
+            </div>
+            <button class="cnx-abat-bouton" type="button"><span>Se connecter</span><svg class="ico"><use href="#i-fleche"/></svg></button>
+            <a class="bouton-secondaire bouton-bloc" href="connexion.html?style=abat" style="font-size:12px;padding:6px 10px">Voir la variante complète</a>
+          </div>
+          <div class="cnx-abat-pied"><svg class="ico"><use href="#i-cadenas"/></svg>Connexion chiffrée · code à usage unique · accès journalisé</div>
+        </div>
+
+        <!-- Barre de filtres -->
+        <div>
+          <span class="etiquette">Barre de filtres de liste</span>
+          <div class="barre-filtres" style="margin-top:6px">
+            <div class="filtre filtre-recherche">
+              <label for="filtre-q">Rechercher</label>
+              <svg class="ico"><use href="#i-filtre"/></svg>
+              <input id="filtre-q" type="search" placeholder="Référence, objet, service…">
+            </div>
+            <div class="filtre">
+              <label for="filtre-statut">Statut</label>
+              <select id="filtre-statut"><option>Tous les statuts</option><option>Brouillon</option><option>À valider</option><option>Validé</option></select>
+            </div>
+            <div class="filtre">
+              <label for="filtre-service">Service</label>
+              <select id="filtre-service"><option>Tous les services</option><option>DAF</option><option>Direction du budget</option><option>SED</option></select>
+            </div>
+            <div class="filtre">
+              <label for="filtre-periode">Période</label>
+              <input id="filtre-periode" type="month" value="2026-11">
+            </div>
+            <div class="filtre-actions">
+              <button class="bouton-secondaire" type="button">Réinitialiser</button>
+              <button class="bouton-primaire" type="button">Filtrer</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Règles de la grammaire -->
+        <div class="carte">
+          <div class="carte-entete"><h3>Règles de la grammaire ABAT</h3><span class="puce puce-neutre">6 règles</span></div>
+          <div class="carte-corps">
+            <ul class="liste">
+              <li><b>Libellé au-dessus</b> du contrôle, en majuscules discrètes, jamais en valeur de remplacement.</li>
+              <li><b>Obligatoire marqué</b> d'un astérisque couleur blocage, expliqué en pied de formulaire.</li>
+              <li><b>Aide sous le champ</b> pour le format attendu, <b>erreur au même endroit</b> dès la sortie du champ.</li>
+              <li><b>Sections numérotées</b> dès que le formulaire dépasse six champs.</li>
+              <li><b>Actions en pied</b> : annuler, brouillon, puis action principale à droite.</li>
+              <li><b>Rayons de 4 px</b>, aplats uniquement : la couleur reste un signal, pas un décor.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tous les états de champ -->
+    <div class="carte">
+      <div class="carte-entete">
+        <div><h3>États et variantes de champ</h3><p class="source">Texte, liste, date, montant, mot de passe, recherche, zone de texte, lecture seule, désactivé, erreur, validé, bascule, cases à cocher.</p></div>
+        <span class="puce puce-neutre">13 variantes</span>
+      </div>
+      <div class="carte-corps">
+        <div class="form-etats">
+          <div class="form-champ">
+            <label for="etat-texte">Texte simple</label>
+            <input class="champ" id="etat-texte" value="AFF-2026-0412">
+          </div>
+          <div class="form-champ">
+            <label for="etat-select">Liste déroulante</label>
+            <select class="champ" id="etat-select"><option>En service</option><option>En stock</option><option>En maintenance</option></select>
+          </div>
+          <div class="form-champ">
+            <label for="etat-date">Date</label>
+            <input class="champ" id="etat-date" type="date" value="2026-11-18">
+          </div>
+          <div class="form-champ">
+            <label for="etat-montant">Montant avec unité</label>
+            <div class="form-unite"><input class="champ" id="etat-montant" type="number" value="1455000"><span>FCFA</span></div>
+          </div>
+          <div class="form-champ">
+            <label for="etat-mdp">Mot de passe</label>
+            <div class="form-mdp">
+              <input class="champ" id="etat-mdp" type="password" value="secret2026">
+              <button type="button" data-voir="etat-mdp" aria-label="Afficher le mot de passe"><svg class="ico ico-4"><use href="#i-oeil"/></svg></button>
+            </div>
+          </div>
+          <div class="form-champ">
+            <label for="etat-recherche">Recherche</label>
+            <div class="form-recherche">
+              <svg class="ico"><use href="#i-filtre"/></svg>
+              <input class="champ" id="etat-recherche" type="search" placeholder="Référence ou objet…">
+            </div>
+          </div>
+          <div class="form-champ pleine">
+            <label for="etat-texte-long">Zone de texte</label>
+            <textarea class="champ" id="etat-texte-long" rows="2" placeholder="Commentaire visible par les acteurs suivants du circuit"></textarea>
+          </div>
+          <div class="form-champ">
+            <label for="etat-lecture">Lecture seule</label>
+            <input class="champ" id="etat-lecture" value="Direction du budget" readonly>
+          </div>
+          <div class="form-champ">
+            <label for="etat-desactive">Désactivé</label>
+            <input class="champ" id="etat-desactive" value="Hors périmètre" disabled>
+          </div>
+          <div class="form-champ erreur">
+            <label for="etat-erreur">En erreur</label>
+            <input class="champ" id="etat-erreur" value="M-26" aria-invalid="true" aria-describedby="etat-erreur-msg">
+            <span class="form-erreur" id="etat-erreur-msg"><svg class="ico"><use href="#i-alerte"/></svg>Format attendu : M-2026-000.</span>
+          </div>
+          <div class="form-champ succes">
+            <label for="etat-ok">Validé</label>
+            <input class="champ" id="etat-ok" value="agent@dgb.ga" aria-describedby="etat-ok-msg">
+            <span class="form-ok" id="etat-ok-msg"><svg class="ico"><use href="#i-coche"/></svg>Adresse vérifiée.</span>
+          </div>
+          <div class="form-champ">
+            <label>Bascule</label>
+            <label class="form-bascule">
+              <input type="checkbox" checked>
+              <span class="piste" aria-hidden="true"></span>
+              <span><b>Notifier par courriel</b><small>À chaque changement d'étape.</small></span>
+            </label>
+          </div>
+          <div class="form-champ pleine">
+            <label>Cases à cocher</label>
+            <div class="form-choix-ligne">
+              <label class="choix"><input type="checkbox" checked>Prévalidation</label>
+              <label class="choix"><input type="checkbox">Signature</label>
+              <label class="choix"><input type="checkbox" checked>Contrôle financier</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GRAPHES ET CALENDRIER ============ -->
+<section class="bloc bande" id="graphes">
+  <div class="col">
+    <div class="bloc-tete">
+      <h2>Graphes et calendrier</h2>
+      <p>Tous les styles de graphe usuels — barres, ligne et aire, anneau, jauge, barres empilées ou groupées, radar, nuage de points, entonnoir, progression, sparklines, carte de chaleur — et un calendrier complet. Les séries passent par les jetons de la palette : changez la couleur de marque ou le thème, tout se recolore sans retoucher le SVG. Aplats uniquement, aucune ombre.</p>
+    </div>
+    <div class="viz-grille">
+
+      <div class="viz-carte">
+        <div class="viz-tete"><div><h3>Arrivées d'équipements</h3><p>Unités reçues par mois · 2026</p></div><span class="viz-tag">Barres</span></div>
+        <div class="viz-corps"><div data-graphe="barres" data-jeu="arrivees" data-titre="Arrivées d'équipements par mois"></div></div>
+      </div>
+
+      <div class="viz-carte">
+        <div class="viz-tete"><div><h3>État du parc</h3><p>Répartition des 1 284 équipements</p></div><span class="viz-tag">Anneau</span></div>
+        <div class="viz-corps"><div data-graphe="donut" data-jeu="etats" data-titre="Répartition du parc par état"></div></div>
+      </div>
+
+      <div class="viz-carte">
+        <div class="viz-tete"><div><h3>Disponibilité</h3><p>Objectif de service · novembre</p></div><span class="viz-tag">Jauge</span></div>
+        <div class="viz-corps"><div data-graphe="jauge" data-valeur="94" data-titre="Disponibilité des services"></div></div>
+      </div>
+
+      <div class="viz-carte viz-large">
+        <div class="viz-tete"><div><h3>Dossiers reçus et traités</h3><p>Volume mensuel · juin à novembre</p></div><span class="viz-tag">Ligne et aire</span></div>
+        <div class="viz-corps"><div data-graphe="ligne" data-jeu="dossiers" data-titre="Dossiers reçus et traités par mois"></div></div>
+      </div>
+
+      <div class="viz-carte">
+        <div class="viz-tete"><div><h3>Équipements par service</h3><p>Parc affecté · novembre 2026</p></div><span class="viz-tag">Barres horizontales</span></div>
+        <div class="viz-corps"><div data-graphe="barres-h" data-jeu="services" data-titre="Équipements par service"></div></div>
+      </div>
+
+      <div class="viz-carte viz-large">
+        <div class="viz-tete"><div><h3>Maintenance par nature</h3><p>Interventions mensuelles · 2026</p></div><span class="viz-tag">Barres empilées</span></div>
+        <div class="viz-corps"><div data-graphe="empilees" data-jeu="maintenance" data-titre="Maintenance préventive, curative et hors garantie"></div></div>
+      </div>
+
+      <div class="viz-carte">
+        <div class="viz-tete"><div><h3>Délais par étape</h3><p>Jours ouvrés moyens · 2025 / 2026</p></div><span class="viz-tag">Barres groupées</span></div>
+        <div class="viz-corps"><div data-graphe="groupees" data-jeu="delais" data-titre="Délais moyens par étape de circuit"></div></div>
+      </div>
+
+      <div class="viz-carte">
+        <div class="viz-tete"><div><h3>Qualité de service</h3><p>Six axes · comparaison annuelle</p></div><span class="viz-tag">Radar</span></div>
+        <div class="viz-corps"><div data-graphe="radar" data-jeu="radar" data-titre="Qualité de service sur six axes"></div></div>
+      </div>
+
+      <div class="viz-carte viz-large">
+        <div class="viz-tete"><div><h3>Âge et coût de maintenance</h3><p>Chaque point est un équipement</p></div><span class="viz-tag">Nuage de points</span></div>
+        <div class="viz-corps"><div data-graphe="nuage" data-jeu="dispersion" data-titre="Âge des équipements et coût de maintenance"></div></div>
+      </div>
+
+      <div class="viz-carte">
+        <div class="viz-tete"><div><h3>Circuit des demandes</h3><p>Entrées et sorties d'étape · novembre</p></div><span class="viz-tag">Entonnoir</span></div>
+        <div class="viz-corps"><div data-graphe="entonnoir" data-jeu="entonnoir" data-titre="Entonnoir du circuit de validation"></div></div>
+      </div>
+
+      <div class="viz-carte">
+        <div class="viz-tete"><div><h3>Objectifs annuels</h3><p>Avancement des chantiers du parc</p></div><span class="viz-tag">Progression</span></div>
+        <div class="viz-corps"><div data-graphe="progression" data-jeu="objectifs" data-titre="Avancement des objectifs annuels"></div></div>
+      </div>
+
+      <div class="viz-carte">
+        <div class="viz-tete"><div><h3>Tendances</h3><p>Sept derniers jours</p></div><span class="viz-tag">Sparklines</span></div>
+        <div class="viz-corps viz-pile">
+          <div data-graphe="sparkline" data-jeu="spark1" data-titre="Dossiers traités"></div>
+          <div data-graphe="sparkline" data-jeu="spark2" data-titre="Affectations"></div>
+          <div data-graphe="sparkline" data-jeu="spark3" data-titre="Tickets clos"></div>
+        </div>
+      </div>
+
+      <div class="viz-carte viz-tout">
+        <div class="viz-tete"><div><h3>Mouvements du parc</h3><p>Jours de la semaine × mois · intensité des mouvements</p></div><span class="viz-tag">Carte de chaleur</span></div>
+        <div class="viz-corps"><div data-graphe="chaleur" data-jeu="chaleur" data-titre="Mouvements du parc par jour et par mois"></div></div>
+      </div>
+
+    </div>
+
+    <div class="viz-carte" style="margin-top:16px">
+      <div class="viz-tete"><div><h3>Calendrier des échéances</h3><p>Navigation par mois, sélection du jour, agenda et prochaines échéances.</p></div><span class="viz-tag">Calendrier</span></div>
+      <div data-calendrier data-mois="2026-11" data-aujourdhui="2026-11-18"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MISE EN ŒUVRE ============ -->
+<section class="bloc bande" id="mise-en-oeuvre">
+  <div class="col">
+    <div class="bloc-tete">
+      <h2>Mise en œuvre</h2>
+      <p>Une feuille de style, un script et un fichier de configuration par application. Les nouveaux réglages sont des attributs de <code>&lt;html&gt;</code> : <code>data-app</code>, <code>data-police</code>, <code>data-espace</code>, <code>data-sidebar</code>, <code>data-densite</code>, <code>data-nav</code>, <code>data-mode</code>.</p>
+    </div>
+    <div class="g3">
+      <div class="carte carte-corps" style="display:grid;gap:8px;align-content:start"><h3>Laravel / Blade</h3><p style="font-size:14px;color:var(--p-700)">Gabarit <code>layouts/suite</code>, page <code>auth/connexion</code>, menu dans <code>config/suite.php</code> avec ses permissions et ses sous-niveaux. Les réglages sont posés sur <code>&lt;html&gt;</code>.</p></div>
+      <div class="carte carte-corps" style="display:grid;gap:8px;align-content:start"><h3>OKANDAH</h3><p style="font-size:14px;color:var(--p-700)">Garde sa structure ; passe à Public Sans + Archivo (ou reste en IBM Plex), au filet tricolore et à la page de connexion sans dégradé. La scène « Courrier et identité » est faite pour lui.</p></div>
+      <div class="carte carte-corps" style="display:grid;gap:8px;align-content:start"><h3>ABAT</h3><p style="font-size:14px;color:var(--p-700)">Déjà conforme. Ajoute le sélecteur d'applications, la bascule Sidebar / Top Nav et la scène « Gestion de projet » sur sa page de connexion.</p></div>
+    </div>
+    <div class="carte carte-corps" style="display:grid;gap:8px">
+      <h3>Fichiers livrés</h3>
+      <ul class="liste">
+        <li><code>assets/dgb-suite.css</code> : palettes, polices, marges, sidebar pliable, composants.</li>
+        <li><code>assets/dgb-suite.js</code> : panneau Personnaliser, menus, sections pliables, icônes.</li>
+        <li><code>assets/dgb-connexion.css</code> : volet, formulaire modernisé, scènes.</li>
+        <li><code>assets/dgb-scene-parc.js</code>, <code>dgb-scene-suite.js</code> : une scène par métier.</li>
+        <li><code>laravel/config/suite.php</code> : valeurs par défaut et menu.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="pied-charte bande"><div class="col"><span>DGB · DSI · Service des études et du développement</span><span>Proposition de charte · version de travail</span></div></footer>
+
+<script src="assets/dgb-suite.js"></script>
+<script src="assets/dgb-scene-parc.js"></script>
+<script src="assets/dgb-scene-suite.js"></script>
+<script src="assets/dgb-viz.js"></script>
+<script>
+(function () {
+  /* Les trois scènes de connexion sont rendues en aperçu dans la galerie. */
+  document.querySelectorAll('[data-apercu]').forEach(function (el) {
+    var nom = el.getAttribute('data-apercu');
+    if (window.DGB_SCENES && DGB_SCENES[nom]) DGB_SCENES[nom](el);
+  });
+})();
+</script>
+</body>
+</html>
