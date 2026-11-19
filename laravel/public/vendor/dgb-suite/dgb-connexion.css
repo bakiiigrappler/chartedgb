@@ -191,8 +191,26 @@
   @keyframes scene-flotte { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
   @keyframes scene-trait { to { stroke-dashoffset: -24; } }
   @keyframes scene-entree { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-  .scene-carte { animation: scene-flotte 7s ease-in-out infinite; }
-  .scene-carte.c2 { animation-delay: -2.3s; } .scene-carte.c3 { animation-delay: -4.6s; }
+  /* Les fiches entrent l'une après l'autre, puis flottent */
+  @keyframes scene-pop { from { opacity: 0; transform: translateY(14px) scale(.94); } to { opacity: 1; transform: none; } }
+  .scene-carte { animation: scene-pop .55s cubic-bezier(.2, .9, .3, 1.2) both, scene-flotte 7s ease-in-out .55s infinite; }
+  .scene-carte.c2 { animation-delay: .18s, -1.6s; } .scene-carte.c3 { animation-delay: .36s, -3.9s; }
+  /* Mouvements propres à chaque métier */
+  @keyframes scene-fleau { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+  @keyframes scene-charge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
+  @keyframes scene-balaye { from { transform: translateY(-9px); opacity: .5; } to { transform: translateY(9px); opacity: 1; } }
+  @keyframes scene-loupe { 0%, 100% { transform: translate(0, 0); } 25% { transform: translate(14px, -6px); } 50% { transform: translate(22px, 8px); } 75% { transform: translate(6px, 12px); } }
+  @keyframes scene-led { 0%, 60% { opacity: 1; } 61%, 100% { opacity: .25; } }
+  @keyframes scene-drapeau { 0%, 100% { transform: skewY(0) scaleX(1); } 50% { transform: skewY(-8deg) scaleX(.9); } }
+  @keyframes scene-anneau { from { stroke-dasharray: 0 999; } }
+  .scene-fleau { animation: scene-fleau 4.8s ease-in-out infinite; }
+  .scene-charge { animation: scene-charge 4.2s ease-in-out infinite; }
+  .scene-balayage { animation: scene-balaye 1.6s ease-in-out infinite alternate; }
+  .scene-loupe { animation: scene-loupe 7s ease-in-out infinite; }
+  .scene-led { animation: scene-led 1.4s linear infinite; }
+  .scene-drapeau { transform-box: fill-box; transform-origin: left center; animation: scene-drapeau 2.2s ease-in-out infinite; }
+  .scene-drapeau:nth-of-type(2n) { animation-delay: -.8s; }
+  .scene-anneau { animation: scene-anneau 1.4s cubic-bezier(.22, 1, .36, 1) .3s both; }
   .scene-lien { animation: scene-trait 1.6s linear infinite; }
   .cnx-carte, .cnx-accroche { animation: scene-entree .45s ease-out both; }
 }
@@ -227,65 +245,181 @@
   .cnx-titres h2 { font-size: 22px; }
 }
 
-/* =========================================================================
-   Variante ABAT
-   -------------------------------------------------------------------------
-   Même structure, autre grammaire : angles francs, libellé posé au-dessus du
-   champ, bandeau sombre, contrôles plus compacts. Rien n'est dégradé : on
-   change les aplats, les rayons et l'ordre visuel, pas la présentation.
-   ========================================================================= */
-.cnx[data-style="abat"] .cnx-carte {
-  border-radius: 4px; border-top: 1px solid #12305f; border-left: 3px solid #12305f;
+/* ---------- Retours de saisie (les deux styles) ---------- */
+.cnx-pas { display: grid; gap: 22px; }
+.cnx-volet { grid-template-columns: minmax(0, 1fr); }
+.cnx-volet > *, .cnx-illustration > * { min-width: 0; }
+.cnx-scenes-ligne { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.cnx-scenes { flex: 0 1 auto; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+.cnx-scenes::-webkit-scrollbar { display: none; }
+.cnx-defile {
+  flex: none; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, .16); background: rgba(9, 27, 54, .45); color: #cfe0f6;
 }
-.cnx[data-style="abat"] .cnx-carte-haut {
-  padding: 15px 22px; background: #12305f; border-bottom: 0;
-}
-.cnx[data-style="abat"] .cnx-ecusson { width: 38px; height: 38px; border-radius: 4px; background: rgba(255, 255, 255, .13); color: #fff; }
-.cnx[data-style="abat"] .cnx-ecusson .ico { width: 20px; height: 20px; }
-.cnx[data-style="abat"] .cnx-carte-haut .identite b { color: #fff; font-size: 14px; }
-.cnx[data-style="abat"] .cnx-carte-haut .identite small { color: #a9bfdd; font-size: 11.5px; }
-.cnx[data-style="abat"] .cnx-secu { border-radius: 3px; background: rgba(255, 255, 255, .12); color: #dbe6f6; }
+.cnx-defile .ico { width: 15px; height: 15px; stroke-width: 2; fill: none; }
+.cnx-defile[aria-pressed="false"] .ico { fill: currentColor; stroke: none; }
+.cnx-defile:hover { background: rgba(255, 255, 255, .12); color: #fff; }
+.cnx-scene svg { animation: scene-apparait .45s ease-out both; }
+@keyframes scene-apparait { from { opacity: 0; transform: translateY(8px) scale(.985); } to { opacity: 1; transform: none; } }
 
-.cnx[data-style="abat"] .cnx-frise { padding: 10px 22px; background: #fbfcfe; gap: 4px; }
+.cnx-etat {
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%) scale(.6); opacity: 0;
+  width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: #e3f3eb; color: #0e684d;
+  transition: opacity .18s, transform .18s; pointer-events: none;
+}
+.cnx-etat .ico { width: 13px; height: 13px; stroke-width: 2.4; }
+.cnx-champ.valide .cnx-etat { opacity: 1; transform: translateY(-50%) scale(1); }
+.cnx-champ.valide .champ { padding-right: 44px; }
+.cnx-champ.invalide .champ { border-color: #a32638; }
+.cnx-champ.invalide .champ:focus { box-shadow: 0 0 0 4px rgba(163, 38, 56, .12); }
+.cnx-indice { display: block; margin-top: -10px; font-size: 12.5px; color: #5d6b82; }
+.cnx-indice .ico { vertical-align: -3px; margin-right: 5px; }
+.cnx-indice b { color: #0f2445; }
+.cnx-indice .ico { color: #0e684d; }
+.cnx-indice.erreur { color: #8b1f2f; }
+.cnx-indice.erreur b { color: #8b1f2f; }
+.cnx-maj { display: flex; align-items: center; gap: 6px; margin-top: -10px; font-size: 12.5px; color: #845222; }
+.cnx-maj .ico { color: #a26722; }
+
+.cnx-bouton { position: relative; }
+.cnx-bouton:disabled { cursor: progress; }
+.cnx-roue { display: none; width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, .35); border-top-color: #fff; animation: roue .7s linear infinite; }
+.cnx-bouton.charge .ico { display: none; }
+.cnx-bouton.charge .cnx-roue { display: block; margin-right: 8px; }
+@keyframes roue { to { transform: rotate(360deg); } }
+
+.code-otp input { transition: border-color .15s, background-color .15s, transform .15s; }
+.code-otp input.faux { border-color: #a32638; background: #fdf3f4; }
+.code-otp input.bon { border-color: #12805f; background: #eef7f3; color: #0e684d; transform: translateY(-2px); }
+#minuteur.expire { color: #a32638; }
+
+.secoue { animation: secoue .38s ease-in-out; }
+@keyframes secoue { 20%, 60% { transform: translateX(-7px); } 40%, 80% { transform: translateX(7px); } }
+
+/* Accès de démonstration, comme dans ABAT et OKANDAH (environnements de démonstration uniquement) */
+.cnx-demo { display: grid; gap: 10px; padding-top: 18px; border-top: 1px dashed #d7e0ec; }
+.cnx-demo-tete { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.cnx-demo-tete span { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #5d6b82; }
+.cnx-demo-tete small { font-size: 11px; color: #8a97ab; }
+.cnx-demo-liste { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.cnx-demo-liste button {
+  display: grid; gap: 1px; text-align: left; padding: 8px 10px; border: 1px solid #d7e0ec; border-radius: 4px; background: #fff; cursor: pointer;
+  transition: border-color .15s, background-color .15s;
+}
+.cnx-demo-liste button:hover { border-color: #a9b8cf; background: #f7f9fc; }
+.cnx-demo-liste button.choisi { border-color: #1d4f9a; background: #eef3fa; }
+.cnx-demo-liste b { font-size: 12px; color: #0f2445; }
+.cnx-demo-liste small { font-size: 11px; color: #8a97ab; }
+
+/* Succès */
+.cnx-succes { justify-items: center; text-align: center; gap: 10px; padding: 18px 0 6px; }
+.cnx-succes svg { width: 72px; height: 72px; color: #12805f; }
+.cnx-succes .anneau { stroke-dasharray: 151; stroke-dashoffset: 151; animation: trace-cnx .5s ease-out forwards; }
+.cnx-succes .coche { stroke-dasharray: 64; stroke-dashoffset: 64; animation: trace-cnx .35s .4s ease-out forwards; }
+@keyframes trace-cnx { to { stroke-dashoffset: 0; } }
+.cnx-succes h2 { font: 700 22px var(--font-titre); color: #0f2445; }
+.cnx-succes p { font-size: 14px; color: #5d6b82; }
+.cnx-progres { width: 100%; max-width: 280px; height: 4px; border-radius: 2px; background: #e7eef9; overflow: hidden; margin-top: 8px; }
+.cnx-progres i { display: block; height: 100%; background: #1d4f9a; transform-origin: left; animation: progres-cnx 2s ease-in-out forwards; }
+@keyframes progres-cnx { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .cnx-scene svg, .secoue, .cnx-roue { animation: none; }
+  .cnx-succes .anneau, .cnx-succes .coche { animation: none; stroke-dashoffset: 0; }
+  .cnx-progres i { animation: none; }
+}
+@media (max-width: 560px) { .cnx-demo-liste { grid-template-columns: minmax(0, 1fr); } }
+
+/* =========================================================================
+   Composition ABAT
+   -------------------------------------------------------------------------
+   La page d'ABAT : fond papier, une seule carte centrée de deux colonnes.
+   À gauche un volet clair teinté de la marque (accroche, scène dans un cadre
+   bleu, légende) ; à droite le formulaire nu, logo en tête, libellés en
+   petites capitales au-dessus des champs, angles francs de 4 px.
+   ========================================================================= */
+body[data-style-cnx="abat"] { background: #eef1f4; }
+body[data-style-cnx="abat"]::before { content: ""; position: fixed; inset: 0 0 auto; height: 4px; z-index: 5; background: linear-gradient(90deg, #12805f 0 33.33%, #f7941e 33.33% 66.66%, #1c75bc 66.66%); }
+.cnx[data-style="abat"] {
+  height: auto; min-height: 100vh; max-width: 1140px; margin: 0 auto; padding: 56px 20px 84px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-content: center;
+}
+.cnx[data-style="abat"] .cnx-volet {
+  background: #eef4fb; background-image: none; color: #33415a;
+  border: 1px solid #dbe3ee; border-right: 0; border-radius: 6px 0 0 6px;
+  padding: 36px 36px 26px; gap: 20px;
+}
+.cnx[data-style="abat"] .cnx-volet::after { display: none; }
+.cnx[data-style="abat"] .cnx-volet .logo-dgb { color: #12305f; }
+.cnx[data-style="abat"] .cnx-volet .logo-dgb .nom small { color: #5d6b82; }
+.cnx[data-style="abat"] .cnx-volet .logo-dgb .monogramme b { font-size: 30px; }
+.cnx[data-style="abat"] .cnx-puce-suite { border-color: #cbd8ea; background: #fff; color: #33415a; }
+.cnx[data-style="abat"] .cnx-accroche .surtitre { color: #1d4f9a; }
+.cnx[data-style="abat"] .cnx-accroche h1 { color: #0f2445; font-size: clamp(24px, 2.4vw, 32px); }
+.cnx[data-style="abat"] .cnx-accroche p { color: #4a5870; font-size: 14px; }
+.cnx[data-style="abat"] .cnx-illustration { background: #12305f; border-radius: 6px; padding: 12px 12px 10px; }
+.cnx[data-style="abat"] .cnx-scene svg { max-height: 300px; }
+.cnx[data-style="abat"] .cnx-volet-pied { color: #5d6b82; border-top: 1px solid #cbd8ea; padding-top: 14px; }
+.cnx[data-style="abat"] .cnx-volet-pied .ico { color: #12805f; }
+
+.cnx[data-style="abat"] .cnx-cote {
+  background: #fff; background-image: none; border: 1px solid #dbe3ee; border-radius: 0 6px 6px 0;
+  padding: 34px 40px 26px; place-items: stretch; align-content: center; overflow: visible;
+}
+.cnx[data-style="abat"] .cnx-carte { max-width: none; border: 0; border-radius: 0; background: none; animation: none; }
+.cnx[data-style="abat"] .cnx-carte-haut { padding: 0 0 18px; background: none; border-bottom: 1px solid #eef2f7; }
+.cnx[data-style="abat"] .cnx-ecusson { width: 40px; height: 40px; border-radius: 4px; background: #12305f; color: #fff; }
+.cnx[data-style="abat"] .cnx-ecusson .ico { width: 20px; height: 20px; }
+.cnx[data-style="abat"] .cnx-carte-haut .identite b { font-size: 17px; }
+.cnx[data-style="abat"] .cnx-secu { border-radius: 3px; }
+.cnx[data-style="abat"] .cnx-frise { padding: 12px 0; gap: 4px; border-bottom: 0; }
 .cnx[data-style="abat"] .cnx-frise li { font-size: 11px; }
 .cnx[data-style="abat"] .cnx-frise li span { width: 20px; height: 20px; border-radius: 3px; }
 .cnx[data-style="abat"] .cnx-frise li.actif span { background: #12305f; border-color: #12305f; }
-
-.cnx[data-style="abat"] .cnx-carte-corps { padding: 20px 22px 22px; gap: 18px; }
+.cnx[data-style="abat"] .cnx-carte-corps { padding: 6px 0 4px; gap: 18px; }
+.cnx[data-style="abat"] .cnx-pas { gap: 18px; }
 .cnx[data-style="abat"] .cnx-titres { gap: 4px; }
-.cnx[data-style="abat"] .cnx-titres h2 { font-size: 21px; letter-spacing: -.01em; }
-.cnx[data-style="abat"] .cnx-titres p { font-size: 13px; }
+.cnx[data-style="abat"] .cnx-titres h2 { font-size: 24px; letter-spacing: -.015em; }
+.cnx[data-style="abat"] .cnx-titres p { font-size: 13.5px; }
 .cnx[data-style="abat"] .cnx-etape { gap: 14px; }
-
-/* Libellé au-dessus du champ */
-.cnx[data-style="abat"] .cnx-champ { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px; }
-.cnx[data-style="abat"] .cnx-champ > .ico { left: 11px; top: auto; bottom: 15px; transform: none; width: 15px; height: 15px; color: #6d7f97; }
+.cnx[data-style="abat"] .cnx-champ { display: grid; grid-template-columns: minmax(0, 1fr); gap: 5px; }
+.cnx[data-style="abat"] .cnx-champ > .ico { left: 11px; top: auto; bottom: 14px; transform: none; width: 16px; height: 16px; color: #6d7f97; }
 .cnx[data-style="abat"] .cnx-champ > label {
-  position: static; order: -1; transform: none; transition: none;
-  font-size: 10px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
-  color: #41536e; max-width: none;
+  position: static; order: -1; transform: none; transition: none; max-width: none;
+  font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #475569;
 }
-.cnx[data-style="abat"] .cnx-champ .champ { height: 44px; padding: 0 12px 0 34px; border-radius: 4px; font-size: 14px; }
+.cnx[data-style="abat"] .cnx-champ .champ { height: 44px; padding: 0 12px 0 36px; border-radius: 4px; font-size: 14px; border-color: #cbd5e1; }
 .cnx[data-style="abat"] .cnx-champ .champ::placeholder { color: #9aa7ba; }
-.cnx[data-style="abat"] .cnx-champ .champ:focus { box-shadow: 0 0 0 3px rgba(29, 79, 154, .14); }
+.cnx[data-style="abat"] .cnx-champ .champ:focus { border-color: #12305f; box-shadow: 0 0 0 2px rgba(18, 48, 95, .18); }
 .cnx[data-style="abat"] .cnx-champ .champ:focus + label,
-.cnx[data-style="abat"] .cnx-champ .champ:not(:placeholder-shown) + label {
-  position: static; transform: none; font-size: 10px; letter-spacing: .07em; color: #41536e;
-}
+.cnx[data-style="abat"] .cnx-champ .champ:not(:placeholder-shown) + label { position: static; transform: none; font-size: 11px; letter-spacing: .08em; color: #475569; }
+.cnx[data-style="abat"] .cnx-etat { top: auto; bottom: 11px; transform: scale(.6); }
+.cnx[data-style="abat"] .cnx-champ.valide .cnx-etat { transform: none; }
 .cnx[data-style="abat"] .cnx-mdp .champ { padding-right: 50px; }
-.cnx[data-style="abat"] .cnx-oeil { top: auto; bottom: 4px; right: 4px; height: 36px; width: 38px; }
-
+.cnx[data-style="abat"] .cnx-oeil { top: auto; bottom: 4px; right: 4px; height: 36px; width: 38px; background: none; color: #6d7f97; }
+.cnx[data-style="abat"] .cnx-oeil:hover { color: #12305f; background: #f1f5f9; }
+.cnx[data-style="abat"] .cnx-indice, .cnx[data-style="abat"] .cnx-maj { margin-top: -6px; }
 .cnx[data-style="abat"] .cnx-case span { border-radius: 3px; }
-.cnx[data-style="abat"] .cnx-bouton { height: 46px; padding-left: 16px; border-radius: 4px; font-size: 14px; }
-.cnx[data-style="abat"] .cnx-bouton .ico { width: 28px; height: 28px; padding: 6px; border-radius: 3px; }
-.cnx[data-style="abat"] .cnx-retour { height: 46px; border-radius: 4px; font-size: 13px; }
+.cnx[data-style="abat"] .cnx-bouton { height: 44px; padding: 0 16px; border-radius: 4px; font-size: 14px; background: #12305f; justify-content: center; }
+.cnx[data-style="abat"] .cnx-bouton:hover { background: #0d2546; }
+.cnx[data-style="abat"] .cnx-bouton .ico { display: none; }
+.cnx[data-style="abat"] .cnx-bouton.charge .cnx-roue { position: absolute; right: 14px; margin: 0; }
+.cnx[data-style="abat"] .cnx-retour { height: 44px; border-radius: 4px; font-size: 13px; }
 .cnx[data-style="abat"] .code-otp input { height: 48px; border-radius: 4px; font-size: 20px; }
 .cnx[data-style="abat"] .fonction { padding: 11px 13px; border-radius: 4px; }
 .cnx[data-style="abat"] .fonction:has(input:checked) { box-shadow: inset 3px 0 0 #12305f; border-color: #12305f; background: #eef3fa; }
 .cnx[data-style="abat"] .fonction input { border-radius: 3px; }
 .cnx[data-style="abat"] .fonction input:checked { border-width: 4px; border-color: #12305f; }
-.cnx[data-style="abat"] .cnx-confiance { padding-block: 10px; }
+.cnx[data-style="abat"] .cnx-demo-liste button { border-radius: 3px; }
+.cnx[data-style="abat"] .cnx-confiance { padding: 14px 0 0; background: none; border-top: 1px solid #eef2f7; }
+.cnx[data-style="abat"] .cnx-bas { position: absolute; left: 0; right: 0; bottom: -48px; }
 .cnx[data-style="abat"] .cnx-style button[aria-pressed="true"] { background: #12305f; }
+@media (max-width: 900px) {
+  .cnx[data-style="abat"] { grid-template-columns: minmax(0, 1fr); padding: 24px 14px 72px; }
+  .cnx[data-style="abat"] .cnx-volet { border-right: 1px solid #dbe3ee; border-bottom: 0; border-radius: 6px 6px 0 0; padding: 22px 18px; }
+  .cnx[data-style="abat"] .cnx-cote { border-radius: 0 0 6px 6px; padding: 24px 18px; }
+  .cnx[data-style="abat"] .cnx-bas { position: static; }
+}
 
 /* ---------- Sélecteur de style ---------- */
 .cnx-style { display: inline-flex; border: 1px solid #cfd8e5; border-radius: 4px; overflow: hidden; background: #fff; }

@@ -1,0 +1,205 @@
+/* Suite DSI · DGB — bibliothèque de graphes et de calendrier.
+   ---------------------------------------------------------------------------
+   À charger après dgb-suite.css. Aplats uniquement : aucune série en dégradé,
+   aucune ombre portée. Les couleurs passent par les jetons de la palette
+   (var(--m-*), var(--attente-*), var(--blocage-*), var(--succes-*)) : changer
+   de marque ou de thème recolore tous les graphes sans retoucher le SVG. */
+
+/* ---------- Cartes de graphe ---------- */
+.viz-grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(272px, 1fr)); gap: 16px; }
+.viz-grille > * { min-width: 0; }
+.viz-carte {
+  display: flex; flex-direction: column; min-width: 0;
+  border: 1px solid var(--p-200); border-radius: 6px; background: var(--surface); overflow: hidden;
+}
+.viz-tete {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;
+  padding: 12px 15px; border-bottom: 1px solid var(--p-200);
+}
+.viz-tete h3 { font: 600 14.5px/1.3 var(--font-titre); color: var(--encre); letter-spacing: -.01em; }
+.viz-tete p { margin-top: 2px; font-size: 11.5px; color: var(--p-500); }
+.viz-tete .viz-tag {
+  flex: none; padding: 2px 7px; border-radius: 3px; border: 1px solid var(--p-200);
+  background: var(--p-50); color: var(--p-600); font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+}
+.viz-corps { flex: 1; padding: 14px 15px 15px; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+.viz-graphe { width: 100%; }
+/* Hauteur plafonnée : dans une carte pleine largeur, le graphe garde ses proportions
+   et se centre au lieu de grossir (textes compris). */
+.viz-graphe svg, [data-graphe] svg { display: block; width: 100%; height: auto; max-height: 280px; overflow: visible; }
+[data-graphe] { width: 100%; }
+.viz-donut > svg { max-width: 200px; margin-inline: auto; }
+.viz-jauge > svg { max-width: 240px; margin-inline: auto; }
+.viz-radar > svg { max-width: 260px; margin-inline: auto; }
+.viz-donut, .viz-jauge { max-width: 100%; }
+.viz-large { grid-column: span 2; }
+.viz-tout { grid-column: 1 / -1; }
+.viz-pile { display: grid; gap: 12px; }
+.viz-carte > .cal { border: 0; border-radius: 0; }
+
+/* ---------- Encre et couleurs des séries ---------- */
+.viz-axe { fill: var(--p-500); font: 500 10px var(--font-texte); font-variant-numeric: tabular-nums; }
+.viz-axe-fort { fill: var(--p-700); font-weight: 700; }
+.viz-ligne-grille { stroke: var(--p-200); stroke-width: 1; }
+.viz-ligne-grille.pointille { stroke-dasharray: 3 4; }
+.viz-v1 { fill: var(--m-600); }
+.viz-v2 { fill: var(--m-300); }
+.viz-v3 { fill: var(--m-200); }
+.viz-v4 { fill: var(--p-400); }
+.viz-attente { fill: var(--attente-600); }
+.viz-blocage { fill: var(--blocage-600); }
+.viz-succes { fill: var(--succes-600); }
+.viz-trait { fill: none; stroke: var(--m-600); stroke-width: 2.4; stroke-linejoin: round; stroke-linecap: round; }
+.viz-trait-2 { fill: none; stroke: var(--p-400); stroke-width: 2.2; stroke-dasharray: 5 4; stroke-linejoin: round; stroke-linecap: round; }
+.viz-aire { fill: var(--m-600); opacity: .12; }
+.viz-point { fill: var(--surface); stroke: var(--m-600); stroke-width: 2; }
+.viz-point-2 { fill: var(--surface); stroke: var(--p-400); stroke-width: 2; }
+.viz-barre { transition: opacity .15s ease; }
+.viz-barre:hover { opacity: .82; }
+
+/* ---------- Légendes ---------- */
+.viz-legende { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 11.5px; color: var(--p-600); }
+.viz-legende span { display: inline-flex; align-items: center; gap: 6px; }
+.viz-legende i { width: 9px; height: 9px; flex: none; border-radius: 2px; }
+.viz-legende b { color: var(--encre); font-variant-numeric: tabular-nums; }
+
+/* ---------- Anneau (donut) ---------- */
+.viz-donut { position: relative; display: grid; place-items: center; }
+.viz-donut .viz-centre { position: absolute; text-align: center; pointer-events: none; }
+.viz-donut .viz-centre b { display: block; font: 700 22px/1 var(--font-titre); color: var(--encre); font-variant-numeric: tabular-nums; }
+.viz-donut .viz-centre small { font-size: 10.5px; color: var(--p-500); }
+
+/* ---------- Jauge ---------- */
+.viz-jauge { display: grid; place-items: center; position: relative; }
+.viz-jauge .viz-valeur { position: absolute; bottom: 6px; text-align: center; }
+.viz-jauge .viz-valeur b { display: block; font: 700 26px/1 var(--font-titre); color: var(--encre); font-variant-numeric: tabular-nums; }
+.viz-jauge .viz-valeur small { font-size: 11px; color: var(--p-500); }
+
+/* ---------- Progression (barres HTML) ---------- */
+.viz-progression { display: grid; gap: 11px; }
+.viz-prog { display: grid; gap: 5px; }
+.viz-prog-haut { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 12.5px; }
+.viz-prog-haut span { color: var(--p-700); }
+.viz-prog-haut b { color: var(--encre); font-variant-numeric: tabular-nums; }
+.viz-piste { height: 8px; border-radius: 4px; background: var(--p-100); overflow: hidden; }
+.viz-piste > span { display: block; height: 100%; border-radius: 4px; background: var(--m-600); }
+.viz-piste > span.attente { background: var(--attente-600); }
+.viz-piste > span.succes { background: var(--succes-600); }
+.viz-note { font-size: 11.5px; color: var(--p-500); }
+
+/* ---------- Sparkline ---------- */
+.viz-spark { display: flex; align-items: center; gap: 10px; }
+.viz-spark svg { width: 88px; height: 26px; flex: none; }
+.viz-spark div { min-width: 0; }
+.viz-spark b { display: block; font-size: 13px; color: var(--encre); font-variant-numeric: tabular-nums; }
+.viz-spark small { font-size: 10.5px; color: var(--p-500); }
+.viz-spark .viz-trait { stroke-width: 2; }
+
+/* ---------- Carte de chaleur ---------- */
+.viz-chaleur { display: grid; gap: 3px; }
+.viz-chaleur .viz-ch-ligne { display: grid; grid-template-columns: 34px repeat(12, minmax(0, 1fr)); gap: 3px; align-items: center; }
+.viz-chaleur .viz-ch-mois { font-size: 9px; color: var(--p-500); text-align: center; }
+.viz-chaleur .viz-ch-jour { font-size: 9.5px; color: var(--p-500); }
+.viz-chaleur .viz-ch-cell { aspect-ratio: 1; border-radius: 2px; background: var(--p-100); }
+.viz-chaleur .viz-ch-cell.n1 { background: var(--m-100); }
+.viz-chaleur .viz-ch-cell.n2 { background: var(--m-200); }
+.viz-chaleur .viz-ch-cell.n3 { background: var(--m-400); }
+.viz-chaleur .viz-ch-cell.n4 { background: var(--m-600); }
+.viz-chaleur .viz-echelle { display: flex; align-items: center; gap: 5px; justify-content: flex-end; margin-top: 4px; font-size: 9.5px; color: var(--p-500); }
+.viz-chaleur .viz-echelle i { width: 9px; height: 9px; border-radius: 2px; }
+
+/* =========================================================================
+   Calendrier
+   ========================================================================= */
+.cal {
+  border: 1px solid var(--p-200); border-radius: 6px; background: var(--surface); overflow: hidden;
+  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+}
+.cal[data-agenda="non"] { grid-template-columns: minmax(0, 1fr); }
+.cal[data-agenda="non"] .cal-agenda { display: none; }
+/* Sans agenda, la grille est bornée : le calendrier reste compact dans une carte. */
+.cal[data-agenda="non"] .cal-corps { width: 100%; max-width: 430px; margin: 0 auto; }
+.cal-tete {
+  grid-column: 1 / -1; display: flex; align-items: center; gap: 10px;
+  padding: 11px 14px; border-bottom: 1px solid var(--p-200); background: var(--p-50);
+}
+.cal-mois { flex: 1; min-width: 0; }
+.cal-mois b { display: block; font: 600 15px/1.25 var(--font-titre); color: var(--encre); text-transform: capitalize; }
+.cal-mois small { font-size: 11.5px; color: var(--p-500); }
+.cal-nav { display: flex; gap: 4px; flex: none; }
+.cal-nav button {
+  width: 30px; height: 30px; display: grid; place-items: center; padding: 0;
+  border: 1px solid var(--p-200); border-radius: 4px; background: var(--surface); color: var(--p-700); cursor: pointer;
+}
+.cal-nav button:hover { background: var(--p-100); color: var(--encre); }
+.cal-nav .cal-aujourdhui { width: auto; padding: 0 9px; font: 600 11.5px var(--font-texte); }
+.cal-corps { min-width: 0; padding: 10px 12px 13px; }
+.cal-semaines, .cal-grille { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.cal-semaines span {
+  padding: 4px 0 6px; text-align: center; font-size: 9.5px; font-weight: 700;
+  letter-spacing: .07em; text-transform: uppercase; color: var(--p-500);
+}
+.cal-jour {
+  position: relative; aspect-ratio: 1 / .92; display: grid; place-items: center;
+  border: 0; border-radius: 4px; background: none; cursor: pointer;
+  font: 500 12px/1 var(--font-texte); color: var(--p-800); font-variant-numeric: tabular-nums;
+}
+.cal-jour:hover { background: var(--p-100); }
+.cal-jour.hors-mois { color: var(--p-500); }
+.cal-jour.aujourdhui { box-shadow: inset 0 0 0 1px var(--m-400); }
+.cal-jour.choisi { background: var(--m-600); color: #fff; font-weight: 700; box-shadow: none; }
+.cal-jour .cal-points {
+  position: absolute; left: 0; right: 0; bottom: 4px; display: flex; justify-content: center; gap: 2px;
+}
+.cal-jour .cal-points i { width: 4px; height: 4px; border-radius: 50%; background: var(--attente-600); }
+.cal-jour .cal-points i.marque { background: var(--m-500); }
+.cal-jour .cal-points i.blocage { background: var(--blocage-600); }
+.cal-jour.choisi .cal-points i { background: #fff; }
+.cal-agenda { min-width: 0; padding: 12px 14px 14px; border-left: 1px solid var(--p-200); display: flex; flex-direction: column; gap: 9px; }
+.cal-agenda-titre { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.cal-agenda-titre b { font: 600 12.5px var(--font-titre); color: var(--encre); text-transform: capitalize; }
+.cal-agenda-titre small { font-size: 10.5px; color: var(--p-500); }
+.cal-liste { display: grid; gap: 6px; }
+.cal-event {
+  display: flex; gap: 9px; padding: 7px 9px; border-left: 3px solid var(--m-500);
+  border-radius: 0 3px 3px 0; background: var(--p-50);
+}
+.cal-event time { flex: none; font-size: 10.5px; font-weight: 700; color: var(--p-600); font-variant-numeric: tabular-nums; }
+.cal-event span { font-size: 11.5px; line-height: 1.35; color: var(--p-800); }
+.cal-event.attente { border-color: var(--attente-600); background: var(--attente-50); }
+.cal-event.blocage { border-color: var(--blocage-600); background: var(--blocage-50); }
+.cal-event.succes { border-color: var(--succes-600); background: var(--succes-50); }
+.cal-vide { padding: 12px 10px; border: 1px dashed var(--p-200); border-radius: 4px; font-size: 11.5px; color: var(--p-500); text-align: center; }
+.cal-prochain { margin-top: auto; padding-top: 9px; border-top: 1px solid var(--p-200); display: grid; gap: 6px; }
+.cal-prochain .etiquette { margin: 0; }
+.cal-prochain a { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 24px; padding: 3px 0; font-size: 11.5px; color: var(--p-700); }
+.cal-prochain a b { color: var(--encre); font-weight: 600; }
+.cal-prochain a small { color: var(--p-500); white-space: nowrap; }
+
+/* ---------- Barre de filtres ---------- */
+.barre-filtres {
+  display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px;
+  padding: 14px 15px; border: 1px solid var(--p-200); border-radius: 6px; background: var(--surface);
+}
+.filtre { display: grid; gap: 4px; flex: 1 1 150px; min-width: 0; }
+.filtre > label { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--p-600); }
+.filtre input, .filtre select {
+  height: 38px; width: 100%; border: 1px solid var(--p-300); border-radius: 4px; background: var(--surface);
+  padding: 0 10px; font: 400 13px var(--font-texte); color: var(--encre);
+}
+.filtre input:focus, .filtre select:focus { outline: none; border-color: var(--m-600); box-shadow: 0 0 0 3px color-mix(in srgb, var(--m-600) 14%, transparent); }
+.filtre-recherche { position: relative; flex: 2 1 220px; }
+.filtre-recherche .ico { position: absolute; left: 10px; bottom: 11px; width: 15px; height: 15px; color: var(--p-400); pointer-events: none; }
+.filtre-recherche input { padding-left: 32px; }
+.filtre-actions { display: flex; gap: 6px; flex: none; }
+
+/* ---------- Petits écrans ---------- */
+@media (max-width: 760px) {
+  .cal { grid-template-columns: minmax(0, 1fr); }
+  .cal-agenda { border-left: 0; border-top: 1px solid var(--p-200); }
+  .cal-jour { font-size: 11px; }
+  .viz-grille { grid-template-columns: minmax(0, 1fr); }
+  .viz-large, .viz-tout { grid-column: span 1; }
+  .barre-filtres { align-items: stretch; }
+  .filtre { flex-basis: 100%; }
+}

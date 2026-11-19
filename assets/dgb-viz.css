@@ -24,7 +24,9 @@
 }
 .viz-corps { flex: 1; padding: 14px 15px 15px; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
 .viz-graphe { width: 100%; }
-.viz-graphe svg, [data-graphe] svg { display: block; width: 100%; height: auto; overflow: visible; }
+/* Hauteur plafonnée : dans une carte pleine largeur, le graphe garde ses proportions
+   et se centre au lieu de grossir (textes compris). */
+.viz-graphe svg, [data-graphe] svg { display: block; width: 100%; height: auto; max-height: 280px; overflow: visible; }
 [data-graphe] { width: 100%; }
 .viz-donut > svg { max-width: 200px; margin-inline: auto; }
 .viz-jauge > svg { max-width: 240px; margin-inline: auto; }

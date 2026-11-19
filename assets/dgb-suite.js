@@ -62,27 +62,46 @@
      Chaque réglage est un attribut de <html>. La valeur posée par l'application sert de défaut ;
      le choix de l'agent est mémorisé sur le poste. */
   var REGLAGES = [
-    { cle: 'mode', titre: 'Thème', attr: 'data-mode', defaut: 'clair', options: [
+    { cle: 'mode', titre: 'Thème', groupe: 'Couleurs', attr: 'data-mode', defaut: 'clair', options: [
       ['clair', 'Clair', 'soleil'], ['sombre', 'Sombre', 'lune'], ['systeme', 'Système', 'ecran']] },
     { cle: 'app', titre: 'Couleur', attr: 'data-app', defaut: 'dgb', pastilles: true, options: [
       ['dgb', 'Bleu DGB', '#155a9c'], ['abat', 'Sève', '#12805f'], ['cobalt', 'Cobalt', '#1d4ed8'],
       ['sarcelle', 'Sarcelle', '#0d8075'], ['indigo', 'Indigo', '#4338ca'], ['prune', 'Prune', '#832a70'],
       ['olive', 'Olive', '#5d6d26'], ['ardoise', 'Ardoise', '#3f4f69'], ['nuit', 'Nuit', '#24407c'],
-      ['lagon', 'Lagon', '#0c6a86'], ['fuchsia', 'Fuchsia', '#971c95'], ['sable', 'Sable', '#7a624e']] },
-    { cle: 'police', titre: 'Police', attr: 'data-police', defaut: 'institution', polices: true, options: [
+      ['lagon', 'Lagon', '#0c6a86'], ['fuchsia', 'Fuchsia', '#971c95'], ['sable', 'Sable', '#7a624e'],
+      ['azur', 'Azur', '#1c75bc'], ['ocean', 'Océan', '#0369a1'], ['violet', 'Violet', '#6d28d9'],
+      ['pin', 'Pin', '#1f6f59'], ['marine', 'Marine', '#1e40af'], ['graphite', 'Graphite', '#4b5563']] },
+    { cle: 'neutre', titre: 'Neutres', attr: 'data-neutre', defaut: 'marque', pastilles: true, options: [
+      ['marque', 'Selon la marque', 'conic-gradient(#e2e8f0 0 50%, #f8fafc 0)'], ['froid', 'Froids', '#cbd5e1'],
+      ['chaud', 'Chauds', '#dccfc0'], ['vert', 'Verts', '#c1cac7'], ['bleute', 'Bleutés', '#c6cedb']] },
+    { cle: 'police', titre: 'Police', groupe: 'Typographie', attr: 'data-police', defaut: 'institution', polices: true, options: [
       ['institution', 'Institution', 'Archivo'], ['editoriale', 'Éditoriale', 'Newsreader'],
       ['technique', 'Technique', 'Sora'], ['plex', 'OKANDAH', 'IBM Plex Sans'],
-      ['condensee', 'Condensée', 'Barlow Semi Condensed']] },
-    { cle: 'densite', titre: 'Densité', attr: 'data-densite', defaut: 'confortable', options: [
+      ['condensee', 'Condensée', 'Barlow Semi Condensed'], ['franklin', 'Franklin', 'Libre Franklin'],
+      ['officielle', 'Officielle', 'Source Serif 4'], ['noto', 'Noto', 'Noto Sans'],
+      ['courrier', 'Courrier', 'Merriweather'], ['dossier', 'Dossier', 'Roboto Slab']] },
+    { cle: 'texte', titre: 'Taille du texte', attr: 'data-texte', defaut: 'normal', options: [
+      ['petit', 'Petite', 'textePetit'], ['normal', 'Normale', 'texteNormal'], ['grand', 'Grande', 'texteGrand']] },
+    { cle: 'densite', titre: 'Densité', groupe: 'Mise en page', attr: 'data-densite', defaut: 'confortable', options: [
       ['compacte', 'Compacte', 'compacte'], ['confortable', 'Confortable', 'confortable'], ['aeree', 'Aérée', 'aeree']] },
     { cle: 'espace', titre: 'Marges', attr: 'data-espace', defaut: 'standard', options: [
       ['serre', 'Serrées', 'margeSerree'], ['standard', 'Standard', 'margeStandard'], ['ample', 'Amples', 'margeLarge']] },
     { cle: 'nav', titre: 'Disposition', attr: 'data-nav', defaut: 'sidebar', options: [
       ['sidebar', 'Sidebar', 'barreLaterale'], ['topnav', 'Top Nav', 'barreHaut']] },
-    { cle: 'sidebar', titre: 'Menu latéral', attr: 'data-sidebar', defaut: 'groupes', options: [
-      ['groupes', 'Sous-menus', 'barreLaterale'], ['plat', 'Plat', 'menu']] },
+    { cle: 'sidebar', titre: 'Sous-menus latéraux', attr: 'data-sidebar', defaut: 'groupes', options: [
+      ['groupes', 'Tous ouverts', 'barreLaterale'], ['actifs', 'Page active', 'arbre'], ['plat', 'Masqués', 'menu']] },
+    { cle: 'laterale', titre: 'Style de la barre latérale', attr: 'data-laterale', defaut: 'sombre', options: [
+      ['sombre', 'Sombre', 'lateraleSombre'], ['marque', 'Teintée', 'lateraleMarque'], ['claire', 'Claire', 'lateraleClaire']] },
+    { cle: 'arrondi', titre: 'Angles', attr: 'data-arrondi', defaut: 'standard', options: [
+      ['franc', 'Francs', 'angleFranc'], ['standard', 'Standard', 'angleStandard'], ['doux', 'Doux', 'angleDoux']] },
     { cle: 'conteneur', titre: 'Conteneur', attr: 'data-conteneur', defaut: 'fluide', options: [
-      ['fluide', 'Fluide', 'fluide'], ['encadre', 'Encadré', 'encadre']] }
+      ['fluide', 'Fluide', 'fluide'], ['encadre', 'Encadré', 'encadre']] },
+    { cle: 'animations', titre: 'Animations', groupe: 'Confort', attr: 'data-animations', defaut: 'completes', options: [
+      ['completes', 'Complètes', 'animation'], ['aucune', 'Aucune', 'pause']] },
+    { cle: 'contraste', titre: 'Contraste', attr: 'data-contraste', defaut: 'normal', options: [
+      ['normal', 'Normal', 'contrasteNormal'], ['eleve', 'Élevé', 'contrasteEleve']] },
+    { cle: 'sons', titre: 'Sons', attr: 'data-sons', defaut: 'actifs', testSons: true, options: [
+      ['actifs', 'Activés', 'sonOn'], ['muets', 'Coupés', 'sonOff']] }
   ];
   REGLAGES.forEach(function (r) { r.defaut = root.getAttribute(r.attr) || r.defaut; });
   var sombreSysteme = window.matchMedia ? matchMedia('(prefers-color-scheme: dark)') : null;
@@ -142,9 +161,27 @@
   I.croix = '<path d="M6 18 18 6M6 6l12 12"/>';
   I.margeSerree = '<path d="M4 4h16M4 20h16M4 8v8M20 8v8"/><path d="M9 12h6M12 9v6" stroke-width="1.2"/>';
   I.margeStandard = '<path d="M4 4h16M4 20h16M4 7v10M20 7v10"/><path d="M8 12h8M12 9v6" stroke-width="1.2"/>';
+  I.sonOn = '<path d="M19.11 4.89a10 10 0 0 1 0 14.22M15.54 8.46a5 5 0 0 1 0 7.08M6.75 8.25l4.72-3.78a.75.75 0 0 1 1.22.59v13.88a.75.75 0 0 1-1.22.59l-4.72-3.78H4.51c-.88 0-1.7-.51-1.95-1.36A9 9 0 0 1 2.25 12c0-.83.11-1.64.33-2.4.24-.84 1.07-1.35 1.95-1.35z"/>';
+  I.sonOff = '<path d="m17.25 9.75 4.5 4.5m0-4.5-4.5 4.5M6.75 8.25l4.72-3.78a.75.75 0 0 1 1.22.59v13.88a.75.75 0 0 1-1.22.59l-4.72-3.78H4.51c-.88 0-1.7-.51-1.95-1.36A9 9 0 0 1 2.25 12c0-.83.11-1.64.33-2.4.24-.84 1.07-1.35 1.95-1.35z"/>';
+  I.textePetit = '<path d="M7 18 11 7l4 11M8.5 14h5" stroke-width="1.5"/>';
+  I.texteNormal = '<path d="M5 19 11 5l6 14M7.4 14h7.2"/>';
+  I.texteGrand = '<path d="M3 20 11 3l8 17M5.8 14.5h10.4" stroke-width="2.2"/>';
+  I.arbre = '<path d="M5 4v15M5 9h6M5 15h6M14 7h6M14 13h6M14 19h6"/>';
+  I.lateraleSombre = '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 6a2 2 0 0 1 2-2h4v16H5a2 2 0 0 1-2-2z" fill="currentColor"/>';
+  I.lateraleMarque = '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 6a2 2 0 0 1 2-2h4v16H5a2 2 0 0 1-2-2z" fill="currentColor" fill-opacity=".45"/>';
+  I.lateraleClaire = '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/>';
+  I.angleFranc = '<path d="M5 19V5h14"/>';
+  I.angleStandard = '<path d="M5 19V9a4 4 0 0 1 4-4h10"/>';
+  I.angleDoux = '<path d="M5 19v-4A10 10 0 0 1 15 5h4"/>';
+  I.animation = '<path d="M5 12a7 7 0 0 1 12-5M19 12a7 7 0 0 1-12 5M17 3v4h-4M7 21v-4h4"/>';
+  I.pause = '<path d="M9 6v12M15 6v12"/>';
+  I.contrasteNormal = '<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor" fill-opacity=".35"/>';
+  I.contrasteEleve = '<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/>';
+  I.recherche = '<path d="m21 21-5.2-5.2m0 0A7.5 7.5 0 1 0 5.2 5.2a7.5 7.5 0 0 0 10.6 10.6z"/>';
+  I.entree = '<path d="M9 15 4 10m0 0 5-5m-5 5h11a5 5 0 0 1 0 10h-1"/>';
   I.margeLarge = '<path d="M4 4h16M4 20h16M4 5v14M20 5v14"/><path d="M7 12h10M12 9v6" stroke-width="1.2"/>';
   var ajout = '';
-  ['soleil', 'lune', 'ecran', 'compacte', 'confortable', 'aeree', 'fluide', 'encadre', 'palette', 'croix', 'margeSerree', 'margeStandard', 'margeLarge'].forEach(function (k) { ajout += '<symbol id="i-' + k + '" viewBox="0 0 24 24">' + I[k] + '</symbol>'; });
+  ['soleil', 'lune', 'ecran', 'compacte', 'confortable', 'aeree', 'fluide', 'encadre', 'palette', 'croix', 'margeSerree', 'margeStandard', 'margeLarge', 'sonOn', 'sonOff', 'recherche', 'entree', 'textePetit', 'texteNormal', 'texteGrand', 'arbre', 'lateraleSombre', 'lateraleMarque', 'lateraleClaire', 'angleFranc', 'angleStandard', 'angleDoux', 'animation', 'pause', 'contrasteNormal', 'contrasteEleve'].forEach(function (k) { ajout += '<symbol id="i-' + k + '" viewBox="0 0 24 24">' + I[k] + '</symbol>'; });
   document.querySelector('body > svg').insertAdjacentHTML('beforeend', ajout);
 
   function construireTiroir() {
@@ -152,7 +189,8 @@
       '<div class="tiroir-tete"><div><h2 id="tiroir-titre">Personnaliser</h2><p>Adaptez l’affichage à votre façon de travailler.</p></div>' +
       '<button class="bouton-barre" type="button" data-fermer-tiroir aria-label="Fermer"><svg class="ico"><use href="#i-croix"/></svg></button></div><div class="tiroir-corps">';
     REGLAGES.forEach(function (r) {
-      var colonnes = r.pastilles ? ' style="grid-template-columns:repeat(4,minmax(0,1fr))"' : (r.options.length === 4 ? ' style="grid-template-columns:repeat(4,minmax(0,1fr))"' : '');
+      if (r.groupe) h += '<p class="tiroir-rubrique">' + r.groupe + '</p>';
+      var colonnes = r.pastilles || r.polices ? ' style="grid-template-columns:repeat(' + (r.polices ? 5 : 4) + ',minmax(0,1fr))"' : (r.options.length === 4 ? ' style="grid-template-columns:repeat(4,minmax(0,1fr))"' : '');
       h += '<div class="reglage"><span class="titre">' + r.titre + '</span><div class="options' + (r.options.length === 2 ? ' deux' : '') + '"' + colonnes + '>';
       r.options.forEach(function (o) {
         var vis;
@@ -161,7 +199,9 @@
         else vis = '<svg class="ico"><use href="#i-' + o[2] + '"/></svg>';
         h += '<button class="option" type="button" data-reglage="' + r.cle + '" data-valeur="' + o[0] + '" aria-pressed="false">' + vis + o[1] + '</button>';
       });
-      h += '</div></div>';
+      h += '</div>';
+      if (r.testSons) h += '<div class="tester-sons"><span>Écouter :</span><button type="button" data-ecouter="validation">Validation</button><button type="button" data-ecouter="notification">Notification</button><button type="button" data-ecouter="erreur">Erreur</button></div>';
+      h += '</div>';
     });
     h += '</div><div class="tiroir-pied"><button class="bouton-secondaire bouton-bloc" type="button" data-reinitialiser>Rétablir les réglages par défaut</button></div></aside>';
     var c = document.createElement('div'); c.id = 'personnaliser'; c.hidden = true; c.innerHTML = h;
@@ -252,6 +292,8 @@
 
     var d = e.target.closest('[data-disposition]');
     if (d) { choisir('nav', d.getAttribute('data-disposition')); if (app) app.classList.remove('menu-ouvert'); return; }
+    var ec = e.target.closest('[data-ecouter]');
+    if (ec) { son(ec.getAttribute('data-ecouter')); return; }
     var rg = e.target.closest('[data-reglage]');
     if (rg) { choisir(rg.getAttribute('data-reglage'), rg.getAttribute('data-valeur')); return; }
     if (e.target.closest('[data-reinitialiser]')) { REGLAGES.forEach(function (r) { choisir(r.cle, r.defaut); }); return; }
@@ -332,5 +374,162 @@
     });
   });
 
-  window.DGB = { lire: lire, ecrire: ecrire, choisir: choisir, reglages: REGLAGES };
+  /* =======================================================================
+     Sons (Web Audio, aucun fichier) — même principe qu'OKANDAH
+     validation : trois notes montantes · notification : ding à deux tons
+     erreur : note descendante · clic : tic très court
+     Le navigateur n'autorise le son qu'après une première interaction :
+     un son demandé avant est rejoué au premier clic ou à la première touche.
+     ======================================================================= */
+  var audio = null, enAttente = null;
+  function contexte() {
+    if (!audio) { var A = window.AudioContext || window.webkitAudioContext; if (!A) return null; audio = new A(); }
+    if (audio.state === 'suspended' && audio.resume) audio.resume();
+    return audio;
+  }
+  function note(ctx, freq, debut, duree, volume, forme, glisse) {
+    var o = ctx.createOscillator(), g = ctx.createGain(), t = ctx.currentTime + debut;
+    o.type = forme || 'sine'; o.frequency.setValueAtTime(freq, t);
+    if (glisse) o.frequency.exponentialRampToValueAtTime(glisse, t + duree);
+    o.connect(g); g.connect(ctx.destination);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(volume, t + 0.015);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + duree);
+    o.start(t); o.stop(t + duree + 0.02);
+  }
+  var SONS = {
+    validation: function (c) { note(c, 659.25, 0, .12, .22); note(c, 880, .1, .12, .22); note(c, 1174.66, .2, .3, .24); },
+    notification: function (c) { note(c, 880, 0, .16, .2); note(c, 1174.7, .12, .24, .2); },
+    erreur: function (c) { note(c, 340, 0, .32, .18, 'triangle', 150); },
+    clic: function (c) { note(c, 1400, 0, .04, .06, 'square'); }
+  };
+  function son(nom) {
+    if (root.getAttribute('data-sons') === 'muets' || !SONS[nom]) return;
+    var c = contexte();
+    if (!c) return;
+    if (c.state !== 'running') { enAttente = nom; return; }
+    try { SONS[nom](c); } catch (e) { /* audio indisponible */ }
+  }
+  ['pointerdown', 'keydown'].forEach(function (ev) {
+    document.addEventListener(ev, function () {
+      var c = contexte();
+      if (c && enAttente) { var n = enAttente; enAttente = null; setTimeout(function () { son(n); }, 30); }
+    }, { passive: true });
+  });
+
+  /* =======================================================================
+     Notifications éphémères (toasts), annoncées aux lecteurs d'écran
+     DGB.toast({ titre, texte, ton: 'succes'|'info'|'attente'|'erreur', son, duree })
+     ======================================================================= */
+  var ICONES_TON = { succes: 'traiter', info: 'info', attente: 'horloge', erreur: 'alerte' };
+  function zoneToasts() {
+    var z = document.getElementById('toasts');
+    if (!z) { z = document.createElement('div'); z.id = 'toasts'; z.className = 'toasts'; z.setAttribute('aria-live', 'polite'); document.body.appendChild(z); }
+    return z;
+  }
+  function toast(o) {
+    o = o || {};
+    var ton = o.ton || 'info';
+    var t = document.createElement('div');
+    t.className = 'toast toast-' + ton;
+    t.setAttribute('role', ton === 'erreur' ? 'alert' : 'status');
+    t.innerHTML = '<svg class="ico"><use href="#i-' + ICONES_TON[ton] + '"/></svg><div class="toast-texte"><b></b><span></span></div>' +
+      '<button type="button" class="toast-fermer" aria-label="Fermer la notification"><svg class="ico ico-4"><use href="#i-croix"/></svg></button><i class="toast-duree"></i>';
+    t.querySelector('b').textContent = o.titre || '';
+    t.querySelector('span').textContent = o.texte || '';
+    var duree = o.duree || 5000;
+    t.querySelector('.toast-duree').style.animationDuration = duree + 'ms';
+    zoneToasts().appendChild(t);
+    var fin = setTimeout(fermer, duree);
+    function fermer() { clearTimeout(fin); t.classList.add('sortie'); setTimeout(function () { t.remove(); }, 220); }
+    t.querySelector('.toast-fermer').addEventListener('click', fermer);
+    if (o.son !== false) son(o.son || ({ succes: 'validation', erreur: 'erreur', attente: 'notification', info: 'notification' })[ton]);
+    return fermer;
+  }
+
+  /* =======================================================================
+     Palette de commandes (Ctrl+K) : aller à une page ou changer un réglage
+     Les entrées viennent des liens de navigation [data-vue-lien] et des
+     éléments [data-commande] ; les réglages du panneau s'y ajoutent.
+     ======================================================================= */
+  var palette = null;
+  function entreesPalette() {
+    var vues = [], vus = {};
+    document.querySelectorAll('[data-vue-lien]').forEach(function (a) {
+      var v = a.getAttribute('data-vue-lien'), t = (a.querySelector('.texte, b') || a).textContent.trim();
+      if (!v || vus[v] || !t) return;
+      vus[v] = 1;
+      var section = a.closest('[data-section]') || a.closest('.section-nav');
+      var groupe = section ? (section.getAttribute('data-section') || (section.querySelector('.section-tete span') || {}).textContent || 'Pages') : 'Pages';
+      vues.push({ groupe: groupe, titre: t, icone: (a.querySelector('use') || { getAttribute: function () { return '#i-fleche'; } }).getAttribute('href').slice(1), action: function () { location.hash = v; } });
+    });
+    var reglages = [];
+    REGLAGES.forEach(function (r) {
+      if (['mode', 'nav', 'densite', 'sons', 'conteneur'].indexOf(r.cle) < 0) return;
+      r.options.forEach(function (o) {
+        reglages.push({ groupe: 'Réglages', titre: r.titre + ' : ' + o[1], icone: r.cle === 'mode' ? o[2] : 'reglages', action: function () { choisir(r.cle, o[0]); toast({ ton: 'info', titre: r.titre, texte: o[1], son: 'clic', duree: 2200 }); } });
+      });
+    });
+    reglages.push({ groupe: 'Réglages', titre: 'Ouvrir le panneau Personnaliser', icone: 'palette', action: function () { var t = document.getElementById('personnaliser'); if (t) t.hidden = false; } });
+    return vues.concat(reglages);
+  }
+  function ouvrirPalette() {
+    if (!palette) {
+      palette = document.createElement('div');
+      palette.id = 'palette-commandes'; palette.className = 'palette-voile'; palette.hidden = true;
+      palette.innerHTML = '<div class="palette" role="dialog" aria-modal="true" aria-label="Palette de commandes">' +
+        '<div class="palette-recherche"><svg class="ico"><use href="#i-recherche"/></svg><input type="text" id="palette-champ" placeholder="Aller à une page, changer un réglage…" autocomplete="off" role="combobox" aria-expanded="true" aria-controls="palette-liste"><kbd>Échap</kbd></div>' +
+        '<ul class="palette-liste" id="palette-liste" role="listbox"></ul>' +
+        '<div class="palette-pied"><span><kbd>↑</kbd><kbd>↓</kbd> naviguer</span><span><kbd>Entrée</kbd> ouvrir</span><span><kbd>Ctrl</kbd><kbd>K</kbd> palette</span></div></div>';
+      document.body.appendChild(palette);
+      var champ = palette.querySelector('input'), liste = palette.querySelector('ul'), entrees = [], choix = 0;
+      function dessiner() {
+        var q = champ.value.trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+        entrees = entreesPalette().filter(function (e) { return !q || (e.titre + ' ' + e.groupe).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').indexOf(q) >= 0; });
+        choix = Math.min(choix, Math.max(0, entrees.length - 1));
+        var h = '', groupe = null;
+        entrees.forEach(function (e, i) {
+          if (e.groupe !== groupe) { groupe = e.groupe; h += '<li class="palette-groupe" role="presentation">' + groupe + '</li>'; }
+          h += '<li role="option" id="pc-' + i + '" data-i="' + i + '" aria-selected="' + (i === choix) + '"><svg class="ico"><use href="#i-' + e.icone + '"/></svg><span>' + e.titre + '</span><svg class="ico ico-4 palette-entree"><use href="#i-entree"/></svg></li>';
+        });
+        liste.innerHTML = h || '<li class="palette-vide">Aucun résultat pour « ' + champ.value.replace(/[<>&]/g, '') + ' ».</li>';
+        champ.setAttribute('aria-activedescendant', entrees.length ? 'pc-' + choix : '');
+        var sel = liste.querySelector('[aria-selected="true"]'); if (sel) sel.scrollIntoView({ block: 'nearest' });
+      }
+      function executer(i) { var e = entrees[i]; if (!e) return; fermerPalette(); e.action(); }
+      champ.addEventListener('input', function () { choix = 0; dessiner(); });
+      champ.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); choix = (choix + (e.key === 'ArrowDown' ? 1 : -1) + entrees.length) % Math.max(1, entrees.length); dessiner(); }
+        if (e.key === 'Enter') { e.preventDefault(); executer(choix); }
+      });
+      liste.addEventListener('click', function (e) { var li = e.target.closest('[data-i]'); if (li) executer(Number(li.getAttribute('data-i'))); });
+      palette.addEventListener('click', function (e) { if (e.target === palette) fermerPalette(); });
+      palette.dessiner = dessiner;
+    }
+    palette.hidden = false;
+    var c = palette.querySelector('input'); c.value = ''; palette.dessiner(); c.focus();
+  }
+  function fermerPalette() { if (palette) palette.hidden = true; }
+  document.addEventListener('keydown', function (e) {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k' && document.querySelector('.app')) { e.preventDefault(); if (palette && !palette.hidden) fermerPalette(); else ouvrirPalette(); }
+    if (e.key === 'Escape') fermerPalette();
+  });
+  document.addEventListener('click', function (e) { if (e.target.closest('[data-action="palette"]')) ouvrirPalette(); });
+
+  /* Barre latérale : elle défile seule ; une ombre signale le contenu caché en haut ou en bas */
+  (function () {
+    var lat = document.querySelector('.laterale'), nav = lat && lat.querySelector('nav');
+    if (!nav) return;
+    function maj() {
+      lat.classList.toggle('defile-haut', nav.scrollTop > 2);
+      lat.classList.toggle('defile-bas', nav.scrollTop + nav.clientHeight < nav.scrollHeight - 2);
+    }
+    nav.addEventListener('scroll', maj, { passive: true });
+    window.addEventListener('resize', maj);
+    if (window.ResizeObserver) new ResizeObserver(maj).observe(nav);
+    document.addEventListener('click', function (e) { if (e.target.closest('[data-section-bouton]')) setTimeout(maj, 20); });
+    maj();
+  })();
+
+  window.DGB = { lire: lire, ecrire: ecrire, choisir: choisir, reglages: REGLAGES, son: son, toast: toast, palette: ouvrirPalette };
 })();

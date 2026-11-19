@@ -523,6 +523,77 @@
     hote.setAttribute('role', 'group');
     if (d.titre) hote.setAttribute('aria-label', d.titre);
     hote.appendChild(rendus[type](d));
+    animer(hote, type);
+  }
+
+  /* =======================================================================
+     Animations d'entrée (Web Animations API) — rejouées à chaque rendu.
+     Barres qui poussent, courbes qui se dévoilent, anneau et jauge qui se
+     remplissent, compteurs qui défilent. Rien ne bouge si l'utilisateur a
+     demandé à réduire les animations.
+     ======================================================================= */
+  var calme = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)');
+  var EASE = 'cubic-bezier(.22, 1, .36, 1)';
+  /* Les animations sont forcées à leur état final après 1,8 s : si l'onglet est en arrière-plan
+     ou capturé en miniature, la page ne reste jamais figée à mi-chemin. */
+  var enCours = [], garde = null;
+  function jouer(e, images, o) {
+    if (!e.animate) return;
+    enCours.push(e.animate(images, Object.assign({ easing: EASE, fill: 'backwards' }, o)));
+    clearTimeout(garde);
+    garde = setTimeout(function () { enCours.forEach(function (a) { try { a.finish(); } catch (x) { /* déjà terminée */ } }); enCours = []; }, 1800);
+  }
+  function sansAnimation() { return (calme && calme.matches) || document.documentElement.getAttribute('data-animations') === 'aucune'; }
+  function animer(hote, type) {
+    if (sansAnimation()) return;
+    var barres = hote.querySelectorAll('rect.viz-barre');
+    barres.forEach(function (r, i) {
+      r.style.transformBox = 'fill-box';
+      r.style.transformOrigin = type === 'barres-h' ? '0 50%' : '50% 100%';
+      jouer(r, [{ transform: type === 'barres-h' ? 'scaleX(0)' : 'scaleY(0)' }, { transform: 'none' }], { duration: 700, delay: 60 + i * 45 });
+    });
+    hote.querySelectorAll('.viz-trait, .viz-trait-2, .viz-aire').forEach(function (l, i) {
+      jouer(l, [{ clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0 0 0)' }], { duration: 1100, delay: i * 120, easing: 'ease-out' });
+    });
+    hote.querySelectorAll('.viz-point, .viz-point-2').forEach(function (p, i) {
+      jouer(p, [{ opacity: 0, transform: 'scale(.3)' }, { opacity: 1, transform: 'none' }], { duration: 300, delay: 500 + i * 40 });
+      p.style.transformBox = 'fill-box'; p.style.transformOrigin = 'center';
+    });
+    hote.querySelectorAll('circle[stroke-dasharray], path[stroke-dasharray]').forEach(function (c, i) {
+      if (c.classList.contains('viz-trait-2')) return;
+      var fin = c.getAttribute('stroke-dasharray'), tot = fin.split(/[ ,]+/).reduce(function (a, b) { return a + Number(b); }, 0);
+      jouer(c, [{ strokeDasharray: '0 ' + tot }, { strokeDasharray: fin }], { duration: 900, delay: 100 + i * 140 });
+    });
+    hote.querySelectorAll('.viz-piste > span').forEach(function (b, i) {
+      b.style.transformOrigin = 'left center';
+      jouer(b, [{ transform: 'scaleX(0)' }, { transform: 'none' }], { duration: 800, delay: 80 + i * 90 });
+    });
+    hote.querySelectorAll('.viz-radar polygon').forEach(function (p, i) {
+      if (!p.getAttribute('fill-opacity') && !p.getAttribute('class')) return;
+      jouer(p, [{ opacity: 0 }, { opacity: 1 }], { duration: 700, delay: 200 + i * 180, easing: 'ease-out' });
+    });
+    hote.querySelectorAll('.viz-ch-cell').forEach(function (c, i) {
+      jouer(c, [{ opacity: 0 }, { opacity: 1 }], { duration: 300, delay: (i % 13) * 25 + Math.floor(i / 13) * 30 });
+    });
+    hote.querySelectorAll('.viz-centre b, .viz-valeur b').forEach(compter);
+  }
+  /* Compteur qui défile jusqu'à sa valeur (« 1 284 », « 72 % », « 2,4 j ») */
+  function compter(e) {
+    if (sansAnimation()) return;
+    var texte = e.textContent, m = texte.match(/^([^\d]*)([\d\s  ]+(?:,\d+)?)(.*)$/);
+    if (!m) return;
+    var decimales = (m[2].split(',')[1] || '').length;
+    var cible = Number(m[2].replace(/[\s  ]/g, '').replace(',', '.'));
+    if (!isFinite(cible) || cible === 0) return;
+    var debut = performance.now(), duree = 900, fini = false;
+    setTimeout(function () { if (!fini) { fini = true; e.textContent = texte; } }, duree + 250);
+    function pas(t) {
+      if (fini) return;
+      var k = Math.min(1, (t - debut) / duree), v = cible * (1 - Math.pow(1 - k, 3));
+      e.textContent = m[1] + v.toLocaleString('fr-FR', { minimumFractionDigits: decimales, maximumFractionDigits: decimales }) + m[3];
+      if (k < 1) requestAnimationFrame(pas); else { fini = true; e.textContent = texte; }
+    }
+    requestAnimationFrame(pas);
   }
 
   function rendreTout(racine) {
@@ -751,5 +822,5 @@
     init();
   }
 
-  window.DGB_VIZ = { jeux: jeux, rendre: rendre, rendreTout: rendreTout, calendrier: calendrier, evenements: EVENEMENTS };
+  window.DGB_VIZ = { jeux: jeux, rendre: rendre, rendreTout: rendreTout, calendrier: calendrier, evenements: EVENEMENTS, compter: compter, animer: animer };
 })();

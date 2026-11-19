@@ -8,7 +8,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2312305f'/%3E%3Cpath d='M9 9h5a7 7 0 0 1 0 14H9z' fill='none' stroke='%23fff' stroke-width='2.2'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Barlow+Semi+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Public+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Barlow+Semi+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Public+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700&family=Libre+Franklin:wght@400;500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Noto+Sans:wght@400;500;600;700&family=Merriweather:wght@700;900&family=Lato:wght@400;700&family=Roboto:wght@400;500;700&family=Roboto+Slab:wght@600;700&display=swap">
 <link rel="stylesheet" href="assets/dgb-suite.css">
 <link rel="stylesheet" href="assets/dgb-viz.css">
 <link rel="stylesheet" href="assets/dgb-formulaires.css">
@@ -85,7 +85,13 @@
   .disp-carte h3 .ico { color: var(--m-600); }
 
   /* Galerie des scènes de connexion */
-  .galerie { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .galerie { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+  .galerie a { color: inherit; text-decoration: none; }
+  .galerie a:hover figure { border-color: var(--m-300); }
+  .melange { cursor: pointer; text-align: left; padding: 0; font: inherit; width: 100%; }
+  .melange:hover, .melange[aria-pressed="true"] { border-color: var(--m-600); }
+  .melange[aria-pressed="true"] { box-shadow: inset 0 0 0 1px var(--m-600); }
+  .essais { display: flex; flex-wrap: wrap; gap: 8px; }
   .galerie figure { margin: 0; border: 1px solid var(--p-200); border-radius: var(--r-lg); overflow: hidden; background: #fff; }
   .apercu-scene { height: 210px; padding: 6px 4px; background: #12305f; display: grid; place-items: center; overflow: hidden; }
   .apercu-scene svg { width: 100%; height: 100%; max-height: none; display: block; }
@@ -171,7 +177,7 @@
   @media (max-width: 1000px) {
     .palettes, .specimens { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .galerie, .marges { grid-template-columns: minmax(0, 1fr); }
-    .galerie { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .galerie { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   @media (max-width: 860px) {
     .g2, .g3 { grid-template-columns: minmax(0, 1fr); }
@@ -205,6 +211,7 @@
       <a href="#composants">Composants</a>
       <a href="#formulaires">Formulaires ABAT</a>
       <a href="#graphes">Graphes et calendrier</a>
+      <a href="#interactions">Interactions</a>
       <a href="#mise-en-oeuvre">Mise en œuvre</a>
     </nav>
   </div>
@@ -229,6 +236,12 @@
         <button class="pastille-btn" type="button" data-reglage="app" data-valeur="lagon" style="background:#0c6a86" title="Lagon" aria-label="Lagon"></button>
         <button class="pastille-btn" type="button" data-reglage="app" data-valeur="fuchsia" style="background:#971c95" title="Fuchsia" aria-label="Fuchsia"></button>
         <button class="pastille-btn" type="button" data-reglage="app" data-valeur="sable" style="background:#7a624e" title="Sable" aria-label="Sable"></button>
+        <button class="pastille-btn" type="button" data-reglage="app" data-valeur="azur" style="background:#1c75bc" title="Azur" aria-label="Azur"></button>
+        <button class="pastille-btn" type="button" data-reglage="app" data-valeur="ocean" style="background:#0369a1" title="Océan" aria-label="Océan"></button>
+        <button class="pastille-btn" type="button" data-reglage="app" data-valeur="violet" style="background:#7034d8" title="Violet" aria-label="Violet"></button>
+        <button class="pastille-btn" type="button" data-reglage="app" data-valeur="pin" style="background:#1f6f59" title="Pin" aria-label="Pin"></button>
+        <button class="pastille-btn" type="button" data-reglage="app" data-valeur="marine" style="background:#1e40af" title="Marine" aria-label="Marine"></button>
+        <button class="pastille-btn" type="button" data-reglage="app" data-valeur="graphite" style="background:#4b5563" title="Graphite" aria-label="Graphite"></button>
       </div>
     </div>
     <div class="rg">
@@ -239,6 +252,11 @@
         <button type="button" data-reglage="police" data-valeur="technique">Technique</button>
         <button type="button" data-reglage="police" data-valeur="plex">OKANDAH</button>
         <button type="button" data-reglage="police" data-valeur="condensee">Condensée</button>
+        <button type="button" data-reglage="police" data-valeur="franklin">Franklin</button>
+        <button type="button" data-reglage="police" data-valeur="officielle">Officielle</button>
+        <button type="button" data-reglage="police" data-valeur="noto">Noto</button>
+        <button type="button" data-reglage="police" data-valeur="courrier">Courrier</button>
+        <button type="button" data-reglage="police" data-valeur="dossier">Dossier</button>
       </div>
     </div>
     <div class="rg">
@@ -276,27 +294,51 @@
   <div class="col">
     <div class="bloc-tete">
       <h2>Page de connexion</h2>
-      <p>Le volet bleu garde l'identité de la DGB, mais raconte désormais les métiers de la suite. Trois illustrations au choix, construites sur le même socle isométrique : courrier et identité, gestion de projet, gestion du parc. Le formulaire est modernisé dans l'esprit OKANDAH : grande carte arrondie, champs à libellé flottant, frise d'étapes et bouton à chevron.</p>
+      <p>Le volet garde l’identité de la DGB et illustre le métier de chaque application : huit scènes sur le même socle isométrique, avec le logo DGB intégré au dessin. Deux compositions au choix : OKANDAH (volet bleu pleine hauteur, carte à droite) ou ABAT (carte centrée sur fond papier, volet clair). Cliquez une scène pour l’ouvrir sur la page de connexion.</p>
     </div>
     <div class="galerie">
-      <figure>
-        <div class="apercu-scene" data-apercu="courrier" aria-hidden="true"></div>
-        <figcaption><b>Courrier et identité</b><span>Enveloppes, cachet de la DGB, badge de l'agent et circuit de transmission. Pour OKANDAH et les applications à circuit de dossier.</span></figcaption>
-      </figure>
-      <figure>
-        <div class="apercu-scene" data-apercu="projet" aria-hidden="true"></div>
-        <figcaption><b>Gestion de projet</b><span>Planning, jalons au sol et colonnes de suivi. Pour ABAT et les applications de programmation et d'investissement.</span></figcaption>
-      </figure>
-      <figure>
+      <a href="connexion.html?scene=parc"><figure>
         <div class="apercu-scene" data-apercu="parc" aria-hidden="true"></div>
-        <figcaption><b>Gestion du parc</b><span>Le siège relié à ses équipements. La scène d'origine, conservée pour la gestion du parc.</span></figcaption>
-      </figure>
+        <figcaption><b>Gestion du parc</b><span>Le siège relié à ses équipements recensés.</span></figcaption>
+      </figure></a>
+      <a href="connexion.html?scene=courrier"><figure>
+        <div class="apercu-scene" data-apercu="courrier" aria-hidden="true"></div>
+        <figcaption><b>Courrier · OKANDAH</b><span>Arrivée, casier d’imputation par service, signature, départ.</span></figcaption>
+      </figure></a>
+      <a href="connexion.html?scene=projet"><figure>
+        <div class="apercu-scene" data-apercu="projet" aria-hidden="true"></div>
+        <figcaption><b>Projets · ABAT</b><span>Chantier, grue, route et jalons d’un investissement public.</span></figcaption>
+      </figure></a>
+      <a href="connexion.html?scene=budget"><figure>
+        <div class="apercu-scene" data-apercu="budget" aria-hidden="true"></div>
+        <figcaption><b>Budget</b><span>Crédits par programme, registre et piles de pièces.</span></figcaption>
+      </figure></a>
+      <a href="connexion.html?scene=rh"><figure>
+        <div class="apercu-scene" data-apercu="rh" aria-hidden="true"></div>
+        <figcaption><b>Ressources humaines</b><span>Postes de travail, dossiers du personnel, organigramme.</span></figcaption>
+      </figure></a>
+      <a href="connexion.html?scene=archives"><figure>
+        <div class="apercu-scene" data-apercu="archives" aria-hidden="true"></div>
+        <figcaption><b>Archives et GED</b><span>Rayonnages datés, numérisation, serveur documentaire.</span></figcaption>
+      </figure></a>
+      <a href="connexion.html?scene=marches"><figure>
+        <div class="apercu-scene" data-apercu="marches" aria-hidden="true"></div>
+        <figcaption><b>Marchés publics</b><span>Offres sous pli, balance de la commission, contrat signé.</span></figcaption>
+      </figure></a>
+      <a href="connexion.html?scene=audit"><figure>
+        <div class="apercu-scene" data-apercu="audit" aria-hidden="true"></div>
+        <figcaption><b>Contrôle et audit</b><span>Pièces à la loupe, grille de contrôle, visa et rapport.</span></figcaption>
+      </figure></a>
     </div>
+    <div class="essais"><a class="bouton-secondaire" href="connexion.html?style=okandah">Ouvrir la composition OKANDAH</a><a class="bouton-secondaire" href="connexion.html?style=abat&amp;scene=projet">Ouvrir la composition ABAT</a></div>
     <div class="g2">
       <div class="carte carte-corps" style="display:grid;gap:12px;align-content:start">
         <h3>Ce qui change sur le formulaire</h3>
         <ul class="liste">
-          <li><b>Frise d'étapes</b> : Identifiants → Vérification → Fonction, toujours visible en haut de carte, dans l'esprit d'un parcours de dossier.</li>
+          <li><b>Retours immédiats</b> : adresse reconnue en direct, alerte Verr. Maj, bouton qui charge, carte qui tremble avec un son d’erreur, essais restants avant verrouillage.</li>
+          <li><b>Code à usage unique fluide</b> : collage accepté, envoi automatique au sixième chiffre, minuteur qui passe au rouge sous une minute.</li>
+          <li><b>Écran de succès</b> : coche animée et son de validation avant l’ouverture de l’application.</li>
+          <li><b>Frise d'étapes</b> : Identifiants → Vérification → Fonction, les étapes franchies sont cochées.</li>
           <li><b>Champs à libellé flottant</b> : l'icône reste à gauche, le libellé monte au focus ; plus de place perdue au-dessus des champs.</li>
           <li><b>Cartes de fonction</b> : le choix de la fonction se lit comme un choix d'action de circuit, avec le code de rôle à droite.</li>
           <li><b>Bandeau de confiance</b> : connexion chiffrée, code à usage unique, accès journalisé, rappelés une seule fois en bas de carte.</li>
@@ -322,7 +364,7 @@
   <div class="col">
     <div class="bloc-tete">
       <h2>Couleurs</h2>
-      <p>Douze palettes de marque, toutes construites sur la même échelle : 950 pour les barres, 600 pour les actions, 300 pour les icônes, 50 pour les volets. Cliquez une palette pour l'appliquer à la présentation. Les quatre dernières poussent le mélange plus loin : à la marque, elles associent une échelle neutre teintée dans la même famille. Ambre et grenat restent strictement sémantiques (attente, blocage) et ne servent jamais d'accent.</p>
+      <p>Dix-huit palettes de marque, toutes construites sur la même échelle : 950 pour les barres, 600 pour les actions, 300 pour les icônes, 50 pour les volets. Cliquez une palette pour l'appliquer à la présentation. Les quatre dernières poussent le mélange plus loin : à la marque, elles associent une échelle neutre teintée dans la même famille. Ambre et grenat restent strictement sémantiques (attente, blocage) et ne servent jamais d'accent.</p>
     </div>
     <div class="palettes">
       <button class="palette-carte" type="button" data-reglage="app" data-valeur="dgb"><span class="teintes"><i style="background:#0d2339"></i><i style="background:#155a9c"></i><i style="background:#83bde7"></i><i style="background:#eef6fc"></i></span><span class="nom"><b>Bleu DGB</b><small>#155A9C · par défaut</small></span></button>
@@ -337,28 +379,25 @@
       <button class="palette-carte" type="button" data-reglage="app" data-valeur="lagon"><span class="teintes"><i style="background:#04222e"></i><i style="background:#0c6a86"></i><i style="background:#63cfe4"></i><i style="background:#edfafc"></i></span><span class="nom"><b>Lagon</b><small>#0C6A86 · supervision, parc</small></span></button>
       <button class="palette-carte" type="button" data-reglage="app" data-valeur="fuchsia"><span class="teintes"><i style="background:#350934"></i><i style="background:#971c95"></i><i style="background:#e39ede"></i><i style="background:#fdf2fc"></i></span><span class="nom"><b>Fuchsia</b><small>#971C95 · signalétique, recensement</small></span></button>
       <button class="palette-carte" type="button" data-reglage="app" data-valeur="sable"><span class="teintes"><i style="background:#2b2118"></i><i style="background:#7a624e"></i><i style="background:#c9b6a2"></i><i style="background:#faf6f1"></i></span><span class="nom"><b>Sable</b><small>#7A624E · archives, patrimoine bâti</small></span></button>
+      <button class="palette-carte" type="button" data-reglage="app" data-valeur="azur"><span class="teintes"><i style="background:#0d2a45"></i><i style="background:#1c75bc"></i><i style="background:#7fc4ec"></i><i style="background:#eff7fd"></i></span><span class="nom"><b>Azur</b><small>#1C75BC · bleu national d’ABAT</small></span></button>
+      <button class="palette-carte" type="button" data-reglage="app" data-valeur="ocean"><span class="teintes"><i style="background:#082f49"></i><i style="background:#0369a1"></i><i style="background:#7dd3fc"></i><i style="background:#f0f9ff"></i></span><span class="nom"><b>Océan</b><small>#0369A1 · supervision, réseau</small></span></button>
+      <button class="palette-carte" type="button" data-reglage="app" data-valeur="violet"><span class="teintes"><i style="background:#2e1065"></i><i style="background:#7034d8"></i><i style="background:#c4b5fd"></i><i style="background:#f5f3ff"></i></span><span class="nom"><b>Violet</b><small>#7034D8 · ressources humaines</small></span></button>
+      <button class="palette-carte" type="button" data-reglage="app" data-valeur="pin"><span class="teintes"><i style="background:#0b2a22"></i><i style="background:#1f6f59"></i><i style="background:#8cc7b4"></i><i style="background:#f0f8f5"></i></span><span class="nom"><b>Pin</b><small>#1F6F59 · patrimoine, domaines</small></span></button>
+      <button class="palette-carte" type="button" data-reglage="app" data-valeur="marine"><span class="teintes"><i style="background:#0b1437"></i><i style="background:#1e40af"></i><i style="background:#a5b4fc"></i><i style="background:#eef2ff"></i></span><span class="nom"><b>Marine</b><small>#1E40AF · finances, trésor</small></span></button>
+      <button class="palette-carte" type="button" data-reglage="app" data-valeur="graphite"><span class="teintes"><i style="background:#111318"></i><i style="background:#4b5563"></i><i style="background:#a9afba"></i><i style="background:#f3f4f6"></i></span><span class="nom"><b>Graphite</b><small>#4B5563 · outils internes, audit</small></span></button>
     </div>
 
     <div class="sous-bloc">
-      <h3>Mélanges proposés</h3>
-      <p class="source">Quatre accords de couleurs pour les pages qui doivent tenir longtemps à l'écran. Ce sont des propositions : elles ne s'appliquent pas d'un clic, mais se testent en changeant la palette de marque ci-dessus.</p>
+      <h3>Mélanges : une marque et des neutres</h3>
+      <p class="source">Chaque mélange associe une palette de marque et une échelle neutre indépendante (réglage « Neutres » du panneau Personnaliser). Cliquez pour l’appliquer à toute la présentation.</p>
       <div class="melanges">
-        <figure class="melange">
-          <span class="bande-melange" aria-hidden="true"><i style="background:#0d2339"></i><i style="background:#155a9c"></i><i style="background:#83bde7"></i><i style="background:#dccfc0"></i><i style="background:#7a624e"></i><i style="background:#faf6f1"></i></span>
-          <figcaption><b>Bleu DGB + Sable</b><small>Marque froide, neutres chauds. Tableaux de montants et lecture longue.</small></figcaption>
-        </figure>
-        <figure class="melange">
-          <span class="bande-melange" aria-hidden="true"><i style="background:#052620"></i><i style="background:#12805f"></i><i style="background:#74c0a4"></i><i style="background:#c6cedb"></i><i style="background:#3f4f69"></i><i style="background:#f1f4f8"></i></span>
-          <figcaption><b>Sève + Ardoise</b><small>Marque verte, structure grise. Programmation et suivi de projets.</small></figcaption>
-        </figure>
-        <figure class="melange">
-          <span class="bande-melange" aria-hidden="true"><i style="background:#2e1029"></i><i style="background:#832a70"></i><i style="background:#d8a2cb"></i><i style="background:#63cfe4"></i><i style="background:#0c6a86"></i><i style="background:#edfafc"></i></span>
-          <figcaption><b>Prune + Lagon</b><small>Deux teintes pour les graphiques. Registres civils et recensements.</small></figcaption>
-        </figure>
-        <figure class="melange">
-          <span class="bande-melange" aria-hidden="true"><i style="background:#080e1c"></i><i style="background:#24407c"></i><i style="background:#94b1de"></i><i style="background:#a6e3ef"></i><i style="background:#0c6a86"></i><i style="background:#edfafc"></i></span>
-          <figcaption><b>Nuit + Lagon</b><small>Profondeur froide, repères cyan. Supervision et pilotage budgétaire.</small></figcaption>
-        </figure>
+        <button class="melange" type="button" data-melange="dgb,chaud" aria-pressed="false"><span class="bande-melange" aria-hidden="true"><i style="background:#0d2339"></i><i style="background:#155a9c"></i><i style="background:#83bde7"></i><i style="background:#dccfc0"></i><i style="background:#7d6b5c"></i><i style="background:#f7f4f0"></i></span><span style="display:grid;gap:2px;padding:9px 12px 11px"><b style="font-size:13px;color:var(--encre)">Bleu DGB + neutres chauds</b><small style="font-size:11.5px;line-height:1.4;color:var(--p-600)">Marque froide, neutres chauds. Tableaux de montants, lecture longue.</small></span></button>
+        <button class="melange" type="button" data-melange="abat,bleute" aria-pressed="false"><span class="bande-melange" aria-hidden="true"><i style="background:#052620"></i><i style="background:#12805f"></i><i style="background:#74c0a4"></i><i style="background:#c6cedb"></i><i style="background:#505b68"></i><i style="background:#f2f4f8"></i></span><span style="display:grid;gap:2px;padding:9px 12px 11px"><b style="font-size:13px;color:var(--encre)">Sève + neutres bleutés</b><small style="font-size:11.5px;line-height:1.4;color:var(--p-600)">Marque verte, structure froide. Programmation et suivi de projets.</small></span></button>
+        <button class="melange" type="button" data-melange="marine,chaud" aria-pressed="false"><span class="bande-melange" aria-hidden="true"><i style="background:#0b1437"></i><i style="background:#1e40af"></i><i style="background:#a5b4fc"></i><i style="background:#dccfc0"></i><i style="background:#7d6b5c"></i><i style="background:#f7f4f0"></i></span><span style="display:grid;gap:2px;padding:9px 12px 11px"><b style="font-size:13px;color:var(--encre)">Marine + neutres chauds</b><small style="font-size:11.5px;line-height:1.4;color:var(--p-600)">Registre du trésor : profondeur froide, papier chaud.</small></span></button>
+        <button class="melange" type="button" data-melange="pin,chaud" aria-pressed="false"><span class="bande-melange" aria-hidden="true"><i style="background:#0b2a22"></i><i style="background:#1f6f59"></i><i style="background:#8cc7b4"></i><i style="background:#dccfc0"></i><i style="background:#7d6b5c"></i><i style="background:#f7f4f0"></i></span><span style="display:grid;gap:2px;padding:9px 12px 11px"><b style="font-size:13px;color:var(--encre)">Pin + neutres chauds</b><small style="font-size:11.5px;line-height:1.4;color:var(--p-600)">Patrimoine et domaines de l’État.</small></span></button>
+        <button class="melange" type="button" data-melange="violet,froid" aria-pressed="false"><span class="bande-melange" aria-hidden="true"><i style="background:#2e1065"></i><i style="background:#7034d8"></i><i style="background:#c4b5fd"></i><i style="background:#cbd5e1"></i><i style="background:#475569"></i><i style="background:#f1f5f9"></i></span><span style="display:grid;gap:2px;padding:9px 12px 11px"><b style="font-size:13px;color:var(--encre)">Violet + neutres froids</b><small style="font-size:11.5px;line-height:1.4;color:var(--p-600)">Ressources humaines, carrières et effectifs.</small></span></button>
+        <button class="melange" type="button" data-melange="graphite,vert" aria-pressed="false"><span class="bande-melange" aria-hidden="true"><i style="background:#111318"></i><i style="background:#4b5563"></i><i style="background:#a9afba"></i><i style="background:#c1cac7"></i><i style="background:#5c6763"></i><i style="background:#f1f4f2"></i></span><span style="display:grid;gap:2px;padding:9px 12px 11px"><b style="font-size:13px;color:var(--encre)">Graphite + neutres verts</b><small style="font-size:11.5px;line-height:1.4;color:var(--p-600)">Outils internes et contrôle, très sobre.</small></span></button>
+        <button class="melange" type="button" data-melange="dgb,marque" aria-pressed="false"><span class="bande-melange" aria-hidden="true"><i style="background:#0d2339"></i><i style="background:#155a9c"></i><i style="background:#83bde7"></i><i style="background:#cbd5e1"></i><i style="background:#64748b"></i><i style="background:#f1f5f9"></i></span><span style="display:grid;gap:2px;padding:9px 12px 11px"><b style="font-size:13px;color:var(--encre)">Réglage par défaut</b><small style="font-size:11.5px;line-height:1.4;color:var(--p-600)">Bleu DGB et neutres de la marque.</small></span></button>
       </div>
     </div>
     <div class="g2">
@@ -389,7 +428,7 @@
   <div class="col">
     <div class="bloc-tete">
       <h2>Polices</h2>
-      <p>Cinq propositions, applicables d'un clic. Le couple Archivo + Public Sans reste la référence ; les autres répondent à des registres différents — courrier officiel, produit numérique, continuité OKANDAH, tableaux très denses.</p>
+      <p>Dix propositions, applicables d'un clic. Le couple Archivo + Public Sans reste la référence ; les autres répondent à des registres administratifs différents : actes et rapports, correspondance officielle, fiches et registres, continuité OKANDAH, tableaux très denses.</p>
     </div>
     <div class="specimens">
       <button class="specimen" type="button" data-reglage="police" data-valeur="institution">
@@ -416,6 +455,31 @@
         <span class="aa" style="font-family:'Barlow Semi Condensed',sans-serif;font-weight:600">Aa</span>
         <span class="info"><b>Condensée</b><small>Barlow Semi Condensed</small></span>
         <span class="ex" style="font-family:'Barlow Semi Condensed',sans-serif;font-size:16px;font-weight:600">Dossiers à traiter</span>
+      </button>
+      <button class="specimen" type="button" data-reglage="police" data-valeur="franklin">
+        <span class="aa" style="font-family:'Libre Franklin',serif;font-weight:700">Aa</span>
+        <span class="info"><b>Franklin</b><small>Libre Franklin · une famille</small></span>
+        <span class="ex" style="font-family:'Libre Franklin',serif;font-weight:600">Dossiers à traiter</span>
+      </button>
+      <button class="specimen" type="button" data-reglage="police" data-valeur="officielle">
+        <span class="aa" style="font-family:'Source Serif 4',serif;font-weight:700">Aa</span>
+        <span class="info"><b>Officielle</b><small>Source Serif 4 + Source Sans 3</small></span>
+        <span class="ex" style="font-family:'Source Serif 4',serif;font-size:16px;font-weight:700">Dossiers à traiter</span>
+      </button>
+      <button class="specimen" type="button" data-reglage="police" data-valeur="noto">
+        <span class="aa" style="font-family:'Noto Sans',serif;font-weight:600">Aa</span>
+        <span class="info"><b>Noto</b><small>Noto Sans · une famille</small></span>
+        <span class="ex" style="font-family:'Noto Sans',serif;font-weight:600">Dossiers à traiter</span>
+      </button>
+      <button class="specimen" type="button" data-reglage="police" data-valeur="courrier">
+        <span class="aa" style="font-family:'Merriweather',serif;font-weight:700">Aa</span>
+        <span class="info"><b>Courrier</b><small>Merriweather + Lato</small></span>
+        <span class="ex" style="font-family:'Merriweather',serif;font-size:15px;font-weight:700">Dossiers à traiter</span>
+      </button>
+      <button class="specimen" type="button" data-reglage="police" data-valeur="dossier">
+        <span class="aa" style="font-family:'Roboto Slab',serif;font-weight:700">Aa</span>
+        <span class="info"><b>Dossier</b><small>Roboto Slab + Roboto</small></span>
+        <span class="ex" style="font-family:'Roboto Slab',serif;font-size:15px;font-weight:700">Dossiers à traiter</span>
       </button>
     </div>
     <div class="g2">
@@ -931,6 +995,51 @@
   </div>
 </section>
 
+<!-- ============ INTERACTIONS ============ -->
+<section class="bloc bande" id="interactions">
+  <div class="col">
+    <div class="bloc-tete">
+      <h2>Interactions : sons, notifications, commandes</h2>
+      <p>Le niveau de finition de la démo dashboardpack, adapté aux usages de la DGB. Chaque action importante a un retour visible et sonore, et le gabarit propose des pages qui fonctionnent toutes.</p>
+    </div>
+    <div class="g2">
+      <div class="carte carte-corps" style="display:grid;gap:14px;align-content:start">
+        <h3>Essayer ici</h3>
+        <div class="essais">
+          <button class="bouton-primaire" type="button" data-essai="validation">Son de validation</button>
+          <button class="bouton-secondaire" type="button" data-essai="notification">Notification</button>
+          <button class="bouton-secondaire" type="button" data-essai="erreur">Erreur</button>
+          <button class="bouton-secondaire" type="button" data-action="palette">Palette de commandes</button>
+        </div>
+        <ul class="liste">
+          <li><b>Sons sans fichier</b> : trois notes montantes pour une validation, un ding à deux tons pour une notification, une note descendante pour une erreur. On peut les couper dans le panneau Personnaliser et dans les paramètres.</li>
+          <li><b>Notifications éphémères</b> annoncées aux lecteurs d'écran, avec une barre de durée ; la cloche sonne et le compteur pulse à l'arrivée d'un message.</li>
+          <li><b>Palette de commandes</b> (Ctrl K) : aller à n'importe quelle page ou changer un réglage au clavier.</li>
+          <li><b>Graphes animés</b> : barres qui poussent, courbes qui se tracent, anneau et jauge qui se remplissent, compteurs qui défilent. Rien ne bouge si l'agent a demandé à réduire les animations.</li>
+        </ul>
+      </div>
+      <div class="carte" style="overflow-x:auto">
+        <div class="carte-entete"><h3>Niveau de configuration</h3><span class="source">Démo dashboardpack · Suite DSI</span></div>
+        <table class="tableau">
+          <thead><tr><th>Réglage</th><th>Démo</th><th>Suite DSI</th></tr></thead>
+          <tbody>
+            <tr><td class="reference">Thème</td><td>Clair, sombre, système</td><td>Clair, sombre, système</td></tr>
+            <tr><td class="reference">Couleur</td><td>4 palettes</td><td>18 palettes et 5 échelles de neutres</td></tr>
+            <tr><td class="reference">Police</td><td>—</td><td>5 jeux de polices</td></tr>
+            <tr><td class="reference">Densité</td><td>Compacte, confortable, aérée</td><td>Compacte, confortable, aérée</td></tr>
+            <tr><td class="reference">Marges</td><td>—</td><td>Serrées, standard, amples</td></tr>
+            <tr><td class="reference">Disposition</td><td>Sidebar, Top Nav</td><td>Sidebar (OKANDAH) ou Top Nav (ABAT), menu à sous-niveaux ou plat</td></tr>
+            <tr><td class="reference">Conteneur</td><td>Fluide, encadré</td><td>Fluide, encadré</td></tr>
+            <tr><td class="reference">Sons</td><td>—</td><td>Activés, coupés</td></tr>
+            <tr><td class="reference">Sens et langue</td><td>LTR/RTL, 3 langues</td><td>Écartés : français seul, pas de RTL</td></tr>
+            <tr><td class="reference">Pages navigables</td><td>Une vingtaine</td><td>26 pages dans le gabarit Parc</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ MISE EN ŒUVRE ============ -->
 <section class="bloc bande" id="mise-en-oeuvre">
   <div class="col">
@@ -949,7 +1058,9 @@
         <li><code>assets/dgb-suite.css</code> : palettes, polices, marges, sidebar pliable, composants.</li>
         <li><code>assets/dgb-suite.js</code> : panneau Personnaliser, menus, sections pliables, icônes.</li>
         <li><code>assets/dgb-connexion.css</code> : volet, formulaire modernisé, scènes.</li>
-        <li><code>assets/dgb-scene-parc.js</code>, <code>dgb-scene-suite.js</code> : une scène par métier.</li>
+        <li><code>assets/dgb-scenes.js</code> : les huit scènes de connexion (parc, courrier, projets, budget, RH, archives, marchés, audit).</li>
+        <li><code>assets/dgb-connexion.js</code> : parcours de connexion, compositions OKANDAH et ABAT.</li>
+        <li><code>assets/dgb-application.js</code>, <code>dgb-demo-parc.js</code> : routage, moteur de listes, signature et notifications du gabarit.</li>
         <li><code>laravel/config/suite.php</code> : valeurs par défaut et menu.</li>
       </ul>
     </div>
@@ -961,16 +1072,37 @@
 <footer class="pied-charte bande"><div class="col"><span>DGB · DSI · Service des études et du développement</span><span>Proposition de charte · version de travail</span></div></footer>
 
 <script src="assets/dgb-suite.js"></script>
-<script src="assets/dgb-scene-parc.js"></script>
-<script src="assets/dgb-scene-suite.js"></script>
+<script src="assets/dgb-scenes.js"></script>
 <script src="assets/dgb-viz.js"></script>
 <script>
 (function () {
-  /* Les trois scènes de connexion sont rendues en aperçu dans la galerie. */
+  /* Les scènes de connexion sont rendues en aperçu dans la galerie. */
   document.querySelectorAll('[data-apercu]').forEach(function (el) {
     var nom = el.getAttribute('data-apercu');
     if (window.DGB_SCENES && DGB_SCENES[nom]) DGB_SCENES[nom](el);
   });
+  /* Mélanges : marque et neutres en un clic */
+  function majMelanges() {
+    var cle = document.documentElement.getAttribute('data-app') + ',' + document.documentElement.getAttribute('data-neutre');
+    document.querySelectorAll('[data-melange]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-melange') === cle)); });
+  }
+  document.addEventListener('click', function (e) {
+    var m = e.target.closest('[data-melange]');
+    if (m) { var v = m.getAttribute('data-melange').split(','); DGB.choisir('app', v[0]); DGB.choisir('neutre', v[1]); majMelanges(); DGB.son('clic'); }
+    var t = e.target.closest('[data-essai]');
+    if (t) {
+      var n = t.getAttribute('data-essai');
+      DGB.toast({
+        ton: n === 'validation' ? 'succes' : (n === 'erreur' ? 'erreur' : 'attente'),
+        titre: n === 'validation' ? 'Dossier validé' : (n === 'erreur' ? 'Action impossible' : 'Nouveau dossier à contrôler'),
+        texte: n === 'validation' ? 'AFF-2026-0412 a été signé et transmis.' : (n === 'erreur' ? 'Le motif de rejet est obligatoire.' : 'TRF-2026-0045 · transfert de 2 écrans vers la DAF')
+      });
+    }
+  });
+  document.addEventListener('dgb:app', majMelanges);
+  document.addEventListener('dgb:neutre', majMelanges);
+  majMelanges();
+
 })();
 </script>
 </body>

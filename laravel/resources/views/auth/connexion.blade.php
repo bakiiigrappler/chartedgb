@@ -110,7 +110,11 @@
     </section>
 </main>
 <script src="{{ asset('vendor/dgb-suite/dgb-suite.js') }}"></script>
-<script src="{{ asset('vendor/dgb-suite/dgb-scene-' . $c['scene'] . '.js') }}"></script>
+<script src="{{ asset('vendor/dgb-suite/dgb-scenes.js') }}"></script>
+<script>
+  /* Scène du métier de l'application : parc, courrier, projet, budget, rh, archives, marches, audit */
+  DGB_SCENES[@js($c['scene'])](document.getElementById(@js('scene-' . $c['scene'])));
+</script>
 <script>
 document.querySelectorAll('[data-afficher]').forEach(function (b) {
     b.addEventListener('click', function () {

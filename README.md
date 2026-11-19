@@ -30,13 +30,29 @@ Quelques entrées directes :
 
 ```
 assets/
-  dgb-suite.css        jetons (couleurs, polices, espacements), composants, dispositions
-  dgb-suite.js         sprite d'icônes, disposition, menus, tiroir « Personnaliser »
-  dgb-viz.css|js       graphiques et calendrier partagés (window.DGB_VIZ)
-  dgb-connexion.css    page de connexion
+  dgb-suite.css        jetons (18 palettes, neutres, polices, espacements), composants, dispositions,
+                       notifications éphémères, palette de commandes
+  dgb-suite.js         sprite d'icônes, tiroir « Personnaliser », menus, sons (DGB.son),
+                       notifications (DGB.toast), palette de commandes Ctrl K (DGB.palette)
+  dgb-viz.css|js       graphiques animés et calendrier partagés (window.DGB_VIZ)
+  dgb-connexion.css|js page de connexion : compositions OKANDAH et ABAT, parcours en trois étapes
+  dgb-scenes.js        huit scènes de connexion : parc, courrier, projet, budget, rh,
+                       archives, marches, audit (window.DGB_SCENES)
+  dgb-application.js   gabarit Parc : routage par ancre, moteur de listes, signature, notifications
+  dgb-demo-parc.js     données de démonstration du gabarit (fictives)
   dgb-formulaires.css  formulaire de type ABAT
 laravel/               extrait d'intégration : gabarit Blade, config, assets publiés
 ```
+
+## Entrées directes utiles
+
+- `connexion.html?style=abat&scene=projet` : composition ABAT avec la scène Projets ;
+- `connexion.html?scene=courrier` : composition OKANDAH avec la scène Courrier ;
+- `application.html#signer`, `#inventaire-portables`, `#parametres` : pages du gabarit ;
+- `application.html?nav=topnav&app=marine&neutre=chaud` : disposition et mélange imposés.
+
+Démonstration : toute adresse `@budget.gouv.ga` avec un mot de passe de 8 caractères ou
+plus est acceptée, le code à usage unique est `315120`.
 
 ## Règles de la charte
 
