@@ -4,6 +4,11 @@ Prototype de la charte graphique de la Suite DSI du SED (Direction générale du
 palettes de marque, typographies, marges, navigation et composants partagés, plus deux
 gabarits d'application (connexion et gestion du parc).
 
+## Accès
+
+- **Prototype en ligne, ouvert à tous** : <https://bakiiigrappler.github.io/chartedgb/> — miroir statique publié par GitHub Pages ; le code source reste sur le GitLab interne.
+- **Dépôt source** : `git@gitlab.sed.ga:Florent/chartedgb.git` · <http://172.17.32.83/Florent/chartedgb> (adresse privée, joignable depuis le réseau SED ou le VPN).
+
 ## Pages
 
 | Fichier | Contenu |
