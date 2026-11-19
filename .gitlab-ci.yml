@@ -1,0 +1,12 @@
+# Publication du prototype statique sur le GitLab interne (GitLab Pages).
+pages:
+  stage: deploy
+  script:
+    - mkdir -p public
+    - cp index.html application.html connexion.html .nojekyll public/
+    - cp -r assets public/
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
